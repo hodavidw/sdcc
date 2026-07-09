@@ -149,7 +149,7 @@ h1 em{font-style:normal;color:var(--must)}
 .lane.sub .day{min-height:26px}
 .ev.prog{background-color:#4a3d6b;top:3px;bottom:3px;font-size:11px}
 /* giveaway state */
-.ev.gunknown{background-color:#6e6a63}
+
 .ev.gyes{box-shadow:0 3px 0 0 var(--free)}
 /* published queue window, before doors */
 .ev.queue{background:transparent;outline:1px dashed #8a5a1e;outline-offset:-1px;
@@ -273,7 +273,7 @@ body.reordering .board{overflow-x:hidden}
   <span class="chip"><i class="sw" style="background:var(--offsite)"></i>Walk-up (hatched)</span>
   <span class="chip"><i class="sw" style="background:#2a4a7f"></i>Ticketed</span>
   <span class="chip"><i class="sw" style="background:#6b5a2e"></i>Inside convention center (⌂)</span>
-  <span class="chip"><i class="sw" style="background:var(--offsite);box-shadow:inset 0 -3px 0 var(--free)"></i>Giveaway 🎁 &nbsp;/&nbsp; not announced ?</span>
+  <span class="chip"><i class="sw" style="background:var(--offsite);box-shadow:inset 0 -3px 0 var(--free)"></i>Giveaway 🎁 &nbsp;/&nbsp; not announced ❓</span>
 </div>
 
 <div id="tagbar"></div>
@@ -1208,7 +1208,6 @@ D.offsites.forEach(o => {
       + (st == null ? ' nohours' : '') + (openEnded ? ' openend' : '')
       + (o.estimated ? ' est' : '')
       + (o.onsite ? ' onsite' : '')
-      + (o.giveaway === 'unknown' ? ' gunknown' : '')
       + ((o.giveaway === 'yes' || (o.pins || []).some(p => p.day === d)) ? ' gyes' : '');
     b.style.left = pct(s) + '%';
     b.style.width = (pct(e) - pct(s)) + '%';
@@ -1216,14 +1215,11 @@ D.offsites.forEach(o => {
         known ? fmt(s) + '–' + fmt(e)
       : openEnded ? fmt(s) + (o.closesWhen ? '– ' + o.closesWhen : '– close TBA')
       : 'hours TBA'}</span>`
-      + (o.estimated ? `<span class="q">?</span>` : '')
-      + (acc === 'reservation' && !o.confirmation ? `<span class="q">!</span>` : '')
       + ((o.cap && o.cap.days.includes(d)) ? `<span class="q">⏳</span>` : '')
-      + (acc === 'lottery' && !o.confirmation ? `<span class="q">❓</span>` : '')
       + (o.badgeRequired ? `<span class="q">🎟</span>` : '')
       + (o.closesWhen ? `<span class="q">⌛</span>` : '')
       + ((o.tags || []).includes('food') ? `<span class="q">🍽</span>` : '')
-      + (o.giveaway === 'unknown' ? `<span class="q">?</span>` : '')
+      + (o.giveaway === 'unknown' ? `<span class="q" title="Giveaway not announced">❓</span>` : '')
       + (o.giveaway === 'yes' ? `<span class="q">🎁</span>` : '');
     b.onclick = () => show(o.title,
       `${D.days[d].name} · ${known ? fmt(s) + '–' + fmt(e)
