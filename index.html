@@ -28,7 +28,7 @@
   --iffree:#5b7a9c;    /* slate  */
 
   --offsite:#2f6f5e;   /* green  */
-  --ticketed:#7a4fb5;  /* purple */
+  --ticketed:#2a4a7f;  /* purple */
   --free:#f5e9a8;      /* gap highlight */
 
   --row-h:34px;
@@ -109,7 +109,7 @@ h1 em{font-style:normal;color:var(--must)}
 .ev.offsite{background-color:var(--offsite);top:6px;bottom:6px}
 .ev.ticketed{background-color:var(--ticketed)}
 /* reservation required but not yet held: amber, dashed, urgent */
-.ev.reservation{background-color:#a8531c}
+.ev.reservation{background-color:var(--ticketed)}
 .ev.reservation:not(.held){outline:1px dashed #ffd79a;outline-offset:-1px}
 /* walk-up = hatched */
 .ev.walkup::before{content:'';position:absolute;inset:0;border-radius:inherit;
@@ -128,29 +128,45 @@ h1 em{font-style:normal;color:var(--must)}
 .ev.openend{-webkit-mask-image:linear-gradient(90deg,#000 0,#000 45%,transparent 100%);
   mask-image:linear-gradient(90deg,#000 0,#000 45%,transparent 100%)}
 /* standby: reservation recommended, walk-up possible */
-.ev.standby{background-color:#3f6d8f}
+.ev.standby{background-color:var(--ticketed)}
 /* lottery entered, outcome unknown */
 .ev.lottery{background-color:#5f4a7a;outline:2px dotted rgba(255,255,255,.85);outline-offset:-2px}
 
 /* nested programming sub-lane */
 .lane.sub .name{opacity:.5;font-size:10.5px}
+.lane[hidden]{display:none}
+/* disclosure control on a parent lane's name */
+.lane .name.toggle{padding:0;justify-content:flex-end}
+.disc{all:unset;display:flex;align-items:center;gap:6px;justify-content:flex-end;
+  width:100%;height:100%;padding:5px 10px 5px 0;cursor:pointer;
+  font-family:inherit;font-size:inherit;color:inherit;text-align:right}
+.disc:hover .lbl{text-decoration:underline}
+.disc:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+.disc .caret{font-size:9px;opacity:.55;order:-1;width:10px;flex:none}
+.disc .lbl{line-height:1.25}
+.disc .cnt{font-size:9px;font-weight:700;background:#4a3d6b;color:#fff;
+  border-radius:99px;padding:1px 5px;flex:none;line-height:1.4}
 .lane.sub .day{min-height:26px}
 .ev.prog{background-color:#4a3d6b;top:3px;bottom:3px;font-size:11px}
 /* giveaway state */
 .ev.gunknown{background-color:#6e6a63}
-.ev.gyes::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;
-  background:var(--free);border-radius:0 0 3px 3px;pointer-events:none}
+.ev.gyes{box-shadow:0 3px 0 0 var(--free)}
 /* published queue window, before doors */
 .ev.queue{background:transparent;outline:1px dashed #8a5a1e;outline-offset:-1px;
   color:var(--ink);top:6px;bottom:6px;opacity:.85}
 .ev.queue .tick{opacity:.7}
 .badge.b-closed{background:#6b2020;color:#ffd7d7}
+.badge.b-tag{background:#3f5f4a;color:#dbeade;text-transform:lowercase}
+/* tag filter: dim, don't hide */
+.lane.tagdim{opacity:.28}
+.lane.tagdim .ev{filter:grayscale(.7)}
 .badge.b-gyes{background:var(--free);color:#241f05}
 .badge.b-gnone{background:#4a4740;color:#cfcbc2}
 .badge.b-unk{background:#6e6a63;color:#eae7e0}
 /* inside the convention center, not a true offsite */
 .ev.onsite{background-color:#6b5a2e}
-.lane.onsite .name::after{content:' ⌂';opacity:.55}
+.lane.onsite .name:not(.toggle)::after{content:' ⌂';opacity:.55}
+.lane.onsite .disc .lbl::after{content:' ⌂';opacity:.55}
 /* exhibit hall reference rail */
 .lane.hallrail .name{font-weight:800;text-transform:uppercase;letter-spacing:.06em;opacity:.75}
 .lane.hallrail .day{min-height:26px}
@@ -206,6 +222,16 @@ h1 em{font-style:normal;color:var(--must)}
 .b-mid{background:#3f6d8f;color:#dbeaf5}
 .b-pick{background:#c9a227;color:#241f05}
 /* action banner */
+#tagbar:empty{display:none}
+#tagbar{margin:12px 24px 0;display:flex;flex-wrap:wrap;gap:7px;align-items:center;
+  font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:10px;
+  text-transform:uppercase;letter-spacing:.04em}
+#tagbar .lead{opacity:.5}
+.tagbtn{all:unset;cursor:pointer;border:1px solid var(--line,#c9c3b6);border-radius:99px;
+  padding:4px 11px;background:rgba(255,255,255,.4);display:inline-flex;gap:5px;align-items:center}
+.tagbtn[aria-pressed="true"]{background:#3f5f4a;color:#fff;border-color:#3f5f4a}
+.tagbtn:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.tagbtn .n{opacity:.6;font-weight:700}
 #caveat{margin:14px 24px 0;padding:9px 13px;border-left:3px solid var(--ink);
   background:rgba(0,0,0,.045);font-size:11px;line-height:1.45}
 
@@ -221,18 +247,13 @@ h1 em{font-style:normal;color:var(--must)}
 </header>
 
 <div class="controls">
-  <span class="chip"><i class="sw" style="background:rgba(180,120,40,.25);border:1px solid rgba(180,120,40,.6)"></i>Exhibit hall open</span>
-  <span class="chip"><i class="sw" style="background:var(--ticketed)"></i>Ticketed</span>
   <span class="chip"><i class="sw" style="background:var(--offsite)"></i>Walk-up (hatched)</span>
+  <span class="chip"><i class="sw" style="background:#2a4a7f"></i>Ticketed</span>
   <span class="chip"><i class="sw" style="background:#6b5a2e"></i>Inside convention center (⌂)</span>
-  <span class="chip"><i class="sw" style="background:#a8531c;border:1px dashed #ffd79a"></i>Reservation needed</span>
-  <span class="chip"><i class="sw" style="background:var(--offsite);border:1px dashed #fff"></i>Estimated hours (?)</span>
-  <span class="chip"><i class="sw" style="background:var(--free);border:1px solid #cdb95c"></i>Giveaway / gap</span>
-  <span class="chip"><i class="sw" style="background:var(--offsite);box-shadow:inset 0 -3px 0 var(--free)"></i>Giveaway (🎁)</span>
-  <span class="chip"><i class="sw" style="background:#6e6a63"></i>Giveaway not announced (?)</span>
-  <span class="chip"><i class="sw" style="background:transparent;border:1px dashed #8a5a1e"></i>Published queue time</span>
+  <span class="chip"><i class="sw" style="background:var(--offsite);box-shadow:inset 0 -3px 0 var(--free)"></i>Giveaway 🎁 &nbsp;/&nbsp; not announced ?</span>
 </div>
 
+<div id="tagbar"></div>
 <div id="caveat">Bars show <strong>opening hours</strong>. They do not show queue time, which for popular offsites can start hours before doors.</div>
 
 <div class="board">
@@ -392,25 +413,41 @@ h1 em{font-style:normal;color:var(--must)}
       ],
       "links": [
         "https://sdccblog.com/2026/07/step-into-the-world-of-hbo-maxs-lanterns-stuart-fails-to-save-the-universe-with-offsites-at-san-diego-comic-con-2026/"
-      ]
+      ],
+      "giveaway": "yes"
     },
     {
       "title": "AHS “13 Flavors” Trucks",
       "access": "walkup",
-      "watch": "Locations + times TBA — follow American Horror Story social",
+      "tags": [
+        "food"
+      ],
+      "giveaway": "yes",
+      "giveawayNote": "Free samples of 12 of the 13 flavors.",
       "days": [
         3
       ],
       "location": "Roaming — 4 ice cream trucks, locations TBA",
-      "note": "FX + Hulu, celebrating American Horror Story S13. 12 of 13 flavors at the trucks. Costumed characters: Rubber Man (Murder House), Twisty the Clown (Freak Show), the Witch (Coven). SOURCE STATES LOCATIONS AND TIMING NOT ANNOUNCED — watch AHS social. Only Saturday is named in the source (for the 13th flavor); the trucks may run other days, unknown.",
-      "pins": [
-        {
-          "day": 3,
-          "t": 12,
-          "unknownTime": true,
-          "what": "13th flavor — SECRET LOCATION, Sat Jul 25. Time and place NOT announced. Pin position is arbitrary."
-        }
+      "note": "FX + Hulu, celebrating American Horror Story S13. 12 of 13 flavors served from four trucks. Costumed characters: Rubber Man (Murder House), Twisty the Clown (Freak Show), the Witch (Coven). SOURCE STATES LOCATIONS AND TIMING NOT ANNOUNCED — watch AHS social. Only Saturday is named in the source; the trucks may run other days, unknown.",
+      "watch": "Locations + times TBA — follow American Horror Story social",
+      "links": [
+        "https://sdccblog.com/2026/07/fx-and-hulu-serving-sweet-13-flavors-in-celebration-of-american-horror-stories-to-san-diego-comic-con-2026/"
+      ]
+    },
+    {
+      "title": "AHS 13th Flavor (secret)",
+      "access": "walkup",
+      "tags": [
+        "food"
       ],
+      "giveaway": "yes",
+      "giveawayNote": "The elusive 13th scoop. Not served at the trucks.",
+      "days": [
+        3
+      ],
+      "location": "Secret location — not announced",
+      "note": "The 13th flavor is not available at the trucks. Fans are invited to a secret location on Saturday, July 25. HOURS AND LOCATION NOT ANNOUNCED — watch American Horror Story social for details.",
+      "watch": "Secret location + time TBA — follow American Horror Story social",
       "links": [
         "https://sdccblog.com/2026/07/fx-and-hulu-serving-sweet-13-flavors-in-celebration-of-american-horror-stories-to-san-diego-comic-con-2026/"
       ]
@@ -514,7 +551,9 @@ h1 em{font-style:normal;color:var(--must)}
       "watch": "Ticketed play sessions — booking details not yet published",
       "links": [
         "https://sdccblog.com/2026/07/magic-the-gathering-marvel-super-heroes-experience/"
-      ]
+      ],
+      "giveaway": "yes",
+      "giveawayNote": "Source: exclusive giveaways — promo card, comic book, and Marvel Super Heroes Welcome Decks."
     },
     {
       "title": "Paramount — The Lodge",
@@ -571,7 +610,8 @@ h1 em{font-style:normal;color:var(--must)}
       ],
       "links": [
         "https://sdccblog.com/2026/07/audible-levels-up-san-diego-comic-con-2026-with-dungeon-crawler-carl-kate-mckinnon-offsite-more/"
-      ]
+      ],
+      "giveaway": "yes"
     },
     {
       "title": "Adult Swim on the Green",
@@ -723,7 +763,8 @@ h1 em{font-style:normal;color:var(--must)}
       ],
       "links": [
         "https://sdccblog.com/2026/07/alliance-authentic-announces-san-diego-comic-con-pop-up-more/"
-      ]
+      ],
+      "giveaway": "yes"
     },
     {
       "title": "PopUp Bagels (VW bus)",
@@ -754,7 +795,10 @@ h1 em{font-style:normal;color:var(--must)}
         "https://sdccblog.com/2026/06/pendry-san-diego-serving-up-pop-ups-for-spider-man-donuts-more-at-san-diego-comic-con-2026/"
       ],
       "giveaway": "none",
-      "giveawayNote": "Food for purchase, not a giveaway."
+      "giveawayNote": "Food for purchase, not a giveaway.",
+      "tags": [
+        "food"
+      ]
     },
     {
       "title": "Provisional — Donut Bar",
@@ -784,7 +828,10 @@ h1 em{font-style:normal;color:var(--must)}
         "https://sdccblog.com/2026/06/pendry-san-diego-serving-up-pop-ups-for-spider-man-donuts-more-at-san-diego-comic-con-2026/"
       ],
       "giveaway": "none",
-      "giveawayNote": "Food for purchase, not a giveaway."
+      "giveawayNote": "Food for purchase, not a giveaway.",
+      "tags": [
+        "food"
+      ]
     },
     {
       "title": "Spider-Man: Brand New Day × BERO",
@@ -809,7 +856,12 @@ h1 em{font-style:normal;color:var(--must)}
       ],
       "links": [
         "https://sdccblog.com/2026/06/pendry-san-diego-serving-up-pop-ups-for-spider-man-donuts-more-at-san-diego-comic-con-2026/"
-      ]
+      ],
+      "tags": [
+        "food"
+      ],
+      "giveaway": "yes",
+      "giveawayNote": "Exclusive Spider-Man: Brand New Day BERO cans, available only during the event."
     },
     {
       "title": "TWD: Dead City S3 — Advance Screening",
@@ -833,7 +885,8 @@ h1 em{font-style:normal;color:var(--must)}
       ],
       "links": [
         "https://1iota.com/show/3987/the-walking-dead-dead-city-season-3?promo=sdccamc"
-      ]
+      ],
+      "giveaway": "yes"
     },
     {
       "title": "Ignition Pavilion",
@@ -900,6 +953,34 @@ h1 em{font-style:normal;color:var(--must)}
       ],
       "links": [
         "https://sdccblog.com/2026/07/dark-moon-blood-night-sets-over-san-diego-comic-con-2026/"
+      ]
+    },
+    {
+      "title": "Princess Donut Food Truck",
+      "access": "walkup",
+      "giveaway": "yes",
+      "giveawayNote": "Free donut holes: “Goddamnit, Donut!” (cinnamon), “Samantha’s Head” (powdered sugar), “The Desperado Glaze” (vanilla glaze). Plus exclusive merchandise and Audible-branded giveaways.",
+      "location": "502 7th Ave",
+      "note": "Audible activation for Dungeon Crawler Carl. Fully-wrapped Princess Donut food truck. Free donut holes, exclusive merch, Audible-branded giveaways. Same franchise as the Audible Level Up Lounge (Saturday).",
+      "links": [
+        "https://sdccblog.com/events-default/dungeon-crawler-carl-princess-donut-food-truck/"
+      ],
+      "hours": {
+        "2": [
+          12,
+          18
+        ]
+      },
+      "pins": [
+        {
+          "day": 2,
+          "t": 12,
+          "unknownTime": true,
+          "what": "Free donut holes, exclusive merch, Audible giveaways. No quantity or cutoff stated."
+        }
+      ],
+      "tags": [
+        "food"
       ]
     }
   ]
@@ -1061,6 +1142,7 @@ function srcRows(o){
 section('Offsites', '⌂ = inside convention center · pins = giveaways · hatched = walk-up');
 D.offsites.forEach(o => {
   const L = lane(o.title, o.onsite ? 'onsite' : '');
+  if ((o.tags || []).length) L.el.dataset.tags = o.tags.join(' ');
   // access: 'ticketed' | 'reservation' | 'walkup'  (legacy: ticketed:true/false)
   const acc = o.access || (o.ticketed ? 'ticketed' : 'walkup');
   const sched = o.followsHall
@@ -1095,9 +1177,9 @@ D.offsites.forEach(o => {
       + (acc === 'lottery' && !o.confirmation ? `<span class="q">❓</span>` : '')
       + (o.badgeRequired ? `<span class="q">🎟</span>` : '')
       + (o.closesWhen ? `<span class="q">⌛</span>` : '')
+      + ((o.tags || []).includes('food') ? `<span class="q">🍽</span>` : '')
       + (o.giveaway === 'unknown' ? `<span class="q">?</span>` : '')
-      + (o.giveaway === 'yes' && !(o.pins || []).some(p => p.day === d)
-          ? `<span class="q">🎁</span>` : '');
+      + (o.giveaway === 'yes' ? `<span class="q">🎁</span>` : '');
     b.onclick = () => show(o.title,
       `${D.days[d].name} · ${known ? fmt(s) + '–' + fmt(e)
         : openEnded ? 'opens ' + fmt(s) + (o.closesWhen ? ' · until ' + o.closesWhen : ' · close not stated')
@@ -1121,6 +1203,8 @@ D.offsites.forEach(o => {
         ? [['Applications', `<span class="badge b-closed">Closed</span> ${o.applicationClosed}`]] : []),
       ...(o.ageLimit ? [['Age',
         `<span class="badge b-warn">${/18\s*\+/.test(o.ageLimit) ? '18+' : '21+'}</span> ${o.ageLimit}`]] : []),
+      ...((o.tags || []).length
+        ? [['Tags', o.tags.map(t => `<span class="badge b-tag">${t}</span>`).join(' ')]] : []),
       ...(o.giveaway
         ? [['Giveaway',
             (o.giveaway === 'yes'   ? `<span class="badge b-gyes">Yes</span>`
@@ -1161,10 +1245,12 @@ D.offsites.forEach(o => {
     }
     L.cells[d].appendChild(b);
   });
-  // nested programming inside the window -> its own indented sub-lane
+  // nested programming -> collapsed sub-lane, toggled from the parent's name
   const emitProgram = () => {
     if (!(o.programs && o.programs.length)) return;
-    const P = lane('↳ programming', 'sub');
+    const n = o.programs.length;
+    const P = lane('', 'sub');
+    P.el.hidden = true;
     o.programs.forEach(pr => {
       const pb = document.createElement('button');
       pb.className = 'ev prog';
@@ -1177,6 +1263,21 @@ D.offsites.forEach(o => {
       P.cells[pr.day].appendChild(pb);
     });
     grid.appendChild(P.el);
+
+    // turn the parent's lane name into a disclosure control
+    const nm = L.el.querySelector('.name');
+    nm.classList.add('toggle');
+    nm.innerHTML = `<button class="disc" aria-expanded="false"
+        aria-label="Show ${n} programming items for ${o.title}">
+        <span class="caret">▸</span><span class="lbl">${o.title}</span>
+        <span class="cnt">${n}</span></button>`;
+    const btn = nm.querySelector('.disc');
+    btn.onclick = () => {
+      const open = P.el.hidden;
+      P.el.hidden = !open;
+      btn.setAttribute('aria-expanded', String(open));
+      btn.querySelector('.caret').textContent = open ? '▾' : '▸';
+    };
   };
 
   (o.pins || []).forEach(p => {
@@ -1192,6 +1293,42 @@ D.offsites.forEach(o => {
   grid.appendChild(L.el);
   emitProgram();
 });
+
+/* ============ TAG FILTER ============ */
+{
+  const counts = {};
+  D.offsites.forEach(o => (o.tags || []).forEach(t => counts[t] = (counts[t] || 0) + 1));
+  const tags = Object.keys(counts).sort();
+  const bar = document.getElementById('tagbar');
+  if (tags.length) {
+    const active = new Set();
+    bar.innerHTML = `<span class="lead">Filter:</span>` + tags.map(t =>
+      `<button class="tagbtn" data-tag="${t}" aria-pressed="false">${t}<span class="n">${counts[t]}</span></button>`
+    ).join('') + `<button class="tagbtn" data-tag="__all" aria-pressed="false">clear</button>`;
+
+    const apply = () => {
+      document.querySelectorAll('.lane').forEach(l => {
+        if (l.dataset.tags) {
+          const has = l.dataset.tags.split(' ').some(t => active.has(t));
+          l.classList.toggle('tagdim', active.size > 0 && !has);
+        } else if (!l.classList.contains('sub') && !l.classList.contains('hallrail')) {
+          l.classList.toggle('tagdim', active.size > 0);
+        }
+      });
+    };
+    bar.querySelectorAll('.tagbtn').forEach(b => {
+      b.onclick = () => {
+        const t = b.dataset.tag;
+        if (t === '__all') active.clear();
+        else if (active.has(t)) active.delete(t); else active.add(t);
+        bar.querySelectorAll('.tagbtn').forEach(x =>
+          x.setAttribute('aria-pressed', String(x.dataset.tag !== '__all' && active.has(x.dataset.tag))));
+        apply();
+      };
+    });
+  }
+}
+
 
 </script>
 </body>
