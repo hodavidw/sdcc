@@ -175,11 +175,8 @@ body.reordering .board{overflow-x:hidden}
   .grip{opacity:.45;font-size:14px}
   .lane .name{padding-left:16px}
 }
-#tagbar .hint{opacity:.4;margin-left:auto;font-size:9px}
-@media (hover:none){ #tagbar .hint{font-size:0}
-  #tagbar .hint::after{content:'long-press a row to reorder';font-size:9px} }
 #resetorder{all:unset;cursor:pointer;font-size:9px;text-transform:uppercase;
-  letter-spacing:.05em;opacity:.5;text-decoration:underline;margin-left:10px}
+  letter-spacing:.05em;opacity:.5;text-decoration:underline;margin-left:auto}
 #resetorder:hover{opacity:1}
 .lane.tagdim{opacity:.28}
 .lane.tagdim .ev{filter:grayscale(.7)}
@@ -255,8 +252,15 @@ body.reordering .board{overflow-x:hidden}
 .tagbtn[aria-pressed="true"]{background:#3f5f4a;color:#fff;border-color:#3f5f4a}
 .tagbtn:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
 .tagbtn .n{opacity:.6;font-weight:700}
-#caveat{margin:14px 24px 0;padding:9px 13px;border-left:3px solid var(--ink);
-  background:rgba(0,0,0,.045);font-size:11px;line-height:1.45}
+#caveat{margin:14px 24px 0;padding:8px 12px;border:1px dashed var(--line,#c9c3b6);
+  border-radius:4px;background:rgba(255,255,255,.32);font-size:11px;line-height:1.45;
+  display:flex;align-items:center;gap:9px;opacity:.85}
+#caveat .grip-ico{opacity:.45;font-size:13px;letter-spacing:-1px;flex:none}
+#caveat .hint-touch{display:none}
+@media (hover:none){
+  #caveat .hint-desk{display:none}
+  #caveat .hint-touch{display:inline}
+}
 
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
@@ -277,7 +281,7 @@ body.reordering .board{overflow-x:hidden}
 </div>
 
 <div id="tagbar"></div>
-<div id="caveat">Bars show <strong>opening hours</strong>. They do not show queue time, which for popular offsites can start hours before doors.</div>
+<div id="caveat"><span class="grip-ico">⠿</span><span class="hint-desk">Drag rows by their name to reorder them. Your order is saved in this browser.</span><span class="hint-touch">Long-press a row name, then drag to reorder. Your order is saved on this device.</span></div>
 
 <div class="board">
   <div class="grid" id="grid"></div>
@@ -1348,7 +1352,6 @@ D.offsites.forEach(o => {
     bar.innerHTML = `<span class="lead">Filter:</span>` + tags.map(t =>
       `<button class="tagbtn" data-tag="${t}" aria-pressed="false">${t}<span class="n">${counts[t]}</span></button>`
     ).join('') + `<button class="tagbtn" data-tag="__all" aria-pressed="false">clear</button>`
-      + `<span class="hint">drag rows to reorder</span>`
       + `<button id="resetorder" title="Restore the default row order">reset order</button>`;
 
     const apply = () => {
