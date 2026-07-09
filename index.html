@@ -149,10 +149,21 @@ h1 em{font-style:normal;color:var(--must)}
 
 
 /* ---------- detail card ---------- */
-#detail{position:fixed;right:20px;bottom:20px;width:300px;z-index:20;
+#detail{position:fixed;left:0;top:0;width:300px;z-index:20;
   background:var(--panel-bg);color:#e9ecf1;border-radius:6px;padding:16px 18px;
   box-shadow:0 12px 40px rgba(0,0,0,.35);display:none}
 #detail.on{display:block}
+/* little arrow pointing back at the clicked bar */
+#detail::after{content:'';position:absolute;width:10px;height:10px;
+  background:var(--panel-bg);transform:rotate(45deg)}
+#detail.below::after{top:-5px;left:var(--ax,24px)}
+#detail.above::after{bottom:-5px;left:var(--ax,24px)}
+@media(max-width:620px){
+  /* on a phone, anchoring is pointless — dock it */
+  #detail{left:10px!important;right:10px!important;top:auto!important;
+    bottom:10px!important;width:auto!important}
+  #detail::after{display:none}
+}
 #detail h3{margin:0 0 2px;font-size:15px;font-weight:800;line-height:1.2}
 #detail .meta{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:10px;opacity:.6;margin-bottom:10px}
 #detail dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:11px}
@@ -884,13 +895,59 @@ function section(title, note) {
 
 /* ---------- detail card ---------- */
 const det = document.getElementById('detail');
+let clickPt = null;
+document.addEventListener('click', e => {
+  if (det.contains(e.target)) return;             // don't re-anchor on the card itself
+  if (e.clientX || e.clientY) { clickPt = { x: e.clientX, y: e.clientY }; return; }
+  const r = e.target.getBoundingClientRect();     // keyboard / synthetic click
+  clickPt = { x: r.left + r.width / 2, y: r.bottom };
+}, true);
 function show(title, meta, rows) {
   document.getElementById('d-title').textContent = title;
   document.getElementById('d-meta').textContent = meta;
   document.getElementById('d-body').innerHTML =
     rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
   det.classList.add('on');
+  place();
 }
+
+/* put the card next to the click, clamped to the viewport */
+function place() {
+  if (!clickPt || window.innerWidth <= 620) {
+    det.classList.remove('above', 'below');
+    det.style.cssText = '';                       // fall back to the CSS default
+    return;
+  }
+  det.classList.remove('above', 'below');
+  det.style.left = '0px'; det.style.top = '0px';  // measure unclamped
+  const r = det.getBoundingClientRect();
+  const w = r.width, h = r.height, M = 12, GAP = 14;
+
+  // prefer below the click; flip above if it would overflow
+  let top = clickPt.y + GAP, cls = 'below';
+  if (top + h > window.innerHeight - M) {
+    top = clickPt.y - h - GAP;
+    cls = 'above';
+  }
+  top = Math.max(M, Math.min(top, window.innerHeight - h - M));
+
+  // centre horizontally on the click, then clamp
+  let left = clickPt.x - w / 2;
+  left = Math.max(M, Math.min(left, window.innerWidth - w - M));
+
+  det.style.left = left + 'px';
+  det.style.top = top + 'px';
+  det.classList.add(cls);
+  // arrow points back at the click, kept inside the card's rounded corners
+  det.style.setProperty('--ax', Math.max(14, Math.min(clickPt.x - left, w - 24)) + 'px');
+}
+window.addEventListener('resize', () => { if (det.classList.contains('on')) place(); });
+let lastY = window.scrollY;
+window.addEventListener('scroll', () => {          // close only on vertical page scroll
+  if (Math.abs(window.scrollY - lastY) > 4) det.classList.remove('on');
+  lastY = window.scrollY;
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') det.classList.remove('on'); });
 function srcRows(o){
   const ls = o.links || (o.link ? [o.link] : []);
   if(!ls.length) return [];
