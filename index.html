@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="San Diego Comic-Con 2026 offsite guide: hours, locations, access, and giveaways for 16 activations, July 22-26.">
+<meta name="theme-color" content="#e8e4da">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SDCC 2026 — Offsite Guide">
+<meta property="og:description" content="What's open, when, and how to get in. 16 activations, July 22-26.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎫</text></svg>">
+<title>SDCC 2026 — Offsite Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   EDIT YOUR EVENTS IN THE <script id="data"> BLOCK AT THE BOTTOM
+   ============================================================ */
+:root{
+  --ink:#0e1116;
+  --paper:#e8e4da;
+  --panel-bg:#1a1f27;
+  --grid:#c9c3b6;
+  --grid-hour:#b5ae9e;
+
+  --must:#d92b3a;      /* red    */
+  --want:#e08a1e;      /* amber  */
+  --iffree:#5b7a9c;    /* slate  */
+
+  --offsite:#2f6f5e;   /* green  */
+  --ticketed:#7a4fb5;  /* purple */
+  --free:#f5e9a8;      /* gap highlight */
+
+  --row-h:26px;
+  --gutter:132px;
+  --daycols:5;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+
+/* ---------- header ---------- */
+header{padding:28px 24px 14px;border-bottom:2px solid var(--ink)}
+h1{margin:0;font-size:clamp(22px,3.4vw,38px);font-weight:800;letter-spacing:-.02em;
+  text-transform:uppercase}
+h1 em{font-style:normal;color:var(--must)}
+.sub{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:12px;margin-top:6px;opacity:.7}
+
+/* ---------- controls ---------- */
+.controls{display:flex;flex-wrap:wrap;gap:16px;align-items:center;
+  padding:12px 24px;border-bottom:1px solid var(--grid);
+  font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:11px;text-transform:uppercase}
+.controls label{display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none}
+.controls input{accent-color:var(--must);cursor:pointer}
+.spacer{flex:1}
+.chip{display:inline-flex;align-items:center;gap:5px}
+.sw{width:11px;height:11px;border-radius:2px;display:inline-block}
+
+/* ---------- board ---------- */
+.board{overflow-x:auto;padding:0 24px 40px}
+.grid{min-width:1000px;position:relative}
+
+.dayhead{display:grid;grid-template-columns:var(--gutter) repeat(var(--daycols),1fr);
+  position:sticky;top:0;z-index:5;background:var(--paper);padding-top:14px}
+.dayhead .lbl{}
+.dayhead .d{border-left:1px solid var(--grid-hour);padding:0 0 6px 8px}
+.dayhead .d b{display:block;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.04em}
+.dayhead .d span{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:10px;opacity:.6}
+.hours{display:grid;grid-template-columns:var(--gutter) repeat(var(--daycols),1fr)}
+.hours .lbl{}
+.hours .hr{border-left:1px solid var(--grid-hour);display:grid;
+  grid-template-columns:repeat(var(--slots),1fr);
+  font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:9px;opacity:.55;padding-bottom:4px}
+.hours .hr i{font-style:normal;border-left:1px solid transparent}
+.hours .hr i:nth-child(2n+1){border-left-color:var(--grid)}
+
+/* section label */
+.sect{display:grid;grid-template-columns:var(--gutter) 1fr;align-items:end;
+  margin-top:22px;border-bottom:2px solid var(--ink);padding-bottom:4px}
+.sect h2{margin:0;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.14em}
+.sect .note{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:10px;opacity:.55;text-align:right}
+
+/* a lane = one horizontal track */
+.lane{display:grid;grid-template-columns:var(--gutter) repeat(var(--daycols),1fr);
+  min-height:var(--row-h)}
+.lane .name{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:10px;
+  padding:5px 10px 5px 0;text-align:right;line-height:1.25;
+  border-bottom:1px solid var(--grid);display:flex;align-items:center;justify-content:flex-end}
+.lane .day{position:relative;border-left:1px solid var(--grid-hour);
+  border-bottom:1px solid var(--grid);min-height:var(--row-h)}
+.hall{position:absolute;top:0;bottom:0;z-index:0;background:rgba(180,120,40,.075);
+  border-left:1px solid rgba(180,120,40,.4);border-right:1px solid rgba(180,120,40,.4)}
+.lane .day::before{content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,transparent 0,transparent calc(100%/var(--slots) - 1px),
+    var(--grid) calc(100%/var(--slots) - 1px),var(--grid) calc(100%/var(--slots)))}
+
+/* ---------- event bars ---------- */
+.ev{position:absolute;top:3px;bottom:3px;border-radius:3px;
+  font-size:10px;line-height:1;display:flex;align-items:center;gap:4px;
+  padding:0 5px;overflow:hidden;white-space:nowrap;cursor:pointer;
+  color:#fff;font-weight:600;z-index:2;transition:filter .12s,transform .12s}
+.ev:hover{filter:brightness(1.15);transform:translateY(-1px);z-index:4}
+.ev:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.ev.dim{opacity:.22}
+
+
+
+
+.ev.offsite{background:var(--offsite);top:5px;bottom:5px}
+.ev.ticketed{background:var(--ticketed)}
+/* reservation required but not yet held: amber, dashed, urgent */
+.ev.reservation{background:#a8531c}
+.ev.reservation:not(.held){border:1px dashed #ffd79a}
+/* walk-up = hatched */
+.ev.walkup{background-image:repeating-linear-gradient(45deg,
+  rgba(255,255,255,.22) 0 4px, transparent 4px 8px)}
+.ev .tick{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-weight:700;opacity:.85}
+
+/* giveaway pins sit ON the offsite bar */
+.pin{position:absolute;top:50%;translate:-50% -50%;z-index:3;
+  width:13px;height:13px;border-radius:50%;background:var(--free);
+  border:2px solid var(--ink);cursor:pointer;font-size:0}
+.pin:hover{scale:1.35}
+.pin.unk{background:transparent;border:2px dashed var(--ink)}
+/* open-ended: known start, unknown close — fades out to the right */
+.ev.openend{-webkit-mask-image:linear-gradient(90deg,#000 0,#000 45%,transparent 100%);
+  mask-image:linear-gradient(90deg,#000 0,#000 45%,transparent 100%)}
+/* standby: reservation recommended, walk-up possible */
+.ev.standby{background:#3f6d8f}
+/* lottery entered, outcome unknown */
+.ev.lottery{background:#5f4a7a;border:2px dotted rgba(255,255,255,.85);opacity:.8}
+
+/* nested programming sub-lane */
+.lane.sub .name{opacity:.5;font-size:9px}
+.lane.sub .day{min-height:20px}
+.ev.prog{background:#4a3d6b;top:2px;bottom:2px;font-size:9px}
+/* inside the convention center, not a true offsite */
+.ev.onsite{background:#6b5a2e}
+.lane.onsite .name::after{content:' ⌂';opacity:.55}
+/* exhibit hall reference rail */
+.lane.hallrail .name{font-weight:800;text-transform:uppercase;letter-spacing:.06em;opacity:.75}
+.lane.hallrail .day{min-height:20px}
+.ev.hallbar{background:#8a5a1e;top:2px;bottom:2px;cursor:pointer}
+
+/* conflict + free strips */
+.strip .day{min-height:16px}
+
+
+
+
+/* ---------- detail card ---------- */
+#detail{position:fixed;right:20px;bottom:20px;width:300px;z-index:20;
+  background:var(--panel-bg);color:#e9ecf1;border-radius:6px;padding:16px 18px;
+  box-shadow:0 12px 40px rgba(0,0,0,.35);display:none}
+#detail.on{display:block}
+#detail h3{margin:0 0 2px;font-size:15px;font-weight:800;line-height:1.2}
+#detail .meta{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:10px;opacity:.6;margin-bottom:10px}
+#detail dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:11px}
+#detail dt{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;opacity:.5;text-transform:uppercase;font-size:9px;
+  align-self:center}
+#detail dd{margin:0;font-weight:600}
+#detail .x{position:absolute;top:10px;right:12px;background:none;border:0;color:#fff;
+  opacity:.4;font-size:18px;cursor:pointer;line-height:1}
+#detail .x:hover{opacity:1}
+.badge{display:inline-block;font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:9px;
+  padding:2px 6px;border-radius:99px;font-weight:700;text-transform:uppercase}
+.b-yes{background:#2f6f5e;color:#fff}
+.b-no{background:#553;color:#e8dcae}
+
+#detail dd a{color:#8fc7ff}
+#detail dd a:hover{color:#bcdcff}
+/* offsite with unpublished hours: spans full day, faded */
+.ev.nohours{opacity:.55;border:1px dashed rgba(255,255,255,.5)}
+/* estimated hours: dashed edge + query mark, reads as provisional */
+.ev.est{border:1px dashed rgba(255,255,255,.75);opacity:.82}
+
+.ev .q{margin-left:auto;font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-weight:700;
+  opacity:.9;font-size:11px;padding-left:4px}
+.b-est{background:#8a6d1f;color:#ffeec2}
+.b-warn{background:#a8531c;color:#ffe3c4}
+.b-mid{background:#3f6d8f;color:#dbeaf5}
+.b-pick{background:#c9a227;color:#241f05}
+/* action banner */
+#caveat{margin:14px 24px 0;padding:9px 13px;border-left:3px solid var(--ink);
+  background:rgba(0,0,0,.045);font-size:11px;line-height:1.45}
+
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>San Diego <em>Comic-Con</em> 2026</h1>
+  <div class="sub">JUL 22 – JUL 26 · OFFSITE GUIDE · WHAT'S OPEN, WHEN, AND HOW TO GET IN</div>
+</header>
+
+<div class="controls">
+  <span class="chip"><i class="sw" style="background:rgba(180,120,40,.25);border:1px solid rgba(180,120,40,.6)"></i>Exhibit hall open</span>
+  <span class="chip"><i class="sw" style="background:var(--ticketed)"></i>Ticketed</span>
+  <span class="chip"><i class="sw" style="background:var(--offsite)"></i>Walk-up (hatched)</span>
+  <span class="chip"><i class="sw" style="background:#6b5a2e"></i>Inside convention center (⌂)</span>
+  <span class="chip"><i class="sw" style="background:#a8531c;border:1px dashed #ffd79a"></i>Reservation needed</span>
+  <span class="chip"><i class="sw" style="background:var(--offsite);border:1px dashed #fff"></i>Estimated hours (?)</span>
+  <span class="chip"><i class="sw" style="background:var(--free);border:1px solid #cdb95c"></i>Giveaway / gap</span>
+</div>
+
+<div id="caveat">Bars show <strong>opening hours</strong>. They do not show queue time, which for popular offsites can start hours before doors.</div>
+
+<div class="board">
+  <div class="grid" id="grid"></div>
+</div>
+
+<div id="detail">
+  <button class="x" onclick="document.getElementById('detail').classList.remove('on')">×</button>
+  <h3 id="d-title"></h3>
+  <div class="meta" id="d-meta"></div>
+  <dl id="d-body"></dl>
+</div>
+
+<!-- ============================================================
+     YOUR DATA. Edit freely. Times are 24h decimal ("13.5" = 1:30pm).
+     day: 0=Wed 1=Thu 2=Fri 3=Sat 4=Sun
+     kind: "panel" | "offsite"
+     tier: "must" | "want" | "iffree"     (panels)
+     ticketed: true/false                 (offsites)
+     pins: [{t:14, what:"Enamel pin drop"}]
+     ============================================================ -->
+<script id="data" type="application/json">
+{
+  "startHour": 7,
+  "endHour": 22,
+  "days": [
+    {
+      "name": "Wed",
+      "date": "Jul 22 · Preview Night"
+    },
+    {
+      "name": "Thu",
+      "date": "Jul 23"
+    },
+    {
+      "name": "Fri",
+      "date": "Jul 24"
+    },
+    {
+      "name": "Sat",
+      "date": "Jul 25"
+    },
+    {
+      "name": "Sun",
+      "date": "Jul 26"
+    }
+  ],
+  "exhibitHall": {
+    "label": "Exhibit Hall",
+    "hours": {
+      "0": [
+        18,
+        21
+      ],
+      "1": [
+        9.5,
+        19
+      ],
+      "2": [
+        9.5,
+        19
+      ],
+      "3": [
+        9.5,
+        19
+      ],
+      "4": [
+        9.5,
+        17
+      ]
+    },
+    "link": "https://www.comic-con.org/cc/things-to-do/exhibit-hall/"
+  },
+  "panels": [],
+  "offsites": [
+    {
+      "days": [
+        2,
+        3,
+        4
+      ],
+      "title": "The Silo Experience",
+      "ticketed": false,
+      "location": "The Lot @ 1st & J",
+      "note": "Free multi-sensory activation. Hours not yet published.",
+      "link": "https://sdccblog.com/2026/07/apple-tv-bringing-silo-experience-panels-featuring-widows-bay-matchbox-the-movie-more-to-san-diego-comic-con-2026/"
+    },
+    {
+      "title": "Hulu Animayhem",
+      "ticketed": false,
+      "hours": {
+        "1": [
+          11.5,
+          19
+        ],
+        "2": [
+          9.5,
+          19
+        ],
+        "3": [
+          9.5,
+          19
+        ],
+        "4": [
+          9.5,
+          17
+        ]
+      },
+      "estimated": true,
+      "location": "SDCC Marina · Gaslamp District",
+      "note": "Food & beverage-driven experience. Futurama + King of the Hill. Planet Express returns; Bobby Hill's Robata Chane. Fry's 100 Days of Cold Brew, yakitori. Easter eggs + photo moments. HOURS ARE LAST YEAR'S — not confirmed for 2026.",
+      "links": [
+        "https://sdccblog.com/2026/07/disney-entertainment-television-announces-panels-percy-jackson-offsite-hulu-animayhem-more/",
+        "https://deadline.com/2026/07/comic-con-2026-disney-entertainment-tv-panels-activations-1236978141/"
+      ]
+    },
+    {
+      "title": "Lanterns Training HQ",
+      "access": "reservation",
+      "hours": {
+        "1": [
+          9,
+          18
+        ],
+        "2": [
+          11,
+          21
+        ],
+        "3": [
+          11,
+          21
+        ]
+      },
+      "reservationOpens": "Mon Jul 13, 9:00am PT",
+      "reservationUrl": "http://hbomax.com/lanternstraininghq",
+      "location": "— not stated in source",
+      "note": "HBO Max. Reservations REQUIRED, first-come first-served, limited capacity, 18+ only. Complete training → custom Green Lantern ring to take home. Snapchat-powered interactive mirror. Exclusive WB Lanterns merch for sale.",
+      "pins": [
+        {
+          "day": 1,
+          "t": 9,
+          "what": "Green Lantern ring — on completing training"
+        },
+        {
+          "day": 2,
+          "t": 11,
+          "what": "Green Lantern ring — on completing training"
+        },
+        {
+          "day": 3,
+          "t": 11,
+          "what": "Green Lantern ring — on completing training"
+        }
+      ],
+      "links": [
+        "https://sdccblog.com/2026/07/step-into-the-world-of-hbo-maxs-lanterns-stuart-fails-to-save-the-universe-with-offsites-at-san-diego-comic-con-2026/"
+      ]
+    },
+    {
+      "title": "AHS “13 Flavors” Trucks",
+      "access": "walkup",
+      "watch": "Locations + times TBA — follow American Horror Story social",
+      "days": [
+        3
+      ],
+      "location": "Roaming — 4 ice cream trucks, locations TBA",
+      "note": "FX + Hulu, celebrating American Horror Story S13. 12 of 13 flavors at the trucks. Costumed characters: Rubber Man (Murder House), Twisty the Clown (Freak Show), the Witch (Coven). SOURCE STATES LOCATIONS AND TIMING NOT ANNOUNCED — watch AHS social. Only Saturday is named in the source (for the 13th flavor); the trucks may run other days, unknown.",
+      "pins": [
+        {
+          "day": 3,
+          "t": 12,
+          "unknownTime": true,
+          "what": "13th flavor — SECRET LOCATION, Sat Jul 25. Time and place NOT announced. Pin position is arbitrary."
+        }
+      ],
+      "links": [
+        "https://sdccblog.com/2026/07/fx-and-hulu-serving-sweet-13-flavors-in-celebration-of-american-horror-stories-to-san-diego-comic-con-2026/"
+      ]
+    },
+    {
+      "id": "nintendo-pointe",
+      "title": "Nintendo @ The Pointe",
+      "access": "walkup",
+      "hours": {
+        "1": [
+          9.5,
+          null
+        ],
+        "2": [
+          9.5,
+          null
+        ],
+        "3": [
+          9.5,
+          null
+        ],
+        "4": [
+          9.5,
+          null
+        ]
+      },
+      "location": "Hilton San Diego Bayfront · “The Pointe”",
+      "note": "First US public play of Nintendo Switch Sports Resort (launches Oct 22). 4 of the 12 sports playable. First come, first served. OPENS 9:30am daily Thu–Sun; CLOSING TIME NOT STATED in source.",
+      "links": [
+        "https://sdccblog.com/2026/07/nintendo-levels-up-san-diego-comic-con-2026-with-nintendo-switch-sports-resort-chance-to-play-the-rizzler-more/"
+      ]
+    },
+    {
+      "title": "Nintendo Promenade Screens",
+      "access": "walkup",
+      "days": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "location": "Hilton San Diego Bayfront · Promenade (outdoor)",
+      "note": "Live Switch Sports Resort gameplay broadcast on screens. Free to watch. HOURS NOT STATED.",
+      "links": [
+        "https://sdccblog.com/2026/07/nintendo-levels-up-san-diego-comic-con-2026-with-nintendo-switch-sports-resort-chance-to-play-the-rizzler-more/"
+      ]
+    },
+    {
+      "title": "MTG Marvel Super Heroes Experience",
+      "access": "walkup",
+      "hours": {
+        "1": [
+          10,
+          17
+        ],
+        "2": [
+          10,
+          17
+        ],
+        "3": [
+          10,
+          17
+        ],
+        "4": [
+          10,
+          16
+        ]
+      },
+      "estimated": true,
+      "location": "Petco Park",
+      "ticketedInside": "Play sessions require tickets — booking details not in source",
+      "note": "No badge necessary; entry is free. Learn-to-play sessions for all levels. Exclusive giveaways: promo card, comic book, Marvel Super Heroes Welcome Decks. Five-hole Tap Tap Mini Golf Course inspired by Magic lore. HOURS ARE LAST YEAR’S ESTIMATE, not confirmed.",
+      "pins": [
+        {
+          "day": 1,
+          "t": 10,
+          "unknownTime": true,
+          "what": "Giveaways: promo card, comic book, Marvel Super Heroes Welcome Decks. Distribution time/limit unknown."
+        },
+        {
+          "day": 2,
+          "t": 10,
+          "unknownTime": true,
+          "what": "Giveaways: promo card, comic book, Welcome Decks. Time/limit unknown."
+        },
+        {
+          "day": 3,
+          "t": 10,
+          "unknownTime": true,
+          "what": "Giveaways: promo card, comic book, Welcome Decks. Time/limit unknown."
+        },
+        {
+          "day": 4,
+          "t": 10,
+          "unknownTime": true,
+          "what": "Giveaways: promo card, comic book, Welcome Decks. Time/limit unknown."
+        }
+      ],
+      "watch": "Ticketed play sessions — booking details not yet published",
+      "links": [
+        "https://sdccblog.com/2026/07/magic-the-gathering-marvel-super-heroes-experience/"
+      ]
+    },
+    {
+      "title": "Paramount — The Lodge",
+      "access": "standby",
+      "hours": {
+        "0": [
+          18,
+          22
+        ],
+        "1": [
+          9,
+          19
+        ],
+        "2": [
+          9,
+          19
+        ],
+        "3": [
+          9,
+          19
+        ],
+        "4": [
+          9,
+          19
+        ]
+      },
+      "location": "Happy Does Bar · 340 Fifth Ave",
+      "duration": 50,
+      "note": "Free immersive experience, ~50 min. Reservations recommended; standby line available. U.S.S. Port Galley (Strange New Worlds), Republic City Marketplace (Avatar Aang), South Park. Also UFC. Themed food + drinks, hands-on games, photo ops, customizable exclusive swag.",
+      "links": [
+        "https://sdccblog.com/2026/07/paramounts-the-lodge-returns-to-san-diego-comic-con-for-2026/"
+      ]
+    },
+    {
+      "title": "Audible Level Up Lounge",
+      "access": "walkup",
+      "hours": {
+        "3": [
+          11,
+          19
+        ]
+      },
+      "location": "Swing Social · 527 Fifth Ave",
+      "note": "Open to the public. Inspired by Dungeon Crawler Carl + Bobiverse. Complete themed activities to earn XP, redeemable for exclusive loot and prizes. BobNet zone; Dungeon Crawler Carl survival station (record your own “Crawler Incident Report”); cosplay touch-up stations; phone charging; listening lounges; photo ops.",
+      "pins": [
+        {
+          "day": 3,
+          "t": 11,
+          "unknownTime": true,
+          "what": "XP redeemable for exclusive loot and prizes. No drop time or quantity stated."
+        }
+      ],
+      "links": [
+        "https://sdccblog.com/2026/07/audible-levels-up-san-diego-comic-con-2026-with-dungeon-crawler-carl-kate-mckinnon-offsite-more/"
+      ]
+    },
+    {
+      "title": "Adult Swim on the Green",
+      "access": "walkup",
+      "hours": {
+        "1": [
+          13,
+          22
+        ],
+        "2": [
+          13,
+          22
+        ],
+        "3": [
+          13,
+          22
+        ],
+        "4": [
+          11,
+          16
+        ]
+      },
+      "location": "Bayfront Park",
+      "note": "Free fan festival. No badge required. First come, first served. Games, rides, giveaways, dance parties.",
+      "cap": {
+        "n": 700,
+        "what": "First 700 fans daily receive exclusive prizes",
+        "days": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "programs": [
+        {
+          "day": 1,
+          "start": 19,
+          "end": 22,
+          "title": "Night of New — exclusive content screening"
+        },
+        {
+          "day": 2,
+          "start": 19,
+          "end": 22,
+          "title": "Live table reads — Rick and Morty President Curtis"
+        },
+        {
+          "day": 3,
+          "start": 19,
+          "end": 22,
+          "title": "Adult Swim Through the Years — cosplay dance party + live animation set by Afuchs Twin"
+        },
+        {
+          "day": 1,
+          "start": 21,
+          "end": 22,
+          "title": "DJ dance party"
+        },
+        {
+          "day": 2,
+          "start": 21,
+          "end": 22,
+          "title": "DJ dance party"
+        },
+        {
+          "day": 3,
+          "start": 21,
+          "end": 22,
+          "title": "DJ dance party"
+        }
+      ],
+      "links": [
+        "https://sdccblog.com/2026/06/adult-swim-returns-to-party-at-san-diego-comic-con-2026/"
+      ]
+    },
+    {
+      "title": "Gundam Workshop",
+      "access": "walkup",
+      "onsite": true,
+      "followsHall": true,
+      "hallDays": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "location": "Mezzanine 19 · inside the convention center",
+      "duration": 30,
+      "note": "Build a complimentary GUNPLA model kit to take home. Free. 30-minute workshop. First come, first served, subject to availability. Runs after show opening — hours follow the exhibit hall. Source does not state whether it runs Preview Night (Wed); excluded pending confirmation.",
+      "links": [
+        "https://sdccblog.com/2026/07/bandai-stomps-back-into-san-diego-comic-con-2026-with-panels-exclusives-offsites-more/"
+      ]
+    },
+    {
+      "title": "Alliance Authentic Pop-Up",
+      "access": "walkup",
+      "hours": {
+        "1": [
+          12,
+          20
+        ],
+        "2": [
+          12,
+          20
+        ],
+        "3": [
+          12,
+          20
+        ],
+        "4": [
+          12,
+          20
+        ]
+      },
+      "location": "Hard Rock Hotel · 207 Fifth Ave",
+      "walk": "Across from the Convention Center",
+      "badgeRequired": "Free Handmade by Robots figure is for badge holders only. Shopping and the raffle are open to everyone.",
+      "note": "Shop preserved, Certified Uncirculated vinyl records and collectible figures from Funko and Handmade by Robots. Badge holders can claim and register a free Handmade by Robots figure. Every guest can enter a raffle for one of Alliance Authentic’s preserved collectibles.",
+      "pins": [
+        {
+          "day": 1,
+          "t": 12,
+          "unknownTime": true,
+          "what": "Free Handmade by Robots figure — badge holders only, claim + register. No quantity or cutoff stated."
+        },
+        {
+          "day": 2,
+          "t": 12,
+          "unknownTime": true,
+          "what": "Free Handmade by Robots figure — badge holders only. No quantity stated."
+        },
+        {
+          "day": 3,
+          "t": 12,
+          "unknownTime": true,
+          "what": "Free Handmade by Robots figure — badge holders only. No quantity stated."
+        },
+        {
+          "day": 4,
+          "t": 12,
+          "unknownTime": true,
+          "what": "Free Handmade by Robots figure — badge holders only. No quantity stated."
+        }
+      ],
+      "links": [
+        "https://sdccblog.com/2026/07/alliance-authentic-announces-san-diego-comic-con-pop-up-more/"
+      ]
+    },
+    {
+      "title": "PopUp Bagels (VW bus)",
+      "access": "walkup",
+      "hours": {
+        "1": [
+          7,
+          null
+        ],
+        "2": [
+          7,
+          null
+        ],
+        "3": [
+          7,
+          null
+        ],
+        "4": [
+          7,
+          null
+        ]
+      },
+      "closesWhen": "sold out",
+      "location": "Outside Pendry San Diego",
+      "walk": "Steps from the Convention Center",
+      "note": "Fresh-baked bagels with plain and scallion shmears, from a VW bus parked outside the hotel. Opens 7am daily; runs until sold out. Pre-show-floor breakfast option.",
+      "links": [
+        "https://sdccblog.com/2026/06/pendry-san-diego-serving-up-pop-ups-for-spider-man-donuts-more-at-san-diego-comic-con-2026/"
+      ]
+    },
+    {
+      "title": "Provisional — Donut Bar",
+      "access": "walkup",
+      "hours": {
+        "1": [
+          7,
+          null
+        ],
+        "2": [
+          7,
+          null
+        ],
+        "3": [
+          7,
+          null
+        ],
+        "4": [
+          7,
+          null
+        ]
+      },
+      "location": "Provisional · Pendry San Diego",
+      "walk": "Steps from the Convention Center",
+      "note": "Rotating character-themed donuts from the Donut Bar, alongside Provisional's usual pastries and savory breakfast. Begins 7am daily. CLOSING TIME NOT STATED.",
+      "links": [
+        "https://sdccblog.com/2026/06/pendry-san-diego-serving-up-pop-ups-for-spider-man-donuts-more-at-san-diego-comic-con-2026/"
+      ]
+    },
+    {
+      "title": "Spider-Man: Brand New Day × BERO",
+      "access": "walkup",
+      "hours": {
+        "3": [
+          12,
+          15
+        ]
+      },
+      "location": "Nason's Beer Hall · Pendry San Diego",
+      "walk": "Steps from the Convention Center",
+      "ageLimit": "BERO samples are 21+. The event itself is free and open to the public.",
+      "note": "Sony Pictures activation for Spider-Man: Brand New Day. Tom Holland's non-alcoholic beer brand BERO, in exclusive themed cans available only at the event. Immersive photo ops and Spider-Man appearances. Free, open to the public, first come first served.",
+      "pins": [
+        {
+          "day": 3,
+          "t": 12,
+          "unknownTime": true,
+          "what": "Exclusive Spider-Man: Brand New Day BERO cans — available only during the event. No quantity stated."
+        }
+      ],
+      "links": [
+        "https://sdccblog.com/2026/06/pendry-san-diego-serving-up-pop-ups-for-spider-man-donuts-more-at-san-diego-comic-con-2026/"
+      ]
+    },
+    {
+      "title": "TWD: Dead City S3 — Advance Screening",
+      "access": "lottery",
+      "hours": {
+        "2": [
+          18,
+          null
+        ]
+      },
+      "location": "Petco Park",
+      "ageLimit": "18+.",
+      "note": "Advance screening with executive producers and cast. Complimentary concessions, exclusive giveaways. END TIME NOT STATED. Entry by lottery via 1iota.",
+      "pins": [
+        {
+          "day": 2,
+          "t": 18,
+          "unknownTime": true,
+          "what": "Exclusive giveaways + complimentary concessions. No detail stated."
+        }
+      ],
+      "links": [
+        "https://1iota.com/show/3987/the-walking-dead-dead-city-season-3?promo=sdccamc"
+      ]
+    }
+  ]
+}
+</script>
+
+<script>
+const D = JSON.parse(document.getElementById('data').textContent);
+const H0 = D.startHour, H1 = D.endHour, SPAN = H1 - H0;
+const NDAY = D.days.length;
+const grid = document.getElementById('grid');
+grid.style.setProperty('--daycols', NDAY);
+document.documentElement.style.setProperty('--daycols', NDAY);
+document.documentElement.style.setProperty('--slots', SPAN);
+
+const pct = h => ((h - H0) / SPAN) * 100;
+const fmt = h => {
+  const hr = Math.floor(h), m = Math.round((h - hr) * 60);
+  const ap = hr >= 12 ? 'pm' : 'am';
+  const hh = hr % 12 === 0 ? 12 : hr % 12;
+  return m ? `${hh}:${String(m).padStart(2,'0')}${ap}` : `${hh}${ap}`;
+};
+
+/* ---------- header rows ---------- */
+let head = `<div class="dayhead"><div class="lbl"></div>`;
+D.days.forEach(d => head += `<div class="d"><b>${d.name}</b><span>${d.date}</span></div>`);
+head += `</div><div class="hours"><div class="lbl"></div>`;
+D.days.forEach(() => {
+  let hr = `<div class="hr">`;
+  for (let h = H0; h < H1; h++) hr += `<i>${(h === H0 || h % 3 === 0) ? fmt(h) : ''}</i>`;
+  head += hr + `</div>`;
+});
+head += `</div>`;
+grid.innerHTML = head;
+
+/* exhibit hall reference rail */
+if (D.exhibitHall) {
+  const R = document.createElement('div');
+  R.className = 'lane hallrail';
+  R.innerHTML = `<div class="name">${D.exhibitHall.label || 'Exhibit Hall'}</div>`;
+  for (let i = 0; i < NDAY; i++) {
+    const c = document.createElement('div');
+    c.className = 'day';
+    const h = (D.exhibitHall.hours || {})[i];
+    if (h) {
+      const b = document.createElement('button');
+      b.className = 'ev hallbar';
+      b.style.left = pct(h[0]) + '%';
+      b.style.width = (pct(h[1]) - pct(h[0])) + '%';
+      b.innerHTML = `<span class="tick">${fmt(h[0])}–${fmt(h[1])}</span>`;
+      b.onclick = () => show(D.exhibitHall.label || 'Exhibit Hall',
+        `${D.days[i].name} · ${fmt(h[0])}–${fmt(h[1])}`,
+        [['Note', 'Convention floor hours. Shaded on every lane below.'],
+         ...(D.exhibitHall.link ? [['Source',
+           `<a href="${D.exhibitHall.link}" target="_blank" rel="noopener">comic-con.org ↗</a>`]] : [])]);
+      c.appendChild(b);
+    }
+    R.appendChild(c);
+  }
+  grid.appendChild(R);
+}
+
+/* ---------- helpers ---------- */
+const HALL = (D.exhibitHall && D.exhibitHall.hours) || {};
+function lane(name, cls = '') {
+  const l = document.createElement('div');
+  l.className = 'lane ' + cls;
+  l.innerHTML = `<div class="name">${name}</div>`;
+  const cells = [];
+  for (let i = 0; i < NDAY; i++) {
+    const c = document.createElement('div');
+    c.className = 'day';
+    const h = HALL[i];
+    if (h) {                                  // shade the hours the hall is open
+      const sh = document.createElement('div');
+      sh.className = 'hall';
+      sh.style.left = pct(h[0]) + '%';
+      sh.style.width = (pct(h[1]) - pct(h[0])) + '%';
+      c.appendChild(sh);
+    }
+    l.appendChild(c);
+    cells.push(c);
+  }
+  return { el: l, cells };
+}
+function section(title, note) {
+  const s = document.createElement('div');
+  s.className = 'sect';
+  s.innerHTML = `<h2>${title}</h2><div class="note">${note}</div>`;
+  grid.appendChild(s);
+}
+
+/* ---------- detail card ---------- */
+const det = document.getElementById('detail');
+function show(title, meta, rows) {
+  document.getElementById('d-title').textContent = title;
+  document.getElementById('d-meta').textContent = meta;
+  document.getElementById('d-body').innerHTML =
+    rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
+  det.classList.add('on');
+}
+function srcRows(o){
+  const ls = o.links || (o.link ? [o.link] : []);
+  if(!ls.length) return [];
+  return [['Source', ls.map((u,i)=>{
+    let host='source';
+    try{ host = new URL(u).hostname.replace(/^www\./,''); }catch(e){}
+    return `<a href="${u}" target="_blank" rel="noopener">${host} ↗</a>`;
+  }).join('<br>')]];
+}
+
+/* ============ OFFSITES ============ */
+section('Offsites', '⌂ = inside convention center · pins = giveaways · hatched = walk-up');
+D.offsites.forEach(o => {
+  const L = lane(o.title, o.onsite ? 'onsite' : '');
+  // access: 'ticketed' | 'reservation' | 'walkup'  (legacy: ticketed:true/false)
+  const acc = o.access || (o.ticketed ? 'ticketed' : 'walkup');
+  const sched = o.followsHall
+    ? Object.entries(HALL)
+        .filter(([d]) => !o.hallDays || o.hallDays.includes(+d))
+        .map(([d, hr]) => [+d, hr[0], hr[1]])
+    : o.hours
+    ? Object.entries(o.hours).map(([d, hr]) => [+d, hr[0], hr[1]])
+    : (o.days || []).map(d => [d, o.start, o.end]);
+
+  sched.forEach(([d, st, en]) => {
+    const openEnded = (st != null && en == null);   // known open, unknown close
+    const known = (st != null && en != null);
+    const s = st != null ? st : H0;
+    const e = en != null ? en : H1;
+    const b = document.createElement('button');
+    b.className = `ev offsite ${acc}`
+      + (st == null ? ' nohours' : '') + (openEnded ? ' openend' : '')
+      + (o.estimated ? ' est' : '')
+      + (o.onsite ? ' onsite' : '');
+    b.style.left = pct(s) + '%';
+    b.style.width = (pct(e) - pct(s)) + '%';
+    b.innerHTML = `<span class="tick">${
+        known ? fmt(s) + '–' + fmt(e)
+      : openEnded ? fmt(s) + (o.closesWhen ? '– ' + o.closesWhen : '– close TBA')
+      : 'hours TBA'}</span>`
+      + (o.estimated ? `<span class="q">?</span>` : '')
+      + (acc === 'reservation' && !o.confirmation ? `<span class="q">!</span>` : '')
+      + ((o.cap && o.cap.days.includes(d)) ? `<span class="q">⏳</span>` : '')
+      + (acc === 'lottery' && !o.confirmation ? `<span class="q">❓</span>` : '')
+      + (o.badgeRequired ? `<span class="q">🎟</span>` : '')
+      + (o.closesWhen ? `<span class="q">⌛</span>` : '');
+    b.onclick = () => show(o.title,
+      `${D.days[d].name} · ${known ? fmt(s) + '–' + fmt(e)
+        : openEnded ? 'opens ' + fmt(s) + (o.closesWhen ? ' · until ' + o.closesWhen : ' · close not stated')
+        : 'hours not published'}`, [
+      ['Access',
+        acc === 'ticketed' ? `<span class="badge b-yes">Ticketed</span> ${o.confirmation || ''}`
+      : acc === 'reservation' ? (o.confirmation
+          ? `<span class="badge b-yes">Reserved</span> ${o.confirmation}`
+          : `<span class="badge b-warn">Reservation needed</span>`)
+      : acc === 'standby' ? `<span class="badge b-mid">Reserve or standby</span>`
+      : acc === 'lottery' ? `<span class="badge b-pick">Lottery entry</span>`
+      : `<span class="badge b-no">Walk-up</span>`],
+      ...(o.duration ? [['Duration', `~${o.duration} min`]] : []),
+      ...(o.cap && o.cap.days.includes(d)
+        ? [['Capped', `<span class="badge b-warn">First ${o.cap.n}</span> ${o.cap.what}`]] : []),
+      ...(o.badgeRequired
+        ? [['Badge', `<span class="badge b-mid">Partly badge-gated</span> ${o.badgeRequired}`]] : []),
+      ...(o.ageLimit ? [['Age', `<span class="badge b-warn">21+</span> ${o.ageLimit}`]] : []),
+      ...(o.ticketedInside ? [['Inside',
+        `<span class="badge b-warn">Ticketed play</span> ${o.ticketedInside}`]] : []),
+      ...(acc === 'reservation' && !o.confirmation && o.reservationOpens
+        ? [['Opens', `<b style="color:#ffcf6b">${o.reservationOpens}</b>`]] : []),
+      ...(acc === 'reservation' && o.reservationUrl
+        ? [['Book at', `<a href="${o.reservationUrl}" target="_blank" rel="noopener">${o.reservationUrl.replace(/^https?:\/\//,'')} ↗</a>`]] : []),
+      ['Hours', o.estimated ? `<span class="badge b-est">Estimated</span>`
+        : o.followsHall ? `<span class="badge b-mid">Follows exhibit hall</span>`
+        : o.closesWhen ? `<span class="badge b-warn">Opens ${fmt(s)}, until ${o.closesWhen}</span>`
+        : `<span class="badge b-yes">Confirmed</span>`],
+      ['Location', o.location || '—'],
+      ...(o.onsite
+        ? [['Venue', `<span class="badge b-mid">Inside convention center</span>`]]
+        : [['Walk', o.walk || '—']]),
+      ...(o.note ? [['Note', o.note]] : []),
+      ...(o.pins || []).filter(p => p.day === d).map(p => [fmt(p.t), p.what]),
+      ...srcRows(o)
+    ]);
+    L.cells[d].appendChild(b);
+  });
+  // nested programming inside the window -> its own indented sub-lane
+  const emitProgram = () => {
+    if (!(o.programs && o.programs.length)) return;
+    const P = lane('↳ programming', 'sub');
+    o.programs.forEach(pr => {
+      const pb = document.createElement('button');
+      pb.className = 'ev prog';
+      pb.style.left = pct(pr.start) + '%';
+      pb.style.width = (pct(pr.end) - pct(pr.start)) + '%';
+      pb.innerHTML = `<span class="tick">${fmt(pr.start)}</span>${pr.title}`;
+      pb.onclick = e => { e.stopPropagation(); show(pr.title,
+        `${D.days[pr.day].name} · ${fmt(pr.start)}–${fmt(pr.end)}`,
+        [['Part of', o.title], ['Location', o.location || '—'], ...srcRows(o)]); };
+      P.cells[pr.day].appendChild(pb);
+    });
+    grid.appendChild(P.el);
+  };
+
+  (o.pins || []).forEach(p => {
+    const dot = document.createElement('button');
+    dot.className = 'pin' + (p.unknownTime ? ' unk' : '');
+    dot.style.left = pct(p.t) + '%';
+    dot.title = p.unknownTime ? `time TBA — ${p.what}` : `${fmt(p.t)} — ${p.what}`;
+    dot.onclick = e => { e.stopPropagation(); show(o.title,
+      `${D.days[p.day].name} · ${p.unknownTime ? 'time not announced' : fmt(p.t)}`,
+      [['Drop', p.what], ['Location', o.location || '—'], ...srcRows(o)]); };
+    L.cells[p.day].appendChild(dot);
+  });
+  grid.appendChild(L.el);
+  emitProgram();
+});
+
+</script>
+</body>
+</html>
