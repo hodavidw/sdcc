@@ -158,15 +158,28 @@ h1 em{font-style:normal;color:var(--must)}
 .badge.b-closed{background:#6b2020;color:#ffd7d7}
 .badge.b-tag{background:#3f5f4a;color:#dbeade;text-transform:lowercase}
 /* tag filter: dim, don't hide */
-.lane.offsiterow{cursor:grab}
-.lane.offsiterow.dragging{opacity:.4;cursor:grabbing}
+.lane.offsiterow .name{position:relative;cursor:grab;
+  touch-action:none;                 /* we handle the gesture, not the browser */
+  -webkit-user-select:none;user-select:none;
+  -webkit-touch-callout:none}        /* no iOS text-selection popover */
+.lane.offsiterow.dragging{opacity:.5}
+.lane.offsiterow.dragging .name{cursor:grabbing;background:rgba(0,0,0,.05)}
 .lane.offsiterow.dropafter{box-shadow:inset 0 -2px 0 var(--must,#d92b3a)}
-.lane.offsiterow .name{position:relative}
-.grip{position:absolute;left:3px;top:50%;transform:translateY(-50%);
-  opacity:.2;font-size:11px;letter-spacing:-1px;pointer-events:none;user-select:none}
+/* while reordering, stop the page from scrolling under the finger */
+body.reordering{overflow:hidden;-webkit-user-select:none;user-select:none}
+body.reordering .board{overflow-x:hidden}
+.grip{position:absolute;left:2px;top:50%;transform:translateY(-50%);
+  opacity:.2;font-size:12px;letter-spacing:-1px;pointer-events:none;user-select:none}
 .lane.offsiterow:hover .grip{opacity:.6}
+@media (hover:none){                 /* touch devices: always show the handle */
+  .grip{opacity:.45;font-size:14px}
+  .lane .name{padding-left:16px}
+}
+#tagbar .hint{opacity:.4;margin-left:auto;font-size:9px}
+@media (hover:none){ #tagbar .hint{font-size:0}
+  #tagbar .hint::after{content:'long-press a row to reorder';font-size:9px} }
 #resetorder{all:unset;cursor:pointer;font-size:9px;text-transform:uppercase;
-  letter-spacing:.05em;opacity:.5;text-decoration:underline;margin-left:auto}
+  letter-spacing:.05em;opacity:.5;text-decoration:underline;margin-left:10px}
 #resetorder:hover{opacity:1}
 .lane.tagdim{opacity:.28}
 .lane.tagdim .ev{filter:grayscale(.7)}
@@ -1175,7 +1188,6 @@ D.offsites.forEach(o => {
   if ((o.tags || []).length) L.el.dataset.tags = o.tags.join(' ');
   L.el.classList.add('offsiterow');
   L.el.dataset.title = o.title;
-  L.el.draggable = true;
   // access: 'ticketed' | 'reservation' | 'walkup'  (legacy: ticketed:true/false)
   const acc = o.access || (o.ticketed ? 'ticketed' : 'walkup');
   const sched = o.followsHall
@@ -1340,6 +1352,7 @@ D.offsites.forEach(o => {
     bar.innerHTML = `<span class="lead">Filter:</span>` + tags.map(t =>
       `<button class="tagbtn" data-tag="${t}" aria-pressed="false">${t}<span class="n">${counts[t]}</span></button>`
     ).join('') + `<button class="tagbtn" data-tag="__all" aria-pressed="false">clear</button>`
+      + `<span class="hint">drag rows to reorder</span>`
       + `<button id="resetorder" title="Restore the default row order">reset order</button>`;
 
     const apply = () => {
@@ -1366,12 +1379,13 @@ D.offsites.forEach(o => {
 }
 
 
-/* ============ DRAG TO REORDER (persisted per browser) ============ */
+/* ============ DRAG TO REORDER — pointer events, works on touch ============ */
 {
   const KEY = 'sdcc26.laneOrder.v1';
   const grid = document.getElementById('grid');
+  const LONGPRESS = 220;      // ms before a touch becomes a drag
+  const SLOP = 8;             // px of movement that cancels the long-press
 
-  // parent offsite lanes only; a sub-lane travels with its parent
   const parents = () => [...grid.querySelectorAll('.lane.offsiterow')];
   const subOf = el => (el.nextElementSibling &&
     el.nextElementSibling.classList.contains('sub')) ? el.nextElementSibling : null;
@@ -1382,53 +1396,88 @@ D.offsites.forEach(o => {
   };
   const restore = () => {
     let want; try { want = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
-    if (!Array.isArray(want)) return;
+    if (!Array.isArray(want) || !parents().length) return;
     const by = {}; parents().forEach(l => by[l.dataset.title] = l);
-    if (!parents().length) return;
     want.forEach(t => {
       const l = by[t]; if (!l) return;
       const sub = subOf(l);
-      grid.appendChild(l); if (sub) grid.appendChild(sub);   // reflow in saved order
+      grid.appendChild(l); if (sub) grid.appendChild(sub);
       delete by[t];
     });
-    Object.values(by).forEach(l => {           // anything new since last save
+    Object.values(by).forEach(l => {
       const sub = subOf(l); grid.appendChild(l); if (sub) grid.appendChild(sub);
     });
   };
 
-  let dragged = null;
-  grid.addEventListener('dragstart', e => {
-    const l = e.target.closest('.lane.offsiterow');
-    if (!l) return;
-    dragged = l; l.classList.add('dragging');
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/plain', l.dataset.title);
+  let drag = null;            // {lane, sub, timer, startY, active, pid}
+
+  const clearMarks = () => parents().forEach(l => l.classList.remove('dropafter'));
+
+  const begin = () => {
+    if (!drag) return;
+    drag.active = true;
+    drag.lane.classList.add('dragging');
+    document.body.classList.add('reordering');
+    if (navigator.vibrate) navigator.vibrate(12);
+  };
+
+  const laneAt = (x, y) => {
+    const el = document.elementFromPoint(x, y);
+    return el ? el.closest('.lane.offsiterow') : null;
+  };
+
+  const moveTo = over => {
+    if (!over || over === drag.lane) return;
+    const after = over.compareDocumentPosition(drag.lane) & Node.DOCUMENT_POSITION_PRECEDING;
+    const ref = after ? (subOf(over) || over).nextSibling : over;
+    grid.insertBefore(drag.lane, ref);
+    if (drag.sub) grid.insertBefore(drag.sub, drag.lane.nextSibling);
+  };
+
+  const finish = () => {
+    if (!drag) return;
+    clearTimeout(drag.timer);
+    if (drag.active) {
+      drag.lane.classList.remove('dragging');
+      document.body.classList.remove('reordering');
+      save();
+    }
+    clearMarks();
+    drag = null;
+  };
+
+  grid.addEventListener('pointerdown', e => {
+    if (e.button != null && e.button !== 0) return;          // left click / any touch
+    const name = e.target.closest('.name');
+    const lane = e.target.closest('.lane.offsiterow');
+    if (!lane || !name) return;                              // grab by the label only
+    if (e.target.closest('.disc')) return;                   // let the disclosure toggle work
+
+    drag = { lane, sub: subOf(lane), startY: e.clientY, startX: e.clientX,
+             active: false, pid: e.pointerId, timer: null };
+
+    if (e.pointerType === 'mouse') { begin(); }              // mouse drags immediately
+    else { drag.timer = setTimeout(begin, LONGPRESS); }      // touch waits, so scrolling still works
   });
-  grid.addEventListener('dragend', () => {
-    if (dragged) dragged.classList.remove('dragging');
-    parents().forEach(l => l.classList.remove('dropafter'));
-    dragged = null; save();
-  });
-  grid.addEventListener('dragover', e => {
-    if (!dragged) return;
-    const over = e.target.closest('.lane.offsiterow');
-    if (!over || over === dragged) return;
+
+  grid.addEventListener('pointermove', e => {
+    if (!drag || e.pointerId !== drag.pid) return;
+    if (!drag.active) {
+      // moved before the long-press fired -> it was a scroll, not a drag
+      if (Math.abs(e.clientY - drag.startY) > SLOP ||
+          Math.abs(e.clientX - drag.startX) > SLOP) { clearTimeout(drag.timer); drag = null; }
+      return;
+    }
     e.preventDefault();
-    parents().forEach(l => l.classList.remove('dropafter'));
-    over.classList.add('dropafter');
+    try { drag.lane.setPointerCapture(drag.pid); } catch (err) {}
+    const over = laneAt(e.clientX, e.clientY);
+    clearMarks();
+    if (over && over !== drag.lane) { over.classList.add('dropafter'); moveTo(over); }
   });
-  grid.addEventListener('drop', e => {
-    if (!dragged) return;
-    const over = e.target.closest('.lane.offsiterow');
-    if (!over || over === dragged) return;
-    e.preventDefault();
-    const sub = subOf(dragged), overSub = subOf(over);
-    const after = over.compareDocumentPosition(dragged) & Node.DOCUMENT_POSITION_PRECEDING;
-    const ref = after ? (overSub || over).nextSibling : over;
-    grid.insertBefore(dragged, ref);
-    if (sub) grid.insertBefore(sub, dragged.nextSibling);
-    over.classList.remove('dropafter');
-  });
+
+  ['pointerup', 'pointercancel'].forEach(t =>
+    grid.addEventListener(t, e => { if (!drag || e.pointerId !== drag.pid) return; finish(); }));
+  window.addEventListener('blur', finish);
 
   document.getElementById('resetorder')?.addEventListener('click', () => {
     try { localStorage.removeItem(KEY); } catch (e) {}
@@ -1437,7 +1486,6 @@ D.offsites.forEach(o => {
 
   restore();
 }
-
 </script>
 </body>
 </html>
