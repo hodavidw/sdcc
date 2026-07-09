@@ -158,6 +158,16 @@ h1 em{font-style:normal;color:var(--must)}
 .badge.b-closed{background:#6b2020;color:#ffd7d7}
 .badge.b-tag{background:#3f5f4a;color:#dbeade;text-transform:lowercase}
 /* tag filter: dim, don't hide */
+.lane.offsiterow{cursor:grab}
+.lane.offsiterow.dragging{opacity:.4;cursor:grabbing}
+.lane.offsiterow.dropafter{box-shadow:inset 0 -2px 0 var(--must,#d92b3a)}
+.lane.offsiterow .name{position:relative}
+.grip{position:absolute;left:3px;top:50%;transform:translateY(-50%);
+  opacity:.2;font-size:11px;letter-spacing:-1px;pointer-events:none;user-select:none}
+.lane.offsiterow:hover .grip{opacity:.6}
+#resetorder{all:unset;cursor:pointer;font-size:9px;text-transform:uppercase;
+  letter-spacing:.05em;opacity:.5;text-decoration:underline;margin-left:auto}
+#resetorder:hover{opacity:1}
 .lane.tagdim{opacity:.28}
 .lane.tagdim .ev{filter:grayscale(.7)}
 .badge.b-gyes{background:var(--free);color:#241f05}
@@ -340,38 +350,8 @@ h1 em{font-style:normal;color:var(--must)}
       "location": "The Lot @ 1st & J",
       "note": "Free multi-sensory activation. Hours not yet published.",
       "link": "https://sdccblog.com/2026/07/apple-tv-bringing-silo-experience-panels-featuring-widows-bay-matchbox-the-movie-more-to-san-diego-comic-con-2026/",
-      "giveaway": "unknown"
-    },
-    {
-      "title": "Hulu Animayhem",
-      "ticketed": false,
-      "hours": {
-        "1": [
-          11.5,
-          19
-        ],
-        "2": [
-          9.5,
-          19
-        ],
-        "3": [
-          9.5,
-          19
-        ],
-        "4": [
-          9.5,
-          17
-        ]
-      },
-      "estimated": true,
-      "location": "SDCC Marina · Gaslamp District",
-      "note": "Food & beverage-driven experience. Futurama + King of the Hill. Planet Express returns; Bobby Hill's Robata Chane. Fry's 100 Days of Cold Brew, yakitori. Easter eggs + photo moments. HOURS ARE LAST YEAR'S — not confirmed for 2026.",
-      "links": [
-        "https://sdccblog.com/2026/07/disney-entertainment-television-announces-panels-percy-jackson-offsite-hulu-animayhem-more/",
-        "https://deadline.com/2026/07/comic-con-2026-disney-entertainment-tv-panels-activations-1236978141/"
-      ],
-      "giveaway": "yes",
-      "giveawayNote": "Based on prior years — Animayhem has given away swag for the past five conventions. Not announced for 2026."
+      "giveaway": "unknown",
+      "order": 0
     },
     {
       "title": "Lanterns Training HQ",
@@ -414,146 +394,40 @@ h1 em{font-style:normal;color:var(--must)}
       "links": [
         "https://sdccblog.com/2026/07/step-into-the-world-of-hbo-maxs-lanterns-stuart-fails-to-save-the-universe-with-offsites-at-san-diego-comic-con-2026/"
       ],
-      "giveaway": "yes"
-    },
-    {
-      "title": "AHS “13 Flavors” Trucks",
-      "access": "walkup",
-      "tags": [
-        "food"
-      ],
       "giveaway": "yes",
-      "giveawayNote": "Free samples of 12 of the 13 flavors.",
-      "days": [
-        3
-      ],
-      "location": "Roaming — 4 ice cream trucks, locations TBA",
-      "note": "FX + Hulu, celebrating American Horror Story S13. 12 of 13 flavors served from four trucks. Costumed characters: Rubber Man (Murder House), Twisty the Clown (Freak Show), the Witch (Coven). SOURCE STATES LOCATIONS AND TIMING NOT ANNOUNCED — watch AHS social. Only Saturday is named in the source; the trucks may run other days, unknown.",
-      "watch": "Locations + times TBA — follow American Horror Story social",
-      "links": [
-        "https://sdccblog.com/2026/07/fx-and-hulu-serving-sweet-13-flavors-in-celebration-of-american-horror-stories-to-san-diego-comic-con-2026/"
-      ]
+      "order": 1
     },
     {
-      "title": "AHS 13th Flavor (secret)",
-      "access": "walkup",
-      "tags": [
-        "food"
-      ],
-      "giveaway": "yes",
-      "giveawayNote": "The elusive 13th scoop. Not served at the trucks.",
-      "days": [
-        3
-      ],
-      "location": "Secret location — not announced",
-      "note": "The 13th flavor is not available at the trucks. Fans are invited to a secret location on Saturday, July 25. HOURS AND LOCATION NOT ANNOUNCED — watch American Horror Story social for details.",
-      "watch": "Secret location + time TBA — follow American Horror Story social",
-      "links": [
-        "https://sdccblog.com/2026/07/fx-and-hulu-serving-sweet-13-flavors-in-celebration-of-american-horror-stories-to-san-diego-comic-con-2026/"
-      ]
-    },
-    {
-      "id": "nintendo-pointe",
-      "title": "Nintendo @ The Pointe",
-      "access": "walkup",
+      "title": "Hulu Animayhem",
+      "ticketed": false,
       "hours": {
         "1": [
-          9.5,
-          null
+          11.5,
+          19
         ],
         "2": [
           9.5,
-          null
+          19
         ],
         "3": [
           9.5,
-          null
+          19
         ],
         "4": [
           9.5,
-          null
-        ]
-      },
-      "location": "Hilton San Diego Bayfront · “The Pointe”",
-      "note": "First US public play of Nintendo Switch Sports Resort (launches Oct 22). 4 of the 12 sports playable. First come, first served. OPENS 9:30am daily Thu–Sun; CLOSING TIME NOT STATED in source.",
-      "links": [
-        "https://sdccblog.com/2026/07/nintendo-levels-up-san-diego-comic-con-2026-with-nintendo-switch-sports-resort-chance-to-play-the-rizzler-more/"
-      ],
-      "giveaway": "unknown"
-    },
-    {
-      "title": "Nintendo Promenade Screens",
-      "access": "walkup",
-      "days": [
-        1,
-        2,
-        3,
-        4
-      ],
-      "location": "Hilton San Diego Bayfront · Promenade (outdoor)",
-      "note": "Live Switch Sports Resort gameplay broadcast on screens. Free to watch. HOURS NOT STATED.",
-      "links": [
-        "https://sdccblog.com/2026/07/nintendo-levels-up-san-diego-comic-con-2026-with-nintendo-switch-sports-resort-chance-to-play-the-rizzler-more/"
-      ],
-      "giveaway": "unknown"
-    },
-    {
-      "title": "MTG Marvel Super Heroes Experience",
-      "access": "walkup",
-      "hours": {
-        "1": [
-          10,
           17
-        ],
-        "2": [
-          10,
-          17
-        ],
-        "3": [
-          10,
-          17
-        ],
-        "4": [
-          10,
-          16
         ]
       },
       "estimated": true,
-      "location": "Petco Park",
-      "ticketedInside": "Play sessions require tickets — booking details not in source",
-      "note": "No badge necessary; entry is free. Learn-to-play sessions for all levels. Exclusive giveaways: promo card, comic book, Marvel Super Heroes Welcome Decks. Five-hole Tap Tap Mini Golf Course inspired by Magic lore. HOURS ARE LAST YEAR’S ESTIMATE, not confirmed.",
-      "pins": [
-        {
-          "day": 1,
-          "t": 10,
-          "unknownTime": true,
-          "what": "Giveaways: promo card, comic book, Marvel Super Heroes Welcome Decks. Distribution time/limit unknown."
-        },
-        {
-          "day": 2,
-          "t": 10,
-          "unknownTime": true,
-          "what": "Giveaways: promo card, comic book, Welcome Decks. Time/limit unknown."
-        },
-        {
-          "day": 3,
-          "t": 10,
-          "unknownTime": true,
-          "what": "Giveaways: promo card, comic book, Welcome Decks. Time/limit unknown."
-        },
-        {
-          "day": 4,
-          "t": 10,
-          "unknownTime": true,
-          "what": "Giveaways: promo card, comic book, Welcome Decks. Time/limit unknown."
-        }
-      ],
-      "watch": "Ticketed play sessions — booking details not yet published",
+      "location": "SDCC Marina · Gaslamp District",
+      "note": "Food & beverage-driven experience. Futurama + King of the Hill. Planet Express returns; Bobby Hill's Robata Chane. Fry's 100 Days of Cold Brew, yakitori. Easter eggs + photo moments. HOURS ARE LAST YEAR'S — not confirmed for 2026.",
       "links": [
-        "https://sdccblog.com/2026/07/magic-the-gathering-marvel-super-heroes-experience/"
+        "https://sdccblog.com/2026/07/disney-entertainment-television-announces-panels-percy-jackson-offsite-hulu-animayhem-more/",
+        "https://deadline.com/2026/07/comic-con-2026-disney-entertainment-tv-panels-activations-1236978141/"
       ],
       "giveaway": "yes",
-      "giveawayNote": "Source: exclusive giveaways — promo card, comic book, and Marvel Super Heroes Welcome Decks."
+      "giveawayNote": "Based on prior years — Animayhem has given away swag for the past five conventions. Not announced for 2026.",
+      "order": 2
     },
     {
       "title": "Paramount — The Lodge",
@@ -587,31 +461,8 @@ h1 em{font-style:normal;color:var(--must)}
         "https://sdccblog.com/2026/07/paramounts-the-lodge-returns-to-san-diego-comic-con-for-2026/"
       ],
       "giveaway": "yes",
-      "giveawayNote": "Source: exclusive swag, customizable to take home."
-    },
-    {
-      "title": "Audible Level Up Lounge",
-      "access": "walkup",
-      "hours": {
-        "3": [
-          11,
-          19
-        ]
-      },
-      "location": "Swing Social · 527 Fifth Ave",
-      "note": "Open to the public. Inspired by Dungeon Crawler Carl + Bobiverse. Complete themed activities to earn XP, redeemable for exclusive loot and prizes. BobNet zone; Dungeon Crawler Carl survival station (record your own “Crawler Incident Report”); cosplay touch-up stations; phone charging; listening lounges; photo ops.",
-      "pins": [
-        {
-          "day": 3,
-          "t": 11,
-          "unknownTime": true,
-          "what": "XP redeemable for exclusive loot and prizes. No drop time or quantity stated."
-        }
-      ],
-      "links": [
-        "https://sdccblog.com/2026/07/audible-levels-up-san-diego-comic-con-2026-with-dungeon-crawler-carl-kate-mckinnon-offsite-more/"
-      ],
-      "giveaway": "yes"
+      "giveawayNote": "Source: exclusive swag, customizable to take home.",
+      "order": 3
     },
     {
       "title": "Adult Swim on the Green",
@@ -688,7 +539,158 @@ h1 em{font-style:normal;color:var(--must)}
         "https://sdccblog.com/2026/06/adult-swim-returns-to-party-at-san-diego-comic-con-2026/"
       ],
       "giveaway": "yes",
-      "giveawayNote": "Source: first 700 fans daily receive exclusive prizes."
+      "giveawayNote": "Source: first 700 fans daily receive exclusive prizes.",
+      "order": 4
+    },
+    {
+      "title": "AHS 13th Flavor (secret)",
+      "access": "walkup",
+      "tags": [
+        "food"
+      ],
+      "giveaway": "yes",
+      "giveawayNote": "The elusive 13th scoop. Not served at the trucks.",
+      "days": [
+        3
+      ],
+      "location": "Secret location — not announced",
+      "note": "The 13th flavor is not available at the trucks. Fans are invited to a secret location on Saturday, July 25. HOURS AND LOCATION NOT ANNOUNCED — watch American Horror Story social for details.",
+      "watch": "Secret location + time TBA — follow American Horror Story social",
+      "links": [
+        "https://sdccblog.com/2026/07/fx-and-hulu-serving-sweet-13-flavors-in-celebration-of-american-horror-stories-to-san-diego-comic-con-2026/"
+      ],
+      "order": 5
+    },
+    {
+      "id": "nintendo-pointe",
+      "title": "Nintendo @ The Pointe",
+      "access": "walkup",
+      "hours": {
+        "1": [
+          9.5,
+          null
+        ],
+        "2": [
+          9.5,
+          null
+        ],
+        "3": [
+          9.5,
+          null
+        ],
+        "4": [
+          9.5,
+          null
+        ]
+      },
+      "location": "Hilton San Diego Bayfront · “The Pointe”",
+      "note": "First US public play of Nintendo Switch Sports Resort (launches Oct 22). 4 of the 12 sports playable. First come, first served. OPENS 9:30am daily Thu–Sun; CLOSING TIME NOT STATED in source.",
+      "links": [
+        "https://sdccblog.com/2026/07/nintendo-levels-up-san-diego-comic-con-2026-with-nintendo-switch-sports-resort-chance-to-play-the-rizzler-more/"
+      ],
+      "giveaway": "unknown",
+      "order": 6
+    },
+    {
+      "title": "Nintendo Promenade Screens",
+      "access": "walkup",
+      "days": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "location": "Hilton San Diego Bayfront · Promenade (outdoor)",
+      "note": "Live Switch Sports Resort gameplay broadcast on screens. Free to watch. HOURS NOT STATED.",
+      "links": [
+        "https://sdccblog.com/2026/07/nintendo-levels-up-san-diego-comic-con-2026-with-nintendo-switch-sports-resort-chance-to-play-the-rizzler-more/"
+      ],
+      "giveaway": "unknown",
+      "order": 7
+    },
+    {
+      "title": "MTG Marvel Super Heroes Experience",
+      "access": "walkup",
+      "hours": {
+        "1": [
+          10,
+          17
+        ],
+        "2": [
+          10,
+          17
+        ],
+        "3": [
+          10,
+          17
+        ],
+        "4": [
+          10,
+          16
+        ]
+      },
+      "estimated": true,
+      "location": "Petco Park",
+      "ticketedInside": "Play sessions require tickets — booking details not in source",
+      "note": "No badge necessary; entry is free. Learn-to-play sessions for all levels. Exclusive giveaways: promo card, comic book, Marvel Super Heroes Welcome Decks. Five-hole Tap Tap Mini Golf Course inspired by Magic lore. HOURS ARE LAST YEAR’S ESTIMATE, not confirmed.",
+      "pins": [
+        {
+          "day": 1,
+          "t": 10,
+          "unknownTime": true,
+          "what": "Giveaways: promo card, comic book, Marvel Super Heroes Welcome Decks. Distribution time/limit unknown."
+        },
+        {
+          "day": 2,
+          "t": 10,
+          "unknownTime": true,
+          "what": "Giveaways: promo card, comic book, Welcome Decks. Time/limit unknown."
+        },
+        {
+          "day": 3,
+          "t": 10,
+          "unknownTime": true,
+          "what": "Giveaways: promo card, comic book, Welcome Decks. Time/limit unknown."
+        },
+        {
+          "day": 4,
+          "t": 10,
+          "unknownTime": true,
+          "what": "Giveaways: promo card, comic book, Welcome Decks. Time/limit unknown."
+        }
+      ],
+      "watch": "Ticketed play sessions — booking details not yet published",
+      "links": [
+        "https://sdccblog.com/2026/07/magic-the-gathering-marvel-super-heroes-experience/"
+      ],
+      "giveaway": "yes",
+      "giveawayNote": "Source: exclusive giveaways — promo card, comic book, and Marvel Super Heroes Welcome Decks.",
+      "order": 8
+    },
+    {
+      "title": "Audible Level Up Lounge",
+      "access": "walkup",
+      "hours": {
+        "3": [
+          11,
+          19
+        ]
+      },
+      "location": "Swing Social · 527 Fifth Ave",
+      "note": "Open to the public. Inspired by Dungeon Crawler Carl + Bobiverse. Complete themed activities to earn XP, redeemable for exclusive loot and prizes. BobNet zone; Dungeon Crawler Carl survival station (record your own “Crawler Incident Report”); cosplay touch-up stations; phone charging; listening lounges; photo ops.",
+      "pins": [
+        {
+          "day": 3,
+          "t": 11,
+          "unknownTime": true,
+          "what": "XP redeemable for exclusive loot and prizes. No drop time or quantity stated."
+        }
+      ],
+      "links": [
+        "https://sdccblog.com/2026/07/audible-levels-up-san-diego-comic-con-2026-with-dungeon-crawler-carl-kate-mckinnon-offsite-more/"
+      ],
+      "giveaway": "yes",
+      "order": 9
     },
     {
       "title": "Gundam Workshop",
@@ -708,7 +710,8 @@ h1 em{font-style:normal;color:var(--must)}
         "https://sdccblog.com/2026/07/bandai-stomps-back-into-san-diego-comic-con-2026-with-panels-exclusives-offsites-more/"
       ],
       "giveaway": "yes",
-      "giveawayNote": "Source: build and keep a complimentary GUNPLA model kit."
+      "giveawayNote": "Source: build and keep a complimentary GUNPLA model kit.",
+      "order": 10
     },
     {
       "title": "Alliance Authentic Pop-Up",
@@ -764,129 +767,8 @@ h1 em{font-style:normal;color:var(--must)}
       "links": [
         "https://sdccblog.com/2026/07/alliance-authentic-announces-san-diego-comic-con-pop-up-more/"
       ],
-      "giveaway": "yes"
-    },
-    {
-      "title": "PopUp Bagels (VW bus)",
-      "access": "walkup",
-      "hours": {
-        "1": [
-          7,
-          null
-        ],
-        "2": [
-          7,
-          null
-        ],
-        "3": [
-          7,
-          null
-        ],
-        "4": [
-          7,
-          null
-        ]
-      },
-      "closesWhen": "sold out",
-      "location": "Outside Pendry San Diego",
-      "walk": "Steps from the Convention Center",
-      "note": "Fresh-baked bagels with plain and scallion shmears, from a VW bus parked outside the hotel. Opens 7am daily; runs until sold out. Pre-show-floor breakfast option.",
-      "links": [
-        "https://sdccblog.com/2026/06/pendry-san-diego-serving-up-pop-ups-for-spider-man-donuts-more-at-san-diego-comic-con-2026/"
-      ],
-      "giveaway": "none",
-      "giveawayNote": "Food for purchase, not a giveaway.",
-      "tags": [
-        "food"
-      ]
-    },
-    {
-      "title": "Provisional — Donut Bar",
-      "access": "walkup",
-      "hours": {
-        "1": [
-          7,
-          null
-        ],
-        "2": [
-          7,
-          null
-        ],
-        "3": [
-          7,
-          null
-        ],
-        "4": [
-          7,
-          null
-        ]
-      },
-      "location": "Provisional · Pendry San Diego",
-      "walk": "Steps from the Convention Center",
-      "note": "Rotating character-themed donuts from the Donut Bar, alongside Provisional's usual pastries and savory breakfast. Begins 7am daily. CLOSING TIME NOT STATED.",
-      "links": [
-        "https://sdccblog.com/2026/06/pendry-san-diego-serving-up-pop-ups-for-spider-man-donuts-more-at-san-diego-comic-con-2026/"
-      ],
-      "giveaway": "none",
-      "giveawayNote": "Food for purchase, not a giveaway.",
-      "tags": [
-        "food"
-      ]
-    },
-    {
-      "title": "Spider-Man: Brand New Day × BERO",
-      "access": "walkup",
-      "hours": {
-        "3": [
-          12,
-          15
-        ]
-      },
-      "location": "Nason's Beer Hall · Pendry San Diego",
-      "walk": "Steps from the Convention Center",
-      "ageLimit": "BERO samples are 21+. The event itself is free and open to the public.",
-      "note": "Sony Pictures activation for Spider-Man: Brand New Day. Tom Holland's non-alcoholic beer brand BERO, in exclusive themed cans available only at the event. Immersive photo ops and Spider-Man appearances. Free, open to the public, first come first served.",
-      "pins": [
-        {
-          "day": 3,
-          "t": 12,
-          "unknownTime": true,
-          "what": "Exclusive Spider-Man: Brand New Day BERO cans — available only during the event. No quantity stated."
-        }
-      ],
-      "links": [
-        "https://sdccblog.com/2026/06/pendry-san-diego-serving-up-pop-ups-for-spider-man-donuts-more-at-san-diego-comic-con-2026/"
-      ],
-      "tags": [
-        "food"
-      ],
       "giveaway": "yes",
-      "giveawayNote": "Exclusive Spider-Man: Brand New Day BERO cans, available only during the event."
-    },
-    {
-      "title": "TWD: Dead City S3 — Advance Screening",
-      "access": "lottery",
-      "hours": {
-        "2": [
-          18,
-          null
-        ]
-      },
-      "location": "Petco Park",
-      "ageLimit": "18+.",
-      "note": "Advance screening with executive producers and cast. Complimentary concessions, exclusive giveaways. END TIME NOT STATED. Entry by lottery via 1iota.",
-      "pins": [
-        {
-          "day": 2,
-          "t": 18,
-          "unknownTime": true,
-          "what": "Exclusive giveaways + complimentary concessions. No detail stated."
-        }
-      ],
-      "links": [
-        "https://1iota.com/show/3987/the-walking-dead-dead-city-season-3?promo=sdccamc"
-      ],
-      "giveaway": "yes"
+      "order": 11
     },
     {
       "title": "Ignition Pavilion",
@@ -919,7 +801,8 @@ h1 em{font-style:normal;color:var(--must)}
       "note": "Ignition Press offsite. Free to attend, no badge necessary. Source mentions signings; no giveaway or exclusive details published.",
       "links": [
         "https://sdccblog.com/2026/07/ignition-press-san-diego-comic-con-2026-exclusives/"
-      ]
+      ],
+      "order": 12
     },
     {
       "title": "DARK MOON: Blood Night",
@@ -953,7 +836,122 @@ h1 em{font-style:normal;color:var(--must)}
       ],
       "links": [
         "https://sdccblog.com/2026/07/dark-moon-blood-night-sets-over-san-diego-comic-con-2026/"
-      ]
+      ],
+      "order": 13
+    },
+    {
+      "title": "TWD: Dead City S3 — Advance Screening",
+      "access": "lottery",
+      "hours": {
+        "2": [
+          18,
+          null
+        ]
+      },
+      "location": "Petco Park",
+      "ageLimit": "18+.",
+      "note": "Advance screening with executive producers and cast. Complimentary concessions, exclusive giveaways. END TIME NOT STATED. Entry by lottery via 1iota.",
+      "pins": [
+        {
+          "day": 2,
+          "t": 18,
+          "unknownTime": true,
+          "what": "Exclusive giveaways + complimentary concessions. No detail stated."
+        }
+      ],
+      "links": [
+        "https://1iota.com/show/3987/the-walking-dead-dead-city-season-3?promo=sdccamc"
+      ],
+      "giveaway": "yes",
+      "order": 14
+    },
+    {
+      "title": "AHS “13 Flavors” Trucks",
+      "access": "walkup",
+      "tags": [
+        "food"
+      ],
+      "giveaway": "yes",
+      "giveawayNote": "Free samples of 12 of the 13 flavors.",
+      "days": [
+        3
+      ],
+      "location": "Roaming — 4 ice cream trucks, locations TBA",
+      "note": "FX + Hulu, celebrating American Horror Story S13. 12 of 13 flavors served from four trucks. Costumed characters: Rubber Man (Murder House), Twisty the Clown (Freak Show), the Witch (Coven). SOURCE STATES LOCATIONS AND TIMING NOT ANNOUNCED — watch AHS social. Only Saturday is named in the source; the trucks may run other days, unknown.",
+      "watch": "Locations + times TBA — follow American Horror Story social",
+      "links": [
+        "https://sdccblog.com/2026/07/fx-and-hulu-serving-sweet-13-flavors-in-celebration-of-american-horror-stories-to-san-diego-comic-con-2026/"
+      ],
+      "order": 15
+    },
+    {
+      "title": "PopUp Bagels (VW bus)",
+      "access": "walkup",
+      "hours": {
+        "1": [
+          7,
+          null
+        ],
+        "2": [
+          7,
+          null
+        ],
+        "3": [
+          7,
+          null
+        ],
+        "4": [
+          7,
+          null
+        ]
+      },
+      "closesWhen": "sold out",
+      "location": "Outside Pendry San Diego",
+      "walk": "Steps from the Convention Center",
+      "note": "Fresh-baked bagels with plain and scallion shmears, from a VW bus parked outside the hotel. Opens 7am daily; runs until sold out. Pre-show-floor breakfast option.",
+      "links": [
+        "https://sdccblog.com/2026/06/pendry-san-diego-serving-up-pop-ups-for-spider-man-donuts-more-at-san-diego-comic-con-2026/"
+      ],
+      "giveaway": "none",
+      "giveawayNote": "Food for purchase, not a giveaway.",
+      "tags": [
+        "food"
+      ],
+      "order": 16
+    },
+    {
+      "title": "Provisional — Donut Bar",
+      "access": "walkup",
+      "hours": {
+        "1": [
+          7,
+          null
+        ],
+        "2": [
+          7,
+          null
+        ],
+        "3": [
+          7,
+          null
+        ],
+        "4": [
+          7,
+          null
+        ]
+      },
+      "location": "Provisional · Pendry San Diego",
+      "walk": "Steps from the Convention Center",
+      "note": "Rotating character-themed donuts from the Donut Bar, alongside Provisional's usual pastries and savory breakfast. Begins 7am daily. CLOSING TIME NOT STATED.",
+      "links": [
+        "https://sdccblog.com/2026/06/pendry-san-diego-serving-up-pop-ups-for-spider-man-donuts-more-at-san-diego-comic-con-2026/"
+      ],
+      "giveaway": "none",
+      "giveawayNote": "Food for purchase, not a giveaway.",
+      "tags": [
+        "food"
+      ],
+      "order": 17
     },
     {
       "title": "Princess Donut Food Truck",
@@ -981,7 +979,39 @@ h1 em{font-style:normal;color:var(--must)}
       ],
       "tags": [
         "food"
-      ]
+      ],
+      "order": 18
+    },
+    {
+      "title": "Spider-Man: Brand New Day × BERO",
+      "access": "walkup",
+      "hours": {
+        "3": [
+          12,
+          15
+        ]
+      },
+      "location": "Nason's Beer Hall · Pendry San Diego",
+      "walk": "Steps from the Convention Center",
+      "ageLimit": "BERO samples are 21+. The event itself is free and open to the public.",
+      "note": "Sony Pictures activation for Spider-Man: Brand New Day. Tom Holland's non-alcoholic beer brand BERO, in exclusive themed cans available only at the event. Immersive photo ops and Spider-Man appearances. Free, open to the public, first come first served.",
+      "pins": [
+        {
+          "day": 3,
+          "t": 12,
+          "unknownTime": true,
+          "what": "Exclusive Spider-Man: Brand New Day BERO cans — available only during the event. No quantity stated."
+        }
+      ],
+      "links": [
+        "https://sdccblog.com/2026/06/pendry-san-diego-serving-up-pop-ups-for-spider-man-donuts-more-at-san-diego-comic-con-2026/"
+      ],
+      "tags": [
+        "food"
+      ],
+      "giveaway": "yes",
+      "giveawayNote": "Exclusive Spider-Man: Brand New Day BERO cans, available only during the event.",
+      "order": 19
     }
   ]
 }
@@ -1143,6 +1173,9 @@ section('Offsites', '⌂ = inside convention center · pins = giveaways · hatch
 D.offsites.forEach(o => {
   const L = lane(o.title, o.onsite ? 'onsite' : '');
   if ((o.tags || []).length) L.el.dataset.tags = o.tags.join(' ');
+  L.el.classList.add('offsiterow');
+  L.el.dataset.title = o.title;
+  L.el.draggable = true;
   // access: 'ticketed' | 'reservation' | 'walkup'  (legacy: ticketed:true/false)
   const acc = o.access || (o.ticketed ? 'ticketed' : 'walkup');
   const sched = o.followsHall
@@ -1292,6 +1325,8 @@ D.offsites.forEach(o => {
   });
   grid.appendChild(L.el);
   emitProgram();
+  { const g = document.createElement('span'); g.className = 'grip'; g.textContent = '⠿';
+    L.el.querySelector('.name').appendChild(g); }
 });
 
 /* ============ TAG FILTER ============ */
@@ -1304,7 +1339,8 @@ D.offsites.forEach(o => {
     const active = new Set();
     bar.innerHTML = `<span class="lead">Filter:</span>` + tags.map(t =>
       `<button class="tagbtn" data-tag="${t}" aria-pressed="false">${t}<span class="n">${counts[t]}</span></button>`
-    ).join('') + `<button class="tagbtn" data-tag="__all" aria-pressed="false">clear</button>`;
+    ).join('') + `<button class="tagbtn" data-tag="__all" aria-pressed="false">clear</button>`
+      + `<button id="resetorder" title="Restore the default row order">reset order</button>`;
 
     const apply = () => {
       document.querySelectorAll('.lane').forEach(l => {
@@ -1329,6 +1365,78 @@ D.offsites.forEach(o => {
   }
 }
 
+
+/* ============ DRAG TO REORDER (persisted per browser) ============ */
+{
+  const KEY = 'sdcc26.laneOrder.v1';
+  const grid = document.getElementById('grid');
+
+  // parent offsite lanes only; a sub-lane travels with its parent
+  const parents = () => [...grid.querySelectorAll('.lane.offsiterow')];
+  const subOf = el => (el.nextElementSibling &&
+    el.nextElementSibling.classList.contains('sub')) ? el.nextElementSibling : null;
+
+  const save = () => {
+    try { localStorage.setItem(KEY,
+      JSON.stringify(parents().map(l => l.dataset.title))); } catch (e) {}
+  };
+  const restore = () => {
+    let want; try { want = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+    if (!Array.isArray(want)) return;
+    const by = {}; parents().forEach(l => by[l.dataset.title] = l);
+    if (!parents().length) return;
+    want.forEach(t => {
+      const l = by[t]; if (!l) return;
+      const sub = subOf(l);
+      grid.appendChild(l); if (sub) grid.appendChild(sub);   // reflow in saved order
+      delete by[t];
+    });
+    Object.values(by).forEach(l => {           // anything new since last save
+      const sub = subOf(l); grid.appendChild(l); if (sub) grid.appendChild(sub);
+    });
+  };
+
+  let dragged = null;
+  grid.addEventListener('dragstart', e => {
+    const l = e.target.closest('.lane.offsiterow');
+    if (!l) return;
+    dragged = l; l.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', l.dataset.title);
+  });
+  grid.addEventListener('dragend', () => {
+    if (dragged) dragged.classList.remove('dragging');
+    parents().forEach(l => l.classList.remove('dropafter'));
+    dragged = null; save();
+  });
+  grid.addEventListener('dragover', e => {
+    if (!dragged) return;
+    const over = e.target.closest('.lane.offsiterow');
+    if (!over || over === dragged) return;
+    e.preventDefault();
+    parents().forEach(l => l.classList.remove('dropafter'));
+    over.classList.add('dropafter');
+  });
+  grid.addEventListener('drop', e => {
+    if (!dragged) return;
+    const over = e.target.closest('.lane.offsiterow');
+    if (!over || over === dragged) return;
+    e.preventDefault();
+    const sub = subOf(dragged), overSub = subOf(over);
+    const after = over.compareDocumentPosition(dragged) & Node.DOCUMENT_POSITION_PRECEDING;
+    const ref = after ? (overSub || over).nextSibling : over;
+    grid.insertBefore(dragged, ref);
+    if (sub) grid.insertBefore(sub, dragged.nextSibling);
+    over.classList.remove('dropafter');
+  });
+
+  document.getElementById('resetorder')?.addEventListener('click', () => {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    location.reload();
+  });
+
+  restore();
+}
 
 </script>
 </body>
