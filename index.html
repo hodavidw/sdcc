@@ -62,7 +62,7 @@ h1 em{font-style:normal;color:var(--must)}
 
 .dayhead{display:grid;grid-template-columns:var(--gutter) repeat(var(--daycols),1fr);
   position:sticky;top:0;z-index:5;background:var(--paper);padding-top:14px}
-.dayhead .lbl{}
+.dayhead .lbl{position:sticky;left:0;z-index:7;background:var(--paper)}
 .dayhead .d{border-left:1px solid var(--grid-hour);padding:0 0 6px 8px}
 .dayhead .d b{display:block;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.04em}
 .dayhead .d span{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:10px;opacity:.6}
@@ -158,7 +158,7 @@ h1 em{font-style:normal;color:var(--must)}
 .badge.b-closed{background:#6b2020;color:#ffd7d7}
 .badge.b-tag{background:#3f5f4a;color:#dbeade;text-transform:lowercase}
 /* tag filter: dim, don't hide */
-.lane.offsiterow .name{position:relative;cursor:grab;
+.lane.offsiterow .name{position:sticky;left:0;z-index:6;background:var(--paper);cursor:grab;
   touch-action:none;                 /* we handle the gesture, not the browser */
   -webkit-user-select:none;user-select:none;
   -webkit-touch-callout:none}        /* no iOS text-selection popover */
@@ -264,6 +264,32 @@ body.reordering .board{overflow-x:hidden}
 
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ============ STICKY LEFT COLUMN ============ */
+.lane .name{
+  position:sticky; left:0; z-index:6;
+  background:var(--paper);
+  box-shadow:1px 0 0 var(--grid-hour), 3px 0 6px -4px rgba(0,0,0,.28);
+}
+/* section headers + strip labels ride along at the left too */
+.lane.hallrail .name, .lane.roomlane .name, .lane.strip .name,
+.lane.sub .name, .lane.offsiterow .name{ position:sticky; left:0; z-index:6; background:var(--paper); }
+/* the day cells must sit *under* the sticky name when scrolled */
+.lane .day{ z-index:1; }
+/* exhibit-hall shading + hour grid also scroll, so keep them below */
+.hall{ z-index:0; }  /* shading scrolls under the pinned name */
+
+@media (max-width:760px){
+  :root{ --gutter:104px; }
+  .grid{ min-width:920px; }               /* still scrolls, but name stays pinned */
+  .lane .name{ font-size:10.5px; padding-right:7px; }
+  .lane.offsiterow .name{ padding-left:14px; }  /* keep room for the grip */
+}
+@media (max-width:430px){
+  :root{ --gutter:88px; }
+  .lane .name{ font-size:10px; }
+}
+
 </style>
 </head>
 <body>
@@ -503,16 +529,6 @@ body.reordering .board{overflow-x:hidden}
       },
       "location": "Bayfront Park",
       "note": "Free fan festival. No badge required. First come, first served. Games, rides, giveaways, dance parties. Nightly programming runs 7–10pm; the DJ set runs 9–10pm within it. Shown here as 7–9pm + 9–10pm so the bars read separately.",
-      "cap": {
-        "n": 700,
-        "what": "First 700 fans daily receive exclusive prizes",
-        "days": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
       "programs": [
         {
           "day": 1,
