@@ -183,9 +183,9 @@ body.reordering .board{overflow-x:hidden}
 .lane.done .ev{filter:grayscale(1);opacity:.4}
 .lane.done .grip{opacity:.15}
 .donebtn{all:unset;cursor:pointer;display:inline-block;font-family:inherit;font-size:11px;
-  padding:5px 11px;border-radius:5px;border:1px solid var(--ink);background:var(--ink);
-  color:var(--paper);font-weight:700;letter-spacing:.02em}
-.donebtn.is-done{background:transparent;color:var(--ink);border-style:dashed;font-weight:400}
+  padding:5px 11px;border-radius:5px;border:1px solid #e9ecf1;background:#e9ecf1;
+  color:#1a1f27;font-weight:700;letter-spacing:.02em}
+.donebtn.is-done{background:transparent;color:#e9ecf1;border:1px dashed #e9ecf1;font-weight:400}
 .donebtn:focus-visible{outline:2px solid var(--ticketed);outline-offset:2px}
 .lane.tagdim .ev{filter:grayscale(.7)}
 .badge.b-gyes{background:var(--free);color:#241f05}
@@ -209,7 +209,8 @@ body.reordering .board{overflow-x:hidden}
 /* ---------- detail card ---------- */
 #detail{position:fixed;left:0;top:0;width:300px;z-index:20;
   background:var(--panel-bg);color:#e9ecf1;border-radius:6px;padding:16px 18px;
-  box-shadow:0 12px 40px rgba(0,0,0,.35);display:none}
+  box-shadow:0 12px 40px rgba(0,0,0,.35);display:none;
+  max-height:min(78vh,560px);overflow-y:auto;-webkit-overflow-scrolling:touch}
 #detail.on{display:block}
 /* little arrow pointing back at the clicked bar */
 #detail::after{content:'';position:absolute;width:10px;height:10px;
@@ -219,7 +220,7 @@ body.reordering .board{overflow-x:hidden}
 @media(max-width:620px){
   /* on a phone, anchoring is pointless — dock it */
   #detail{left:10px!important;right:10px!important;top:auto!important;
-    bottom:10px!important;width:auto!important}
+    bottom:10px!important;width:auto!important;max-height:70vh!important}
   #detail::after{display:none}
 }
 #detail h3{margin:0 0 2px;font-size:15px;font-weight:800;line-height:1.2}
@@ -918,8 +919,8 @@ body.reordering .board{overflow-x:hidden}
         ]
       },
       "location": "PARQ",
-      "note": "20th anniversary party — PARQ transformed into the world of Pan's Labyrinth. Happy hour, a screening of the film, and a live DJ set from Flying Lotus. ENTRY MECHANISM NOT YET ANNOUNCED — access details unavailable as of posting.",
-      "watch": "Entry details TBA — how to gain entry not yet announced",
+      "note": "20th anniversary party — PARQ transformed into the world of Pan's Labyrinth. From 7pm: happy hour, a screening of the film, and a live DJ set from Flying Lotus. ENTRY MECHANISM NOT YET ANNOUNCED for the party itself. // FETCH QUEST (free game): active Thu + Fri, 1:00-2:30pm. Start by picking up a ticket at the Toynami booth (#3229) or Insights Edition booth (#2129). [Note: an earlier FAQ called the second booth 'Inside Edition'; this X post says 'Insights Edition #2129' — going with the more specific one.] PRIZES: every player who completes the quest gets a limited-edition Pan's Labyrinth poster; the FIRST 50 to complete it get access to a private poster signing with Guillermo del Toro on Sat, Jul 25 (main floor — Comic-Con badge required). Full quest rules 'stay tuned' per the organizers. // ROAMING CHARACTERS (per the official FAQ): the Faun appears Thu (23rd) and Fri (24th); Ofelia and The Captain only on Fri (24th).",
+      "watch": "Fetch Quest Thu+Fri 1-2:30pm; first 50 finishers = GdT signing Sat; party entry TBA",
       "estimated": false,
       "links": [],
       "order": 14,
