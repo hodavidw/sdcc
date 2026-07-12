@@ -179,6 +179,14 @@ body.reordering .board{overflow-x:hidden}
   letter-spacing:.05em;opacity:.5;text-decoration:underline;margin-left:auto}
 #resetorder:hover{opacity:1}
 .lane.tagdim{opacity:.28}
+.lane.done .name{opacity:.5;text-decoration:line-through;text-decoration-thickness:1px}
+.lane.done .ev{filter:grayscale(1);opacity:.4}
+.lane.done .grip{opacity:.15}
+.donebtn{all:unset;cursor:pointer;display:inline-block;font-family:inherit;font-size:11px;
+  padding:5px 11px;border-radius:5px;border:1px solid var(--ink);background:var(--ink);
+  color:var(--paper);font-weight:700;letter-spacing:.02em}
+.donebtn.is-done{background:transparent;color:var(--ink);border-style:dashed;font-weight:400}
+.donebtn:focus-visible{outline:2px solid var(--ticketed);outline-offset:2px}
 .lane.tagdim .ev{filter:grayscale(.7)}
 .badge.b-gyes{background:var(--free);color:#241f05}
 .badge.b-gnone{background:#4a4740;color:#cfcbc2}
@@ -1314,12 +1322,41 @@ document.addEventListener('click', e => {
   const r = e.target.getBoundingClientRect();     // keyboard / synthetic click
   clickPt = { x: r.left + r.width / 2, y: r.bottom };
 }, true);
-function show(title, meta, rows) {
+// ---- completion state (persisted, per browser) ----
+const DONE_KEY = 'sdcc26.done.v1';
+let done = {};
+try { done = JSON.parse(localStorage.getItem(DONE_KEY) || '{}') || {}; } catch (e) { done = {}; }
+const isDone = k => !!done[k];
+const saveDone = () => { try { localStorage.setItem(DONE_KEY, JSON.stringify(done)); } catch (e) {} };
+const offsiteKey = o => 'o:' + o.title;
+
+let openBy = null;
+function hide() { det.classList.remove('on'); openBy = null; }
+function doneRow(key) {
+  const on = isDone(key);
+  return ['Status', `<button class="donebtn${on ? ' is-done' : ''}" data-key="${key}">`
+    + `${on ? 'Mark uncompleted' : 'Mark completed'}</button>`];
+}
+function wireDoneBtn() {
+  const b = det.querySelector('.donebtn');
+  if (!b) return;
+  b.onclick = () => {
+    const k = b.dataset.key;
+    if (done[k]) delete done[k]; else done[k] = Date.now();
+    saveDone();
+    location.reload();
+  };
+}
+
+function show(title, meta, rows, src) {
+  if (src && openBy === src && det.classList.contains('on')) { hide(); return; }
+  openBy = src || null;
   document.getElementById('d-title').textContent = title;
   document.getElementById('d-meta').textContent = meta;
   document.getElementById('d-body').innerHTML =
     rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
   det.classList.add('on');
+  wireDoneBtn();
   place();
 }
 
@@ -1372,11 +1409,13 @@ function srcRows(o){
 
 /* ============ OFFSITES ============ */
 section('Offsites', '⌂ = inside convention center · pins = giveaways · hatched = walk-up');
-D.offsites.forEach(o => {
+D.offsites.slice().sort((a, b) => (isDone(offsiteKey(a)) ? 1 : 0) - (isDone(offsiteKey(b)) ? 1 : 0)).forEach(o => {
   const L = lane(o.title, o.onsite ? 'onsite' : '');
   if ((o.tags || []).length) L.el.dataset.tags = o.tags.join(' ');
   L.el.classList.add('offsiterow');
   L.el.dataset.title = o.title;
+  L.el.dataset.key = offsiteKey(o);
+  if (isDone(offsiteKey(o))) L.el.classList.add('done');
   // access: 'ticketed' | 'reservation' | 'walkup'  (legacy: ticketed:true/false)
   const acc = o.access || (o.ticketed ? 'ticketed' : 'walkup');
   const sched = o.followsHall
@@ -1458,8 +1497,9 @@ D.offsites.forEach(o => {
         : [['Walk', o.walk || '—']]),
       ...(o.note ? [['Note', o.note]] : []),
       ...(o.pins || []).filter(p => p.day === d).map(p => [fmt(p.t), p.what]),
-      ...srcRows(o)
-    ]);
+      ...srcRows(o),
+      doneRow(offsiteKey(o))
+    ], b);
     // published queue time, drawn as a lead-in before doors
     if (o.queueOpens != null && o.queueOpens < s) {
       const q = document.createElement('button');
