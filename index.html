@@ -111,6 +111,7 @@ h1 em{font-style:normal;color:var(--must)}
 /* reservation required but not yet held: amber, dashed, urgent */
 .ev.reservation{background-color:var(--ticketed)}
 .ev.reservation:not(.held){outline:1px dashed #ffd79a;outline-offset:-1px}
+.lane.skipped .ev.reservation{outline:none}
 /* walk-up = hatched */
 .ev.walkup::before{content:'';position:absolute;inset:0;border-radius:inherit;
   pointer-events:none;
@@ -182,10 +183,19 @@ body.reordering .board{overflow-x:hidden}
 .lane.done .name{opacity:.5;text-decoration:line-through;text-decoration-thickness:1px}
 .lane.done .ev{filter:grayscale(1);opacity:.4}
 .lane.done .grip{opacity:.15}
+/* not attending: dimmed + struck, but keeps colour so it reads differently from 'done' */
+.lane.skipped .name{opacity:.55;text-decoration:line-through;text-decoration-thickness:1px}
+.lane.skipped .ev{opacity:.4}
+.lane.skipped .grip{opacity:.15}
 .donebtn{all:unset;cursor:pointer;display:inline-block;font-family:inherit;font-size:11px;
   padding:5px 11px;border-radius:5px;border:1px solid #e9ecf1;background:#e9ecf1;
   color:#1a1f27;font-weight:700;letter-spacing:.02em}
 .donebtn.is-done{background:transparent;color:#e9ecf1;border:1px dashed #e9ecf1;font-weight:400}
+.skipbtn{all:unset;cursor:pointer;display:inline-block;font-family:inherit;font-size:11px;
+  padding:5px 11px;border-radius:5px;border:1px solid #b9603f;background:transparent;
+  color:#e9c4b4;font-weight:700;letter-spacing:.02em;margin-top:2px}
+.skipbtn.is-skip{border-style:dashed;color:#e9ecf1;border-color:#e9ecf1;font-weight:400}
+.skipbtn:focus-visible{outline:2px solid #c85a2a;outline-offset:2px}
 .donebtn:focus-visible{outline:2px solid var(--ticketed);outline-offset:2px}
 .lane.tagdim .ev{filter:grayscale(.7)}
 .badge.b-gyes{background:var(--free);color:#241f05}
@@ -431,7 +441,6 @@ body.reordering .board{overflow-x:hidden}
           21
         ]
       },
-      "reservationOpens": "Mon Jul 13, 9:00am PT",
       "reservationUrl": "http://hbomax.com/lanternstraininghq",
       "location": "— not stated in source",
       "note": "HBO Max. Reservations REQUIRED, first-come first-served, limited capacity, 18+ only. Complete training → custom Green Lantern ring to take home. Snapchat-powered interactive mirror. Exclusive WB Lanterns merch for sale.",
@@ -456,7 +465,8 @@ body.reordering .board{overflow-x:hidden}
         "https://sdccblog.com/2026/07/step-into-the-world-of-hbo-maxs-lanterns-stuart-fails-to-save-the-universe-with-offsites-at-san-diego-comic-con-2026/"
       ],
       "giveaway": "yes",
-      "order": 1
+      "order": 1,
+      "statusNote": "No reservation secured — not attending."
     },
     {
       "title": "Hulu Animayhem",
@@ -1332,9 +1342,32 @@ document.addEventListener('click', e => {
 const DONE_KEY = 'sdcc26.done.v1';
 let done = {};
 try { done = JSON.parse(localStorage.getItem(DONE_KEY) || '{}') || {}; } catch (e) { done = {}; }
-const isDone = k => !!done[k];
+const COMPLETED_DEFAULT = new Set((D.offsites||[]).filter(o=>o.completed).map(o=>'o:'+o.title));
+const isDone = k => (k in done) ? !!done[k] : COMPLETED_DEFAULT.has(k);
 const saveDone = () => { try { localStorage.setItem(DONE_KEY, JSON.stringify(done)); } catch (e) {} };
 const offsiteKey = o => 'o:' + o.title;
+// ---- 'not attending' state for offsites (persisted, parallel to completion) ----
+const SKIP_KEY = 'sdcc26.skip.v1';
+let skipMap = {};
+try { skipMap = JSON.parse(localStorage.getItem(SKIP_KEY) || '{}') || {}; } catch (e) { skipMap = {}; }
+const SKIP_DEFAULT = new Set((D.offsites||[]).filter(o=>o.skipped).map(o=>'o:'+o.title));
+const isSkipped = k => (k in skipMap) ? !!skipMap[k] : SKIP_DEFAULT.has(k);
+const saveSkip = () => { try { localStorage.setItem(SKIP_KEY, JSON.stringify(skipMap)); } catch (e) {} };
+function skipRow(key) {
+  const on = isSkipped(key);
+  return ['Attending', `<button class="skipbtn${on ? ' is-skip' : ''}" data-skip="${key}">`
+    + `${on ? 'Not attending — undo' : 'Mark not attending'}</button>`];
+}
+function wireSkipBtn() {
+  const b = det.querySelector('.skipbtn');
+  if (!b) return;
+  b.onclick = () => {
+    const k = b.dataset.skip;
+    if (skipMap[k]) delete skipMap[k]; else skipMap[k] = Date.now();
+    saveSkip();
+    location.reload();
+  };
+}
 
 let openBy = null;
 function hide() { det.classList.remove('on'); openBy = null; }
@@ -1348,7 +1381,7 @@ function wireDoneBtn() {
   if (!b) return;
   b.onclick = () => {
     const k = b.dataset.key;
-    if (done[k]) delete done[k]; else done[k] = Date.now();
+    done[k] = !( (k in done) ? done[k] : COMPLETED_DEFAULT.has(k) );  // explicit override
     saveDone();
     location.reload();
   };
@@ -1363,6 +1396,7 @@ function show(title, meta, rows, src) {
     rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
   det.classList.add('on');
   wireDoneBtn();
+  wireSkipBtn();
   place();
 }
 
@@ -1415,13 +1449,17 @@ function srcRows(o){
 
 /* ============ OFFSITES ============ */
 section('Offsites', '⌂ = inside convention center · pins = giveaways · hatched = walk-up');
-D.offsites.slice().sort((a, b) => (isDone(offsiteKey(a)) ? 1 : 0) - (isDone(offsiteKey(b)) ? 1 : 0)).forEach(o => {
+D.offsites.slice().sort((a, b) => {
+  const rank = o => (isDone(offsiteKey(o)) ? 2 : isSkipped(offsiteKey(o)) ? 1 : 0);
+  return rank(a) - rank(b);
+}).forEach(o => {
   const L = lane(o.title, o.onsite ? 'onsite' : '');
   if ((o.tags || []).length) L.el.dataset.tags = o.tags.join(' ');
   L.el.classList.add('offsiterow');
   L.el.dataset.title = o.title;
   L.el.dataset.key = offsiteKey(o);
   if (isDone(offsiteKey(o))) L.el.classList.add('done');
+  if (isSkipped(offsiteKey(o))) L.el.classList.add('skipped');
   // access: 'ticketed' | 'reservation' | 'walkup'  (legacy: ticketed:true/false)
   const acc = o.access || (o.ticketed ? 'ticketed' : 'walkup');
   const sched = o.followsHall
@@ -1504,7 +1542,8 @@ D.offsites.slice().sort((a, b) => (isDone(offsiteKey(a)) ? 1 : 0) - (isDone(offs
       ...(o.note ? [['Note', o.note]] : []),
       ...(o.pins || []).filter(p => p.day === d).map(p => [fmt(p.t), p.what]),
       ...srcRows(o),
-      doneRow(offsiteKey(o))
+      doneRow(offsiteKey(o)),
+      skipRow(offsiteKey(o))
     ], b);
     // published queue time, drawn as a lead-in before doors
     if (o.queueOpens != null && o.queueOpens < s) {
