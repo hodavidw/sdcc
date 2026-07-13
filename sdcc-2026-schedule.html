@@ -3,14 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="San Diego Comic-Con 2026 offsite guide: hours, locations, access, and giveaways for 16 activations, July 22-26.">
-<meta name="theme-color" content="#e8e4da">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SDCC 2026 — Offsite Guide">
-<meta property="og:description" content="What's open, when, and how to get in. 16 activations, July 22-26.">
-<meta name="twitter:card" content="summary">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎫</text></svg>">
-<title>SDCC 2026 — Offsite Guide</title>
+<title>SDCC 2026 — Schedule Board</title>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
@@ -37,19 +30,19 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--paper);color:var(--ink);
-  font-family:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+  font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 
 /* ---------- header ---------- */
 header{padding:28px 24px 14px;border-bottom:2px solid var(--ink)}
 h1{margin:0;font-size:clamp(22px,3.4vw,38px);font-weight:800;letter-spacing:-.02em;
   text-transform:uppercase}
 h1 em{font-style:normal;color:var(--must)}
-.sub{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:12px;margin-top:6px;opacity:.7}
+.sub{font-family:'Space Mono',monospace;font-size:12px;margin-top:6px;opacity:.7}
 
 /* ---------- controls ---------- */
 .controls{display:flex;flex-wrap:wrap;gap:16px;align-items:center;
   padding:12px 24px;border-bottom:1px solid var(--grid);
-  font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:11px;text-transform:uppercase}
+  font-family:'Space Mono',monospace;font-size:11px;text-transform:uppercase}
 .controls label{display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none}
 .controls input{accent-color:var(--must);cursor:pointer}
 .spacer{flex:1}
@@ -65,12 +58,12 @@ h1 em{font-style:normal;color:var(--must)}
 .dayhead .lbl{position:sticky;left:0;z-index:7;background:var(--paper)}
 .dayhead .d{border-left:1px solid var(--grid-hour);padding:0 0 6px 8px}
 .dayhead .d b{display:block;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.04em}
-.dayhead .d span{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:10px;opacity:.6}
+.dayhead .d span{font-family:'Space Mono',monospace;font-size:10px;opacity:.6}
 .hours{display:grid;grid-template-columns:var(--gutter) repeat(var(--daycols),1fr)}
 .hours .lbl{}
 .hours .hr{border-left:1px solid var(--grid-hour);display:grid;
   grid-template-columns:repeat(var(--slots),1fr);
-  font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:10.5px;opacity:.55;padding-bottom:4px}
+  font-family:'Space Mono',monospace;font-size:9px;opacity:.55;padding-bottom:4px}
 .hours .hr i{font-style:normal;border-left:1px solid transparent}
 .hours .hr i:nth-child(2n+1){border-left-color:var(--grid)}
 
@@ -78,12 +71,12 @@ h1 em{font-style:normal;color:var(--must)}
 .sect{display:grid;grid-template-columns:var(--gutter) 1fr;align-items:end;
   margin-top:22px;border-bottom:2px solid var(--ink);padding-bottom:4px}
 .sect h2{margin:0;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.14em}
-.sect .note{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:10px;opacity:.55;text-align:right}
+.sect .note{font-family:'Space Mono',monospace;font-size:10px;opacity:.55;text-align:right}
 
 /* a lane = one horizontal track */
 .lane{display:grid;grid-template-columns:var(--gutter) repeat(var(--daycols),1fr);
   min-height:var(--row-h)}
-.lane .name{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:11.5px;
+.lane .name{font-family:'Space Mono',monospace;font-size:11.5px;
   padding:5px 10px 5px 0;text-align:right;line-height:1.25;
   border-bottom:1px solid var(--grid);display:flex;align-items:center;justify-content:flex-end}
 .lane .day{position:relative;border-left:1px solid var(--grid-hour);
@@ -102,10 +95,16 @@ h1 em{font-style:normal;color:var(--must)}
 .ev:hover{filter:brightness(1.15);transform:translateY(-1px);z-index:4}
 .ev:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
 .ev.dim{opacity:.22}
-
-
-
-
+.ev.must{background:var(--must)}
+.ev.want{background:var(--want)}
+.ev.iffree{background:var(--iffree)}
+/* undecided: not yet a commitment */
+.ev.undecided{background:transparent;color:var(--ink);outline:2px dashed #7d7566;outline-offset:-2px}
+/* can't attend */
+.ev.skip{background:transparent;color:#8a8578;outline:1px solid #cbc5b8;outline-offset:-1px}
+.ev.skip .tick{text-decoration:line-through;opacity:.6}
+.ev.skip{text-decoration:line-through;text-decoration-thickness:1px;opacity:.6}
+.ev.undecided .tick{opacity:.6}
 .ev.offsite{background-color:var(--offsite);top:6px;bottom:6px}
 .ev.ticketed{background-color:var(--ticketed)}
 /* reservation required but not yet held: amber, dashed, urgent */
@@ -117,7 +116,7 @@ h1 em{font-style:normal;color:var(--must)}
   pointer-events:none;
   background-image:repeating-linear-gradient(45deg,
     rgba(255,255,255,.20) 0 3px, rgba(255,255,255,0) 3px 6px)}
-.ev .tick{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-weight:700;opacity:.85}
+.ev .tick{font-family:'Space Mono',monospace;font-weight:700;opacity:.85}
 
 /* giveaway pins sit ON the offsite bar */
 .pin{position:absolute;top:50%;translate:-50% -50%;z-index:3;
@@ -128,13 +127,39 @@ h1 em{font-style:normal;color:var(--must)}
 /* open-ended: known start, unknown close — fades out to the right */
 .ev.openend{-webkit-mask-image:linear-gradient(90deg,#000 0,#000 45%,transparent 100%);
   mask-image:linear-gradient(90deg,#000 0,#000 45%,transparent 100%)}
+/* must-do offsite: red spine on the left of every bar */
+.ev.mustdo{box-shadow:-4px 0 0 0 var(--must)}
+.ev.mustdo.gyes{box-shadow:-4px 0 0 0 var(--must),0 3px 0 0 var(--free)}
 /* standby: reservation recommended, walk-up possible */
 .ev.standby{background-color:var(--ticketed)}
 /* lottery entered, outcome unknown */
 .ev.lottery{background-color:#5f4a7a;outline:2px dotted rgba(255,255,255,.85);outline-offset:-2px}
+/* you hold tickets on this day but haven't picked a slot */
+.ev.held{outline:2px solid var(--free);outline-offset:-2px}
+/* ticket slot markers, drawn over the offsite bar */
+.slot{position:absolute;top:1px;bottom:1px;z-index:3;padding:0;cursor:pointer;
+  background:rgba(245,233,168,.32);border:1px solid var(--free);border-radius:2px}
+.slot:hover{background:rgba(245,233,168,.7)}
+.slot.chosen{background:var(--free);border:2px solid var(--ink);z-index:4}
+.slotpill{display:inline-block;font-family:'Space Mono',monospace;font-size:10px;
+  padding:2px 6px;margin:2px 3px 0 0;border-radius:3px;
+  background:rgba(245,233,168,.18);border:1px solid rgba(245,233,168,.45);color:#f0e5b4}
+.slotpill.on{background:var(--free);color:#241f05;font-weight:700;border-color:var(--free)}
 
+.lane.mustdo .name{font-weight:800;color:var(--must)}
+.lane.mustdo .name:not(.toggle)::before{content:'▶ ';font-size:8px}
+.lane.mustdo .disc .lbl::before{content:'▶ ';font-size:8px}
 /* nested programming sub-lane */
 .lane.sub .name{opacity:.5;font-size:10.5px}
+/* panel room lanes */
+.lane.roomlane .name{font-weight:800;letter-spacing:.02em}
+.lane.planlane .name{font-weight:800;letter-spacing:.02em;color:#7a3d1f}
+.ev.planbar{background:repeating-linear-gradient(135deg,#c85a2a,#c85a2a 7px,#b34e22 7px,#b34e22 14px);
+  color:#fff;top:5px;bottom:5px;box-shadow:0 0 0 1.5px #7a3d1f inset;font-weight:700}
+.ev.planbar .tick{color:#ffe;opacity:.9}
+.badge.b-plan{background:#c85a2a;color:#fff}
+.lane.roomlane.roomalt{margin-top:-1px}
+.lane.roomlane.roomalt .name{opacity:.4;font-weight:400}
 .lane[hidden]{display:none}
 /* disclosure control on a parent lane's name */
 .lane .name.toggle{padding:0;justify-content:flex-end}
@@ -158,6 +183,7 @@ h1 em{font-style:normal;color:var(--must)}
 .ev.queue .tick{opacity:.7}
 .badge.b-closed{background:#6b2020;color:#ffd7d7}
 .badge.b-tag{background:#3f5f4a;color:#dbeade;text-transform:lowercase}
+.badge.b-skip{background:#8a8578;color:#f0ede6}
 /* tag filter: dim, don't hide */
 .lane.offsiterow .name{position:sticky;left:0;z-index:6;background:var(--paper);cursor:grab;
   touch-action:none;                 /* we handle the gesture, not the browser */
@@ -180,6 +206,7 @@ body.reordering .board{overflow-x:hidden}
   letter-spacing:.05em;opacity:.5;text-decoration:underline;margin-left:auto}
 #resetorder:hover{opacity:1}
 .lane.tagdim{opacity:.28}
+/* completed items */
 .lane.done .name{opacity:.5;text-decoration:line-through;text-decoration-thickness:1px}
 .lane.done .ev{filter:grayscale(1);opacity:.4}
 .lane.done .grip{opacity:.15}
@@ -187,6 +214,8 @@ body.reordering .board{overflow-x:hidden}
 .lane.skipped .name{opacity:.55;text-decoration:line-through;text-decoration-thickness:1px}
 .lane.skipped .ev{opacity:.4}
 .lane.skipped .grip{opacity:.15}
+.lane.donelane .name{font-weight:800;opacity:.55}
+.lane.donelane .ev{filter:grayscale(1);opacity:.45}
 .donebtn{all:unset;cursor:pointer;display:inline-block;font-family:inherit;font-size:11px;
   padding:5px 11px;border-radius:5px;border:1px solid #e9ecf1;background:#e9ecf1;
   color:#1a1f27;font-weight:700;letter-spacing:.02em}
@@ -196,7 +225,7 @@ body.reordering .board{overflow-x:hidden}
   color:#e9c4b4;font-weight:700;letter-spacing:.02em;margin-top:2px}
 .skipbtn.is-skip{border-style:dashed;color:#e9ecf1;border-color:#e9ecf1;font-weight:400}
 .skipbtn:focus-visible{outline:2px solid #c85a2a;outline-offset:2px}
-.donebtn:focus-visible{outline:2px solid var(--ticketed);outline-offset:2px}
+.donebtn:focus-visible{outline:2px solid var(--must);outline-offset:2px}
 .lane.tagdim .ev{filter:grayscale(.7)}
 .badge.b-gyes{background:var(--free);color:#241f05}
 .badge.b-gnone{background:#4a4740;color:#cfcbc2}
@@ -212,9 +241,11 @@ body.reordering .board{overflow-x:hidden}
 
 /* conflict + free strips */
 .strip .day{min-height:16px}
-
-
-
+.conf{position:absolute;top:2px;bottom:2px;background:var(--must);opacity:.85;border-radius:2px}
+.gap{position:absolute;top:2px;bottom:2px;background:var(--free);
+  border:1px solid #cdb95c;border-radius:2px}
+.gap span{position:absolute;inset:0;display:grid;place-items:center;
+  font-family:'Space Mono',monospace;font-size:8px;color:#6b5c14;font-weight:700}
 
 /* ---------- detail card ---------- */
 #detail{position:fixed;left:0;top:0;width:300px;z-index:20;
@@ -234,15 +265,15 @@ body.reordering .board{overflow-x:hidden}
   #detail::after{display:none}
 }
 #detail h3{margin:0 0 2px;font-size:15px;font-weight:800;line-height:1.2}
-#detail .meta{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:10px;opacity:.6;margin-bottom:10px}
+#detail .meta{font-family:'Space Mono',monospace;font-size:10px;opacity:.6;margin-bottom:10px}
 #detail dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:11px}
-#detail dt{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;opacity:.5;text-transform:uppercase;font-size:9px;
+#detail dt{font-family:'Space Mono',monospace;opacity:.5;text-transform:uppercase;font-size:9px;
   align-self:center}
 #detail dd{margin:0;font-weight:600}
 #detail .x{position:absolute;top:10px;right:12px;background:none;border:0;color:#fff;
   opacity:.4;font-size:18px;cursor:pointer;line-height:1}
 #detail .x:hover{opacity:1}
-.badge{display:inline-block;font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:9px;
+.badge{display:inline-block;font-family:'Space Mono',monospace;font-size:9px;
   padding:2px 6px;border-radius:99px;font-weight:700;text-transform:uppercase}
 .b-yes{background:#2f6f5e;color:#fff}
 .b-no{background:#553;color:#e8dcae}
@@ -253,8 +284,9 @@ body.reordering .board{overflow-x:hidden}
 .ev.nohours{opacity:.72;outline:1px dashed rgba(255,255,255,.5);outline-offset:-1px}
 /* estimated hours: dashed edge + query mark, reads as provisional */
 .ev.est{outline:1px dashed rgba(255,255,255,.75);outline-offset:-1px}
-
-.ev .q{margin-left:auto;font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-weight:700;
+/* lottery entered, outcome unknown */
+.ev.lottery{outline:2px dotted rgba(255,255,255,.85);outline-offset:-2px}
+.ev .q{margin-left:auto;font-family:'Space Mono',monospace;font-weight:700;
   opacity:.9;font-size:12px;padding-left:5px}
 .b-est{background:#8a6d1f;color:#ffeec2}
 .b-warn{background:#a8531c;color:#ffe3c4}
@@ -280,7 +312,13 @@ body.reordering .board{overflow-x:hidden}
   #caveat .hint-desk{display:none}
   #caveat .hint-touch{display:inline}
 }
-
+#todo:empty{display:none}
+#todo{margin:14px 24px 0;border:2px solid #a8531c;border-radius:5px;
+  background:#fdf1e3;padding:11px 14px;font-size:12px}
+#todo b{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;
+  letter-spacing:.1em;color:#a8531c;display:block;margin-bottom:5px}
+#todo div{margin:3px 0}
+#todo a{color:#8a3f12}
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
@@ -324,20 +362,22 @@ body.reordering .board{overflow-x:hidden}
 
 <header>
   <h1>San Diego <em>Comic-Con</em> 2026</h1>
-  <div class="sub">JUL 22 – JUL 26 · OFFSITE GUIDE · WHAT'S OPEN, WHEN, AND HOW TO GET IN</div>
+  <div class="sub">JUL 22 – JUL 26 · TWO-LANE BOARD · PANELS ARE CHOICES, OFFSITES ARE WINDOWS</div>
 </header>
-<nav class="pagenav"><a href="index.html" aria-current="page">Offsites</a><a href="sdcc-2026-schedule.html">My Board</a><a href="sdcc-2026-calendar.html">My Day</a></nav>
+<nav class="pagenav"><a href="index.html">Offsites</a><a href="sdcc-2026-schedule.html" aria-current="page">My Board</a><a href="sdcc-2026-calendar.html">My Day</a></nav>
 
 <div class="controls">
-  <span class="chip"><i class="sw" style="background:var(--offsite)"></i>Walk-up (hatched)</span>
+  <span class="chip"><i class="sw" style="background:rgba(180,120,40,.25);border:1px solid rgba(180,120,40,.6)"></i>Exhibit hall open</span>
   <span class="chip"><i class="sw" style="background:#2a4a7f"></i>Ticketed</span>
+  <span class="chip"><i class="sw" style="background:var(--offsite)"></i>Walk-up (hatched)</span>
   <span class="chip"><i class="sw" style="background:#6b5a2e"></i>Inside convention center (⌂)</span>
+  <span class="chip"><i class="sw" style="background:var(--offsite);box-shadow:inset 4px 0 0 var(--must)"></i>Must-do offsite</span>
   <span class="chip"><i class="sw" style="background:var(--offsite);box-shadow:inset 0 -3px 0 var(--free)"></i>Giveaway 🎁 &nbsp;/&nbsp; not announced ❓</span>
 </div>
 
 <div id="tagbar"></div>
 <div id="caveat"><span class="grip-ico">⠿</span><span class="hint-desk">Drag rows by their name to reorder them. Your order is saved in this browser.</span><span class="hint-touch">Long-press a row name, then drag to reorder. Your order is saved on this device.</span></div>
-
+<div id="todo"></div>
 <div class="board">
   <div class="grid" id="grid"></div>
 </div>
@@ -363,6 +403,10 @@ body.reordering .board{overflow-x:hidden}
   "endHour": 22,
   "days": [
     {
+      "name": "Tue",
+      "date": "Jul 21 · pre-con"
+    },
+    {
       "name": "Wed",
       "date": "Jul 22 · Preview Night"
     },
@@ -386,13 +430,9 @@ body.reordering .board{overflow-x:hidden}
   "exhibitHall": {
     "label": "Exhibit Hall",
     "hours": {
-      "0": [
+      "1": [
         18,
         21
-      ],
-      "1": [
-        9.5,
-        19
       ],
       "2": [
         9.5,
@@ -404,13 +444,249 @@ body.reordering .board{overflow-x:hidden}
       ],
       "4": [
         9.5,
+        19
+      ],
+      "5": [
+        9.5,
         17
       ]
     },
     "link": "https://www.comic-con.org/cc/things-to-do/exhibit-hall/"
   },
-  "panels": [],
+  "panels": [
+    {
+      "day": 2,
+      "start": 10.5,
+      "end": null,
+      "title": "GUNDAM Showcase 2026",
+      "tier": "skip",
+      "room": "Room 6BCF",
+      "note": "Unveil the Next Gundam. 2026 series updates, upcoming titles, North America developments. Guest speakers from Japan. END TIME NOT STATED.",
+      "cap": {
+        "what": "Gundam swag bag while supplies last: Hathaway ‘Sorcery of Nymph’ mini poster, t-shirt, Rogue Orbit promo card, inflatable beam saber, 1/144 RX-78-2 Gundam workshop kit, Gunpla shopping bag, headband, intro booklet"
+      },
+      "link": "https://sdccblog.com/2026/07/bandai-stomps-back-into-san-diego-comic-con-2026-with-panels-exclusives-offsites-more/"
+    },
+    {
+      "day": 2,
+      "start": 13.75,
+      "end": 14.75,
+      "title": "Marvel Comics: Avengers: Armageddon",
+      "tier": "skip",
+      "room": "Room 6A",
+      "note": "Red Hulk has conquered Latveria and eyes world domination; only the Avengers can stop him. Breaking news on the blockbuster event ushering in a new era of Earth's Mightiest Heroes.",
+      "cap": {
+        "what": "Stay to the end: exclusive Avengers: Armageddon #2 with a secret Chip Zdarsky cover."
+      }
+    },
+    {
+      "day": 2,
+      "start": 14,
+      "end": 15,
+      "title": "Mondo Toy Talk",
+      "tier": "skip",
+      "room": "Room 7AB",
+      "note": "Mondo's creative team on the latest and upcoming drops, inspired by the Mondo Toy Talk livestream. Moderator Bryan Starr with Hector Arce, Peter Santa Maria (AttackPeter), Alex Brewer, Jordan Christianson, and Nolan Fleming.",
+      "cap": {
+        "what": "Giveaway for attendees, while supplies last."
+      }
+    },
+    {
+      "day": 2,
+      "start": 15,
+      "end": 16,
+      "title": "Matt Dinniman × Christopher Yost",
+      "tier": "skip",
+      "room": "Room 6A",
+      "note": "Matt Dinniman (Dungeon Crawler Carl), #1 NYT bestselling author, in conversation with Christopher Yost (Thor: Ragnarok, The Mandalorian) on the path to writing apocalyptic fiction.",
+      "link": "https://comiccon2026.sched.com/event/eec9ead744b66deac1d06f107368c53b"
+    },
+    {
+      "day": 2,
+      "start": 15.25,
+      "end": 16.25,
+      "title": "DNEG: Namit Malhotra's Ramayana: The Epic Begins",
+      "tier": "skip",
+      "room": "Ballroom 20",
+      "note": "Namit Malhotra (Prime Focus founder, DNEG global CEO) with Ranbir Kapoor (Rama), Yash (Ravana), and director Nitesh Tiwari for a first look at the largest cinematic undertaking in Indian film history — a new retelling of the Ramayana. Never-before-seen footage, reveals, and live performances.",
+      "cap": {
+        "what": "Special giveaways."
+      }
+    },
+    {
+      "day": 2,
+      "start": 15.25,
+      "end": 16.25,
+      "title": "The Year of Jack Kirby: A Star-Studded Celebration",
+      "tier": "skip",
+      "room": "Room 6DE",
+      "note": "Tom King, Mark Waid, Phillip Kennedy Johnson, Nick Dragotta with Tracy Kirby, Jeremy Kirby, and historian Roy Schwartz celebrate Jack Kirby — co-creator of the Marvel Universe, mythmaker of DC's New Gods. 2026 marks a street naming, a documentary, two museum exhibits, and the Mister Miracle animated series.",
+      "cap": {
+        "what": "SDCC 2026 panel-exclusive Marvel comic distributed to attendees."
+      }
+    },
+    {
+      "day": 2,
+      "start": 16,
+      "end": 17,
+      "title": "Meow Wolf × Titmouse",
+      "tier": "must",
+      "room": "Room 25ABC",
+      "note": "Immersive art makers Meow Wolf and Emmy-winning studio Titmouse on animation meeting architecture, 2D storytelling moving into 3D, and building a universe from scratch. Includes a sneak peek at the collaboration.",
+      "cap": {
+        "what": "Exclusive giveaways. No quantity or cutoff stated."
+      },
+      "link": "https://comiccon2026.sched.com/event/3a1d0dfd0e8b8ca5fa37daa29afee584"
+    },
+    {
+      "day": 3,
+      "start": 12.5,
+      "end": 13.5,
+      "title": "Breaking Into Game Development",
+      "tier": "skip",
+      "room": "Room 29CD",
+      "note": "Veteran game industry professionals discuss what it takes to launch a game development career and the many paths into the industry — educational and vocational options, gaining the needed knowledge, and finding a job in a competitive field."
+    },
+    {
+      "day": 3,
+      "start": 13,
+      "end": 14,
+      "title": "McFarlane Toys: Unreleased, Unannounced, Unleashed",
+      "tier": "skip",
+      "room": "Room 6A",
+      "note": "First look at latest toys/collectibles from McFarlane Toys and Todd McFarlane — Fallout, God of War, Poppy Playtime, Marvel, Spawn, DC, and more. Surprise guests, additional surprises and giveaways.",
+      "cap": {
+        "what": "Giveaways (unspecified). No detail stated."
+      }
+    },
+    {
+      "day": 3,
+      "start": 14.25,
+      "end": 15.25,
+      "title": "Marvel Comics to Screen: X-Men '97",
+      "tier": "must",
+      "room": "Room 6A",
+      "note": "Creative team behind Marvel Animation's X-Men '97 plus special guests on Season 2 — insider insights, anecdotes, hints of what's to come.",
+      "cap": {
+        "what": "Special giveaway comic at the end of the presentation."
+      }
+    },
+    {
+      "day": 3,
+      "start": 15,
+      "end": 16,
+      "title": "Collider's Showrunners on Showrunning",
+      "tier": "skip",
+      "room": "Ballroom 20",
+      "note": "Greg Daniels (The Office, Parks and Rec, King of the Hill), Widow's Bay creator Katie Dippold, and Damon Lindelof (Lost, Watchmen, The Leftovers) on what it takes to create and run a TV show — the writers' room, casting, tone, protecting creative voices, and steering a series from idea to screen. Moderated by Steven Weintraub (Collider EIC)."
+    },
+    {
+      "day": 3,
+      "start": 15.25,
+      "end": 16.25,
+      "title": "10 Years of Watch Dogs 2",
+      "tier": "skip",
+      "room": "Room 6BCF",
+      "note": "Mia Ginaé (Riot Games) hosts an anniversary discussion on how Watch Dogs 2 predicted today's AI, surveillance, privacy, and digital resistance. With Ruffin Prentiss, Shawn Baichoo, Dave Maass (EFF), Timmy Fisher (MK12), Hudson Mohawke (Warp Records). Support from Malwarebytes."
+    },
+    {
+      "day": 3,
+      "start": 15.5,
+      "end": 16.5,
+      "title": "Marvel Comics: Next Big Thing",
+      "tier": "must",
+      "room": "Room 6A",
+      "note": "Leading comics creators on the future of Marvel Comics — Amazing Spider-Man #1000, Infernal Hulk, DNX, Queen in Black, and more.",
+      "cap": {
+        "what": "Special giveaway for attendees who remain until the end."
+      }
+    },
+    {
+      "day": 3,
+      "start": 16.5,
+      "end": 17.5,
+      "title": "Dispatch: Off the Clock with the Z-Team",
+      "tier": "skip",
+      "room": "Room 6BCF",
+      "note": "Voice cast of Dispatch — Laura Bailey, Travis Willingham, Sean McLoughlin (Jacksepticeye), Alanah Pearce, THOT SQUAD, Yung Gravy, Joel Haver, Mayanna Berrin, Lance Cantstopolis, and a 'virtual' MoistCr1TiKaL — with Erin Yvette on bringing the characters to life."
+    },
+    {
+      "day": 3,
+      "start": 16.75,
+      "end": 17.75,
+      "title": "Bold Voices of Contemporary Horror: Tenth Anniversary Edition",
+      "tier": "must",
+      "room": "Room 6A",
+      "note": "Tenth anniversary, featuring Mubi, Shudder, AMC, Magnolia, and more. Directors and stars behind anticipated indie and studio genre films/series on the current state of the field, with exclusive footage from upcoming releases and Cannes titles (incl. Teenage Sex and Death at Camp Miasma, Victorian Psycho). Talent includes Dan Stevens (AMC's The Terror), Deborah Ann Woll (Shudder's The Cycle), director Zachary Wigon (Victorian Psycho), director Dave Boyle (Never After Dark), and others. Moderated by Michael Lerman (Overlook Film Festival).",
+      "cap": {
+        "what": "Exclusive giveaways from Camp Miasma and Victorian Psycho for all attendees."
+      }
+    },
+    {
+      "day": 4,
+      "start": 13,
+      "end": 14,
+      "title": "Legendary Comics: Street Fighter, Dune, Godzilla/Kong",
+      "tier": "skip",
+      "room": "Room 4",
+      "note": "Behind-the-scenes look at Legendary Comics & Publishing — the book division behind the upcoming Street Fighter, Dune: Part Three, and Godzilla x Kong: Supernova. Latest on graphic novels, art books, and tie-in publishing across franchises.",
+      "cap": {
+        "what": "A special giveaway is planned."
+      }
+    },
+    {
+      "day": 4,
+      "start": 13,
+      "end": 14,
+      "title": "Tamashii Nations Unveiled: S.H.Figuarts",
+      "tier": "skip",
+      "room": "Room 7AB",
+      "note": "Early look at what's next from Bandai Namco's Tamashii Nations — world-premiere reveals, product announcements, and updates on upcoming releases from Japan. Team reps discuss future products and initiatives.",
+      "cap": {
+        "what": "A special giveaway item is planned."
+      }
+    },
+    {
+      "day": 4,
+      "start": 14,
+      "end": 16,
+      "title": "Apple TV Hall H Panel",
+      "tier": "must",
+      "room": "Hall H",
+      "note": "Widow’s Bay. Panelists to be announced.",
+      "link": "https://sdccblog.com/2026/07/apple-tv-bringing-silo-experience-panels-featuring-widows-bay-matchbox-the-movie-more-to-san-diego-comic-con-2026/"
+    }
+  ],
   "offsites": [
+    {
+      "title": "Clash of Clans: Clash for the Stache",
+      "access": "ticketed",
+      "confirmation": "Tickets held",
+      "giveaway": "yes",
+      "giveawayNote": "Source: win giveaways during the experience. Merch and themed snacks are for purchase.",
+      "hours": {
+        "0": [
+          18.833,
+          19
+        ]
+      },
+      "duration": 10,
+      "location": "Challenge Room",
+      "note": "Runs July–September; not con-scoped. 10-minute experience with the Archer Queen: three physical puzzle challenges and interactive games. Reclaim the mustache, defeat the Goblin King. Themed environments, photo ops, giveaways. Exclusive merch (apparel, accessories, home decor) and themed snacks available for purchase.",
+      "slots": [
+        {
+          "day": 0,
+          "t": 18.833,
+          "qty": 1,
+          "chosen": true
+        }
+      ],
+      "slotsNote": "Your booked slot.",
+      "links": [
+        "https://sdccblog.com/events-default/clash-of-the-clans-clash-for-the-stache-challenge-room/"
+      ],
+      "order": 0
+    },
     {
       "title": "The Silo Experience",
       "ticketed": false,
@@ -418,17 +694,17 @@ body.reordering .board{overflow-x:hidden}
       "note": "Free multi-sensory activation. Hours not yet published.",
       "link": "https://sdccblog.com/2026/07/apple-tv-bringing-silo-experience-panels-featuring-widows-bay-matchbox-the-movie-more-to-san-diego-comic-con-2026/",
       "giveaway": "unknown",
-      "order": 0,
+      "order": 1,
       "hours": {
-        "1": [
-          11,
-          19
-        ],
         "2": [
           11,
           19
         ],
         "3": [
+          11,
+          19
+        ],
+        "4": [
           11,
           19
         ]
@@ -438,35 +714,35 @@ body.reordering .board{overflow-x:hidden}
       "title": "Lanterns Training HQ",
       "access": "reservation",
       "hours": {
-        "1": [
+        "2": [
           9,
           18
         ],
-        "2": [
+        "3": [
           10,
           19
         ],
-        "3": [
+        "4": [
           11,
           21
         ]
       },
       "reservationUrl": "http://hbomax.com/lanternstraininghq",
       "location": "— not stated in source",
-      "note": "HBO Max. Reservations REQUIRED, first-come first-served, limited capacity, 18+ only. Complete training → custom Green Lantern ring to take home. Snapchat-powered interactive mirror. Exclusive WB Lanterns merch for sale.",
+      "note": "Attempting STANDBY (no reservation held). Line up early; entry not guaranteed.",
       "pins": [
         {
-          "day": 1,
+          "day": 2,
           "t": 9,
           "what": "Green Lantern ring — on completing training"
         },
         {
-          "day": 2,
+          "day": 3,
           "t": 11,
           "what": "Green Lantern ring — on completing training"
         },
         {
-          "day": 3,
+          "day": 4,
           "t": 11,
           "what": "Green Lantern ring — on completing training"
         }
@@ -475,17 +751,14 @@ body.reordering .board{overflow-x:hidden}
         "https://sdccblog.com/2026/07/step-into-the-world-of-hbo-maxs-lanterns-stuart-fails-to-save-the-universe-with-offsites-at-san-diego-comic-con-2026/"
       ],
       "giveaway": "yes",
-      "order": 1,
-      "statusNote": "No reservation secured — not attending."
+      "order": 2,
+      "statusNote": "No reservation secured — not attending.",
+      "watch": null
     },
     {
       "title": "Hulu Animayhem",
       "ticketed": false,
       "hours": {
-        "1": [
-          10.5,
-          19
-        ],
         "2": [
           10.5,
           19
@@ -495,6 +768,10 @@ body.reordering .board{overflow-x:hidden}
           19
         ],
         "4": [
+          10.5,
+          19
+        ],
+        "5": [
           11,
           16
         ]
@@ -507,19 +784,15 @@ body.reordering .board{overflow-x:hidden}
       ],
       "giveaway": "yes",
       "giveawayNote": "Based on prior years — Animayhem has given away swag for the past five conventions. Not announced for 2026.",
-      "order": 2
+      "order": 3
     },
     {
       "title": "Paramount — The Lodge",
       "access": "standby",
       "hours": {
-        "0": [
+        "1": [
           18,
           22
-        ],
-        "1": [
-          9,
-          19
         ],
         "2": [
           9,
@@ -532,31 +805,108 @@ body.reordering .board{overflow-x:hidden}
         "4": [
           9,
           19
+        ],
+        "5": [
+          9,
+          19
         ]
       },
       "location": "Happy Does Bar · 340 Fifth Ave",
       "duration": 50,
+      "slots": [
+        {
+          "day": 1,
+          "t": 18,
+          "qty": 2
+        },
+        {
+          "day": 2,
+          "t": 9,
+          "qty": 2
+        },
+        {
+          "day": 2,
+          "t": 10,
+          "qty": 2
+        },
+        {
+          "day": 3,
+          "t": 9,
+          "qty": 2
+        },
+        {
+          "day": 3,
+          "t": 10,
+          "qty": 2
+        },
+        {
+          "day": 3,
+          "t": 11,
+          "qty": 2
+        },
+        {
+          "day": 3,
+          "t": 13,
+          "qty": 2
+        },
+        {
+          "day": 3,
+          "t": 14,
+          "qty": 2
+        },
+        {
+          "day": 3,
+          "t": 15,
+          "qty": 2
+        },
+        {
+          "day": 3,
+          "t": 16,
+          "qty": 2
+        },
+        {
+          "day": 4,
+          "t": 10,
+          "qty": 2
+        },
+        {
+          "day": 4,
+          "t": 11,
+          "qty": 2
+        },
+        {
+          "day": 4,
+          "t": 12,
+          "qty": 2
+        },
+        {
+          "day": 4,
+          "t": 13,
+          "qty": 2
+        }
+      ],
+      "slotsNote": "You hold 2 tickets at each slot below. None chosen yet — set \"chosen\":true on one.",
       "note": "Free immersive experience, ~50 min. Reservations recommended; standby line available. U.S.S. Port Galley (Strange New Worlds), Republic City Marketplace (Avatar Aang), South Park. Also UFC. Themed food + drinks, hands-on games, photo ops, customizable exclusive swag.",
       "links": [
         "https://sdccblog.com/2026/07/paramounts-the-lodge-returns-to-san-diego-comic-con-for-2026/"
       ],
       "giveaway": "yes",
       "giveawayNote": "Source: exclusive swag, customizable to take home.",
-      "order": 3
+      "order": 4
     },
     {
       "title": "Adult Swim on the Green",
       "access": "walkup",
       "hours": {
-        "1": [
-          13,
-          22
-        ],
         "2": [
           13,
           22
         ],
         "3": [
+          13,
+          22
+        ],
+        "4": [
           13,
           22
         ]
@@ -565,28 +915,22 @@ body.reordering .board{overflow-x:hidden}
       "note": "Free fan festival. No badge required. First come, first served. Games, rides, giveaways, dance parties. Nightly programming runs 7–10pm; the DJ set runs 9–10pm within it. Shown here as 7–9pm + 9–10pm so the bars read separately.",
       "programs": [
         {
-          "day": 1,
+          "day": 2,
           "start": 19,
           "end": 21,
           "title": "Night of New — exclusive content screening"
         },
         {
-          "day": 2,
+          "day": 3,
           "start": 19,
           "end": 21,
           "title": "Live table reads — Rick and Morty President Curtis"
         },
         {
-          "day": 3,
+          "day": 4,
           "start": 19,
           "end": 21,
           "title": "Adult Swim Through the Years — cosplay dance party + live animation set by Afuchs Twin"
-        },
-        {
-          "day": 1,
-          "start": 21,
-          "end": 22,
-          "title": "DJ dance party"
         },
         {
           "day": 2,
@@ -596,6 +940,12 @@ body.reordering .board{overflow-x:hidden}
         },
         {
           "day": 3,
+          "start": 21,
+          "end": 22,
+          "title": "DJ dance party"
+        },
+        {
+          "day": 4,
           "start": 21,
           "end": 22,
           "title": "DJ dance party"
@@ -606,17 +956,13 @@ body.reordering .board{overflow-x:hidden}
       ],
       "giveaway": "yes",
       "giveawayNote": "Source: first 700 fans daily receive exclusive prizes.",
-      "order": 4
+      "order": 5
     },
     {
       "id": "nintendo-pointe",
       "title": "Nintendo @ The Pointe",
       "access": "walkup",
       "hours": {
-        "1": [
-          9.5,
-          null
-        ],
         "2": [
           9.5,
           null
@@ -626,6 +972,10 @@ body.reordering .board{overflow-x:hidden}
           null
         ],
         "4": [
+          9.5,
+          null
+        ],
+        "5": [
           9.5,
           null
         ]
@@ -636,16 +986,16 @@ body.reordering .board{overflow-x:hidden}
         "https://sdccblog.com/2026/07/nintendo-levels-up-san-diego-comic-con-2026-with-nintendo-switch-sports-resort-chance-to-play-the-rizzler-more/"
       ],
       "giveaway": "unknown",
-      "order": 5
+      "order": 6
     },
     {
       "title": "Nintendo Promenade Screens",
       "access": "walkup",
       "days": [
-        1,
         2,
         3,
-        4
+        4,
+        5
       ],
       "location": "Hilton San Diego Bayfront · Promenade (outdoor)",
       "note": "Live Switch Sports Resort gameplay broadcast on screens. Free to watch. HOURS NOT STATED.",
@@ -653,16 +1003,13 @@ body.reordering .board{overflow-x:hidden}
         "https://sdccblog.com/2026/07/nintendo-levels-up-san-diego-comic-con-2026-with-nintendo-switch-sports-resort-chance-to-play-the-rizzler-more/"
       ],
       "giveaway": "unknown",
-      "order": 6
+      "order": 7
     },
     {
       "title": "MTG Marvel Super Heroes Experience",
       "access": "walkup",
+      "tier": "must",
       "hours": {
-        "1": [
-          10,
-          17
-        ],
         "2": [
           10,
           17
@@ -673,6 +1020,10 @@ body.reordering .board{overflow-x:hidden}
         ],
         "4": [
           10,
+          17
+        ],
+        "5": [
+          10,
           16
         ]
       },
@@ -682,16 +1033,10 @@ body.reordering .board{overflow-x:hidden}
       "note": "No badge necessary; entry is free. Learn-to-play sessions for all levels. Exclusive giveaways: promo card, comic book, Marvel Super Heroes Welcome Decks. Five-hole Tap Tap Mini Golf Course inspired by Magic lore. HOURS ARE LAST YEAR’S ESTIMATE, not confirmed.",
       "pins": [
         {
-          "day": 1,
-          "t": 10,
-          "unknownTime": true,
-          "what": "Giveaways: promo card, comic book, Marvel Super Heroes Welcome Decks. Distribution time/limit unknown."
-        },
-        {
           "day": 2,
           "t": 10,
           "unknownTime": true,
-          "what": "Giveaways: promo card, comic book, Welcome Decks. Time/limit unknown."
+          "what": "Giveaways: promo card, comic book, Marvel Super Heroes Welcome Decks. Distribution time/limit unknown."
         },
         {
           "day": 3,
@@ -701,6 +1046,12 @@ body.reordering .board{overflow-x:hidden}
         },
         {
           "day": 4,
+          "t": 10,
+          "unknownTime": true,
+          "what": "Giveaways: promo card, comic book, Welcome Decks. Time/limit unknown."
+        },
+        {
+          "day": 5,
           "t": 10,
           "unknownTime": true,
           "what": "Giveaways: promo card, comic book, Welcome Decks. Time/limit unknown."
@@ -712,13 +1063,13 @@ body.reordering .board{overflow-x:hidden}
       ],
       "giveaway": "yes",
       "giveawayNote": "Source: exclusive giveaways — promo card, comic book, and Marvel Super Heroes Welcome Decks.",
-      "order": 7
+      "order": 8
     },
     {
       "title": "Audible Level Up Lounge",
       "access": "walkup",
       "hours": {
-        "3": [
+        "4": [
           11,
           19
         ]
@@ -727,7 +1078,7 @@ body.reordering .board{overflow-x:hidden}
       "note": "Open to the public. Inspired by Dungeon Crawler Carl + Bobiverse. Complete themed activities to earn XP, redeemable for exclusive loot and prizes. BobNet zone; Dungeon Crawler Carl survival station (record your own “Crawler Incident Report”); cosplay touch-up stations; phone charging; listening lounges; photo ops.",
       "pins": [
         {
-          "day": 3,
+          "day": 4,
           "t": 11,
           "unknownTime": true,
           "what": "XP redeemable for exclusive loot and prizes. No drop time or quantity stated."
@@ -737,7 +1088,7 @@ body.reordering .board{overflow-x:hidden}
         "https://sdccblog.com/2026/07/audible-levels-up-san-diego-comic-con-2026-with-dungeon-crawler-carl-kate-mckinnon-offsite-more/"
       ],
       "giveaway": "yes",
-      "order": 8
+      "order": 9
     },
     {
       "title": "Gundam Workshop",
@@ -745,10 +1096,10 @@ body.reordering .board{overflow-x:hidden}
       "onsite": true,
       "followsHall": true,
       "hallDays": [
-        1,
         2,
         3,
-        4
+        4,
+        5
       ],
       "location": "Mezzanine 19 · inside the convention center",
       "duration": 30,
@@ -758,7 +1109,7 @@ body.reordering .board{overflow-x:hidden}
       ],
       "giveaway": "yes",
       "giveawayNote": "Source: build and keep a complimentary GUNPLA model kit.",
-      "order": 9
+      "order": 10
     },
     {
       "title": "Marvel × Moonrock Gaming Lounge",
@@ -766,10 +1117,6 @@ body.reordering .board{overflow-x:hidden}
       "giveaway": "yes",
       "giveawayNote": "Everyone who tries the demo gets an exclusive pin plus a spin on the prize wheel (in-game rewards and physical prizes).",
       "hours": {
-        "1": [
-          9.5,
-          19
-        ],
         "2": [
           9.5,
           19
@@ -780,6 +1127,10 @@ body.reordering .board{overflow-x:hidden}
         ],
         "4": [
           9.5,
+          19
+        ],
+        "5": [
+          9.5,
           17
         ]
       },
@@ -787,12 +1138,6 @@ body.reordering .board{overflow-x:hidden}
       "note": "Kabam brings Marvel Contest of Champions. Free to all, no Comic-Con badge required. Hands-on with Towers, the game's new mode. Competitive players can attempt a high-difficulty demo to qualify for daily on-stage tournaments: the four fastest players each day enter a bracket, and the winner is crowned that day's Champion. TOURNAMENT TIMES NOT CAPTURED — see source for the full schedule.",
       "watch": "Daily on-stage tournament times — see the source post",
       "pins": [
-        {
-          "day": 1,
-          "t": 9.5,
-          "unknownTime": true,
-          "what": "Exclusive pin + prize wheel spin for everyone who plays the demo. No cutoff stated."
-        },
         {
           "day": 2,
           "t": 9.5,
@@ -810,12 +1155,18 @@ body.reordering .board{overflow-x:hidden}
           "t": 9.5,
           "unknownTime": true,
           "what": "Exclusive pin + prize wheel spin for everyone who plays the demo. No cutoff stated."
+        },
+        {
+          "day": 5,
+          "t": 9.5,
+          "unknownTime": true,
+          "what": "Exclusive pin + prize wheel spin for everyone who plays the demo. No cutoff stated."
         }
       ],
       "links": [
         "https://sdccblog.com/2026/07/power-up-your-san-diego-comic-con-2026-with-marvel-games-lounge/"
       ],
-      "order": 10
+      "order": 11
     },
     {
       "title": "Star Trek Fleet Command: 60 Years Archives",
@@ -823,9 +1174,9 @@ body.reordering .board{overflow-x:hidden}
       "giveaway": "yes",
       "giveawayNote": "Exclusive swag; interactive claw machines with Star Trek prizes; a souvenir photo station where you pick a faction and take home a personalized Star Trek card.",
       "days": [
-        2,
         3,
-        4
+        4,
+        5
       ],
       "location": "The Sinclair · 643 G St, San Diego 92101",
       "note": "Scopely's Star Trek Fleet Command marks Star Trek's 60th anniversary with an immersive archive experience: official archive pieces, a Holodeck VR experience, themed photo moments, claw machines, and a faction souvenir card. NOT affiliated with Comic-Con (no badge). Open Fri-Sun; DAILY HOURS NOT ANNOUNCED. Friday evening is a separate invite-only event for the STFC community.",
@@ -833,23 +1184,19 @@ body.reordering .board{overflow-x:hidden}
       "badgeRequired": false,
       "pins": [
         {
-          "day": 2,
+          "day": 3,
           "t": 19,
           "unknownTime": true,
           "what": "Invite-only Star Trek Fleet Command community event (Friday evening). Not open access."
         }
       ],
       "links": [],
-      "order": 11
+      "order": 12
     },
     {
       "title": "Alliance Authentic Pop-Up",
       "access": "walkup",
       "hours": {
-        "1": [
-          12,
-          20
-        ],
         "2": [
           12,
           20
@@ -859,6 +1206,10 @@ body.reordering .board{overflow-x:hidden}
           20
         ],
         "4": [
+          12,
+          20
+        ],
+        "5": [
           12,
           20
         ]
@@ -869,16 +1220,10 @@ body.reordering .board{overflow-x:hidden}
       "note": "Shop preserved, Certified Uncirculated vinyl records and collectible figures from Funko and Handmade by Robots. Badge holders can claim and register a free Handmade by Robots figure. Every guest can enter a raffle for one of Alliance Authentic’s preserved collectibles.",
       "pins": [
         {
-          "day": 1,
-          "t": 12,
-          "unknownTime": true,
-          "what": "Free Handmade by Robots figure — badge holders only, claim + register. No quantity or cutoff stated."
-        },
-        {
           "day": 2,
           "t": 12,
           "unknownTime": true,
-          "what": "Free Handmade by Robots figure — badge holders only. No quantity stated."
+          "what": "Free Handmade by Robots figure — badge holders only, claim + register. No quantity or cutoff stated."
         },
         {
           "day": 3,
@@ -891,26 +1236,28 @@ body.reordering .board{overflow-x:hidden}
           "t": 12,
           "unknownTime": true,
           "what": "Free Handmade by Robots figure — badge holders only. No quantity stated."
+        },
+        {
+          "day": 5,
+          "t": 12,
+          "unknownTime": true,
+          "what": "Free Handmade by Robots figure — badge holders only. No quantity stated."
         }
       ],
       "links": [
         "https://sdccblog.com/2026/07/alliance-authentic-announces-san-diego-comic-con-pop-up-more/"
       ],
       "giveaway": "yes",
-      "order": 12
+      "order": 13
     },
     {
       "title": "Ignition Pavilion",
       "access": "walkup",
       "giveaway": "unknown",
       "hours": {
-        "0": [
+        "1": [
           17,
           21
-        ],
-        "1": [
-          12,
-          20
         ],
         "2": [
           12,
@@ -922,6 +1269,10 @@ body.reordering .board{overflow-x:hidden}
         ],
         "4": [
           12,
+          20
+        ],
+        "5": [
+          12,
           18
         ]
       },
@@ -931,7 +1282,7 @@ body.reordering .board{overflow-x:hidden}
       "links": [
         "https://sdccblog.com/2026/07/ignition-press-san-diego-comic-con-2026-exclusives/"
       ],
-      "order": 13
+      "order": 14
     },
     {
       "title": "BRISK × Splatoon Raiders Island Hideout",
@@ -939,11 +1290,11 @@ body.reordering .board{overflow-x:hidden}
       "giveaway": "yes",
       "giveawayNote": "Exclusive co-branded merch + 'treasure-worthy loot' while supplies last; free BRISK Iced Tea samples at the BRISK Bar.",
       "hours": {
-        "2": [
+        "3": [
           10,
           18
         ],
-        "3": [
+        "4": [
           10,
           18
         ]
@@ -953,14 +1304,14 @@ body.reordering .board{overflow-x:hidden}
       "links": [
         "https://www.ign.com/articles/step-into-the-world-of-splatoon-raiders-with-brisk-iced-tea-at-san-diego-comic-con"
       ],
-      "order": 14
+      "order": 15
     },
     {
       "title": "Pan's Labyrinth 20th Anniversary Party",
       "access": "walkup",
       "giveaway": "unknown",
       "hours": {
-        "2": [
+        "3": [
           19,
           null
         ]
@@ -970,7 +1321,26 @@ body.reordering .board{overflow-x:hidden}
       "watch": "Fetch Quest Thu+Fri 1-2:30pm; first 50 finishers = GdT signing Sat; party entry TBA",
       "estimated": false,
       "links": [],
-      "order": 15,
+      "order": 16,
+      "tags": [
+        "evening"
+      ]
+    },
+    {
+      "title": "Evercore & Troutman Pepper Locke Reception",
+      "access": "reservation",
+      "confirmation": "Invited — RSVP",
+      "giveaway": "none",
+      "hours": {
+        "2": [
+          18,
+          21
+        ]
+      },
+      "location": "Lou & Mickey's · 224 Fifth Avenue, San Diego",
+      "note": "Private networking reception (Evercore & Troutman Pepper Locke). Drinks and light bites. Invitation-only — you're on the guest list.",
+      "links": [],
+      "order": 17,
       "tags": [
         "evening"
       ]
@@ -980,7 +1350,7 @@ body.reordering .board{overflow-x:hidden}
       "access": "walkup",
       "giveaway": "none",
       "hours": {
-        "2": [
+        "3": [
           17,
           23.5
         ]
@@ -990,19 +1360,19 @@ body.reordering .board{overflow-x:hidden}
       "watch": "Free GA; $75 VIP Pub Pass optional",
       "programs": [
         {
-          "day": 2,
+          "day": 3,
           "start": 17.5,
           "end": 18.5,
           "title": "Dice Goblins premiere + Director's Panel"
         },
         {
-          "day": 2,
+          "day": 3,
           "start": 19,
           "end": 21,
           "title": "Dragon City Chronicles actual play"
         },
         {
-          "day": 2,
+          "day": 3,
           "start": 21,
           "end": 23.5,
           "title": "Dragon City Dancehall — DJ Filth Wizard"
@@ -1011,7 +1381,7 @@ body.reordering .board{overflow-x:hidden}
       "links": [
         "https://www.eventbrite.com/e/maveric-studios-night-market-tickets-1980223623163"
       ],
-      "order": 16,
+      "order": 18,
       "tags": [
         "evening"
       ]
@@ -1021,21 +1391,15 @@ body.reordering .board{overflow-x:hidden}
       "access": "walkup",
       "giveaway": "unknown",
       "days": [
-        1,
         2,
-        3
+        3,
+        4
       ],
       "location": "TBA",
       "note": "RUMORED activation — no official details. A 5pm element is rumored Thu/Fri/Sat but unconfirmed; days, hours, location, and access all TBA. Placeholder to fill in later.",
       "watch": "Unconfirmed rumor — awaiting any official announcement",
       "estimated": true,
       "pins": [
-        {
-          "day": 1,
-          "t": 17,
-          "unknownTime": true,
-          "what": "Rumored 5pm element — unconfirmed, no details."
-        },
         {
           "day": 2,
           "t": 17,
@@ -1047,10 +1411,16 @@ body.reordering .board{overflow-x:hidden}
           "t": 17,
           "unknownTime": true,
           "what": "Rumored 5pm element — unconfirmed, no details."
+        },
+        {
+          "day": 4,
+          "t": 17,
+          "unknownTime": true,
+          "what": "Rumored 5pm element — unconfirmed, no details."
         }
       ],
       "links": [],
-      "order": 17,
+      "order": 19,
       "tags": [
         "evening"
       ]
@@ -1060,7 +1430,7 @@ body.reordering .board{overflow-x:hidden}
       "access": "lottery",
       "giveaway": "unknown",
       "hours": {
-        "2": [
+        "3": [
           19,
           22
         ]
@@ -1073,13 +1443,13 @@ body.reordering .board{overflow-x:hidden}
       "note": "HYBE after-hours event for ENHYPEN's DARK MOON vampire universe. Admission by application only, via online lottery. All-standing.",
       "programs": [
         {
-          "day": 2,
+          "day": 3,
           "start": 19,
           "end": 20,
           "title": "Admission · DJ set + networking"
         },
         {
-          "day": 2,
+          "day": 3,
           "start": 20,
           "end": 22,
           "title": "Main event"
@@ -1088,7 +1458,7 @@ body.reordering .board{overflow-x:hidden}
       "links": [
         "https://sdccblog.com/2026/07/dark-moon-blood-night-sets-over-san-diego-comic-con-2026/"
       ],
-      "order": 18,
+      "order": 20,
       "tags": [
         "evening"
       ]
@@ -1103,7 +1473,7 @@ body.reordering .board{overflow-x:hidden}
       "giveaway": "yes",
       "giveawayNote": "The elusive 13th scoop. Not served at the trucks.",
       "days": [
-        3
+        4
       ],
       "location": "Secret location — not announced",
       "note": "The 13th flavor is not available at the trucks. Fans are invited to a secret location on Saturday, July 25. HOURS AND LOCATION NOT ANNOUNCED — watch American Horror Story social for details.",
@@ -1111,7 +1481,7 @@ body.reordering .board{overflow-x:hidden}
       "links": [
         "https://sdccblog.com/2026/07/fx-and-hulu-serving-sweet-13-flavors-in-celebration-of-american-horror-stories-to-san-diego-comic-con-2026/"
       ],
-      "order": 19
+      "order": 21
     },
     {
       "title": "AHS “13 Flavors” Trucks",
@@ -1122,7 +1492,7 @@ body.reordering .board{overflow-x:hidden}
       "giveaway": "yes",
       "giveawayNote": "Free samples of 12 of the 13 flavors.",
       "days": [
-        3
+        4
       ],
       "location": "Roaming — 4 ice cream trucks, locations TBA",
       "note": "FX + Hulu, celebrating American Horror Story S13. 12 of 13 flavors served from four trucks. Costumed characters: Rubber Man (Murder House), Twisty the Clown (Freak Show), the Witch (Coven). SOURCE STATES LOCATIONS AND TIMING NOT ANNOUNCED — watch AHS social. Only Saturday is named in the source; the trucks may run other days, unknown.",
@@ -1130,16 +1500,12 @@ body.reordering .board{overflow-x:hidden}
       "links": [
         "https://sdccblog.com/2026/07/fx-and-hulu-serving-sweet-13-flavors-in-celebration-of-american-horror-stories-to-san-diego-comic-con-2026/"
       ],
-      "order": 20
+      "order": 22
     },
     {
       "title": "PopUp Bagels (VW bus)",
       "access": "walkup",
       "hours": {
-        "1": [
-          7,
-          null
-        ],
         "2": [
           7,
           null
@@ -1149,6 +1515,10 @@ body.reordering .board{overflow-x:hidden}
           null
         ],
         "4": [
+          7,
+          null
+        ],
+        "5": [
           7,
           null
         ]
@@ -1165,16 +1535,12 @@ body.reordering .board{overflow-x:hidden}
       "tags": [
         "food"
       ],
-      "order": 21
+      "order": 23
     },
     {
       "title": "Provisional — Donut Bar",
       "access": "walkup",
       "hours": {
-        "1": [
-          7,
-          null
-        ],
         "2": [
           7,
           null
@@ -1184,6 +1550,10 @@ body.reordering .board{overflow-x:hidden}
           null
         ],
         "4": [
+          7,
+          null
+        ],
+        "5": [
           7,
           null
         ]
@@ -1199,7 +1569,7 @@ body.reordering .board{overflow-x:hidden}
       "tags": [
         "food"
       ],
-      "order": 22
+      "order": 24
     },
     {
       "title": "Princess Donut Food Truck",
@@ -1212,14 +1582,14 @@ body.reordering .board{overflow-x:hidden}
         "https://sdccblog.com/events-default/dungeon-crawler-carl-princess-donut-food-truck/"
       ],
       "hours": {
-        "2": [
+        "3": [
           12,
           18
         ]
       },
       "pins": [
         {
-          "day": 2,
+          "day": 3,
           "t": 12,
           "unknownTime": true,
           "what": "Free donut holes, exclusive merch, Audible giveaways. No quantity or cutoff stated."
@@ -1228,17 +1598,17 @@ body.reordering .board{overflow-x:hidden}
       "tags": [
         "food"
       ],
-      "order": 23
+      "order": 25
     },
     {
       "title": "Spider-Man: Brand New Day × BERO",
       "access": "walkup",
       "hours": {
-        "2": [
+        "3": [
           12,
           16
         ],
-        "3": [
+        "4": [
           12,
           16
         ]
@@ -1249,13 +1619,13 @@ body.reordering .board{overflow-x:hidden}
       "note": "Sony Pictures activation for Spider-Man: Brand New Day. Tom Holland's non-alcoholic beer brand BERO, in exclusive themed cans available only at the event. Immersive photo ops and Spider-Man appearances. Free, open to the public, first come first served.",
       "pins": [
         {
-          "day": 2,
+          "day": 3,
           "t": 12,
           "unknownTime": true,
           "what": "Exclusive Spider-Man: Brand New Day BERO cans — available only during the event. No quantity stated."
         },
         {
-          "day": 3,
+          "day": 4,
           "t": 12,
           "unknownTime": true,
           "what": "Exclusive Spider-Man: Brand New Day BERO cans — available only during the event. No quantity stated."
@@ -1269,7 +1639,97 @@ body.reordering .board{overflow-x:hidden}
       ],
       "giveaway": "yes",
       "giveawayNote": "Exclusive Spider-Man: Brand New Day BERO cans, available only during the event.",
-      "order": 24
+      "order": 26
+    }
+  ],
+  "plans": [
+    {
+      "day": 2,
+      "start": 7,
+      "end": 10.25,
+      "title": "MTG — line up + cards",
+      "ref": "MTG Marvel Super Heroes Experience",
+      "note": "Personal plan: arrive 7am to line up, through ~10:15am to get the Marvel Super Heroes promo cards. Venue opens 10am; early queue for giveaways."
+    },
+    {
+      "day": 2,
+      "start": 10.25,
+      "end": 11.5,
+      "title": "Hulu Animayhem",
+      "ref": "Hulu Animayhem",
+      "note": "Personal plan: Hulu Animayhem right after the MTG cards."
+    },
+    {
+      "day": 2,
+      "start": 11.5,
+      "end": 14,
+      "title": "Adult Swim — line up + visit",
+      "ref": "Adult Swim on the Green",
+      "note": "Personal plan: 11:30am start includes line-up; venue opens 1pm. Through 2pm."
+    },
+    {
+      "day": 2,
+      "start": 15,
+      "end": 17,
+      "title": "Meow Wolf — line up + panel",
+      "ref": "Meow Wolf × Titmouse",
+      "note": "Personal plan: arrive 3pm to line up for the 4-5pm panel (giveaways). Through 5pm."
+    },
+    {
+      "day": 3,
+      "start": 7,
+      "end": 10,
+      "title": "Lanterns — line up (standby)",
+      "ref": "Lanterns Training HQ",
+      "note": "Personal plan: line up 7-10am for Lanterns standby (opens 10am). Entry not guaranteed."
+    },
+    {
+      "day": 3,
+      "start": 10,
+      "end": 11,
+      "title": "Lanterns — visit",
+      "ref": "Lanterns Training HQ",
+      "note": "Personal plan: Lanterns visit, 10-11am (if standby gets in)."
+    },
+    {
+      "day": 3,
+      "start": 13,
+      "end": 14.25,
+      "title": "Line up: X-Men '97 (skip McFarlane)",
+      "ref": "Marvel Comics to Screen: X-Men '97",
+      "note": "Personal plan: hold Room 6A seat from 1pm for the 2:15 X-Men '97 panel. Skipping McFarlane (1-2pm) to secure the seat."
+    },
+    {
+      "day": 3,
+      "start": 14.25,
+      "end": 15.25,
+      "title": "X-Men '97 panel",
+      "ref": "Marvel Comics to Screen: X-Men '97",
+      "note": "Personal plan: attend X-Men '97 (2:15-3:15pm, Room 6A). Giveaway comic at the end."
+    },
+    {
+      "day": 3,
+      "start": 15.5,
+      "end": 16.5,
+      "title": "Marvel Next Big Thing panel",
+      "ref": "Marvel Comics: Next Big Thing",
+      "note": "Personal plan: attend Marvel Next Big Thing (3:30-4:30pm, Room 6A). Giveaway for those who stay to the end."
+    },
+    {
+      "day": 3,
+      "start": 16.75,
+      "end": 17.75,
+      "title": "Bold Voices horror panel",
+      "ref": "Bold Voices of Contemporary Horror: Tenth Anniversary Edition",
+      "note": "Personal plan: attend Bold Voices of Contemporary Horror 10th Anniv (4:45-5:45pm, Room 6A). Giveaways for all attendees."
+    },
+    {
+      "day": 4,
+      "start": 10,
+      "end": 10.5,
+      "title": "Decide: Paramount Lodge",
+      "ref": "Paramount — The Lodge",
+      "note": "Personal plan: decide Saturday ~10am whether to do the Paramount Lodge (standby). Placeholder decision block."
     }
   ]
 }
@@ -1370,13 +1830,14 @@ document.addEventListener('click', e => {
   const r = e.target.getBoundingClientRect();     // keyboard / synthetic click
   clickPt = { x: r.left + r.width / 2, y: r.bottom };
 }, true);
-// ---- completion state (persisted, per browser) ----
+// ---- completion state (persisted) ----
 const DONE_KEY = 'sdcc26.done.v1';
 let done = {};
 try { done = JSON.parse(localStorage.getItem(DONE_KEY) || '{}') || {}; } catch (e) { done = {}; }
 const COMPLETED_DEFAULT = new Set((D.offsites||[]).filter(o=>o.completed).map(o=>'o:'+o.title));
 const isDone = k => (k in done) ? !!done[k] : COMPLETED_DEFAULT.has(k);
 const saveDone = () => { try { localStorage.setItem(DONE_KEY, JSON.stringify(done)); } catch (e) {} };
+const panelKey = p => 'p:' + p.day + ':' + (p.start) + ':' + p.title;
 const offsiteKey = o => 'o:' + o.title;
 // ---- 'not attending' state for offsites (persisted, parallel to completion) ----
 const SKIP_KEY = 'sdcc26.skip.v1';
@@ -1395,17 +1856,19 @@ function wireSkipBtn() {
   if (!b) return;
   b.onclick = () => {
     const k = b.dataset.skip;
+    // toggle against the EFFECTIVE state (data default + override), and store an explicit value
     if (isSkipped(k)) skipMap[k] = false; else skipMap[k] = Date.now();
     saveSkip();
     location.reload();
   };
 }
 
-let openBy = null;
+let openBy = null;               // the bar that opened the current card
 function hide() { det.classList.remove('on'); openBy = null; }
 function doneRow(key) {
   const on = isDone(key);
-  return ['Status', `<button class="donebtn${on ? ' is-done' : ''}" data-key="${key}">`
+  return ['Status',
+    `<button class="donebtn${on ? ' is-done' : ''}" data-key="${key}">`
     + `${on ? 'Mark uncompleted' : 'Mark completed'}</button>`];
 }
 function wireDoneBtn() {
@@ -1418,9 +1881,8 @@ function wireDoneBtn() {
     location.reload();
   };
 }
-
 function show(title, meta, rows, src) {
-  if (src && openBy === src && det.classList.contains('on')) { hide(); return; }
+  if (src && openBy === src && det.classList.contains('on')) { hide(); return; }  // tap same bar -> close
   openBy = src || null;
   document.getElementById('d-title').textContent = title;
   document.getElementById('d-meta').textContent = meta;
@@ -1479,13 +1941,133 @@ function srcRows(o){
   }).join('<br>')]];
 }
 
+/* ============ PANELS: one lane per room, spanning all days ============ */
+const COMMITTED = ['must', 'want'];
+const pEnd = p => (p.end != null ? p.end : Math.min(p.start + 2, H1));  // null end = assume 2h
+const D_PLANS = D.plans || [];
+// everything that blocks time on a given day: committed panels + personal plans
+const busyOn = d => [
+  ...D.panels.filter(p => p.day === d && COMMITTED.includes(p.tier)).map(p => [p.start, pEnd(p)]),
+  ...D_PLANS.filter(p => p.day === d).map(p => [p.start, p.end])
+];
+
+// group panels by room; order rooms by earliest appearance
+const DONE_ROOM = '✓ Done';
+const roomOrder = [];
+const byRoom = {};
+D.panels.slice().sort((a, b) => a.day - b.day || a.start - b.start).forEach(p => {
+  const rm = isDone(panelKey(p)) ? DONE_ROOM : (p.room || '—');
+  if (!byRoom[rm]) { byRoom[rm] = []; roomOrder.push(rm); }
+  byRoom[rm].push(p);
+});
+// keep the Done lane at the very bottom regardless of insertion order
+const di = roomOrder.indexOf(DONE_ROOM);
+if (di > -1) { roomOrder.splice(di, 1); roomOrder.push(DONE_ROOM); }
+// within a room, split into sub-rows only if two panels overlap on the same day
+const roomRows = roomOrder.map(rm => {
+  const sub = [];
+  byRoom[rm].forEach(p => {
+    let r = sub.find(row => !row.some(e =>
+      e.day === p.day && p.start < pEnd(e) && e.start < pEnd(p)));
+    if (!r) { r = []; sub.push(r); }
+    r.push(p);
+  });
+  return { room: rm, sub };
+});
+
+// ---- My Plans (committed personal blocks that reserve time) ----
+if (D_PLANS.length) {
+  section('My plans', 'committed times · these block the schedule');
+  const L = lane('MY PLANS', 'planlane');
+  D_PLANS.forEach(pl => {
+    const b = document.createElement('button');
+    b.className = 'ev planbar';
+    b.style.left = pct(pl.start) + '%';
+    b.style.width = (pct(pl.end) - pct(pl.start)) + '%';
+    b.innerHTML = `<span class="tick">${fmt(pl.start)}</span>${pl.title}`;
+    b.onclick = () => show(pl.title,
+      `${D.days[pl.day].name} · ${fmt(pl.start)}–${fmt(pl.end)}`,
+      [['Type', '<span class="badge b-plan">Committed plan</span>'],
+       ...(pl.ref ? [['For', pl.ref]] : []),
+       ...(pl.note ? [['Note', pl.note]] : []),
+       doneRow('plan:' + pl.day + ':' + pl.start + ':' + pl.title)], b);
+    L.cells[pl.day].appendChild(b);
+  });
+  grid.appendChild(L.el);
+}
+
+section('Panels', 'one lane per room · columns = days');
+roomRows.forEach(({ room, sub }) => {
+  sub.forEach((row, i) => {
+    const L = lane(i === 0 ? room : '', i === 0 ? 'roomlane' : 'roomlane roomalt');
+    if (room === DONE_ROOM) L.el.classList.add('donelane');
+    row.forEach(p => {
+    const b = document.createElement('button');
+    const openEnd = p.end == null;
+    b.className = `ev ${p.tier}` + (openEnd ? ' openend' : '')
+      + (p.status === 'lottery' ? ' lottery' : '');
+    b.dataset.tier = p.tier;
+    b.style.left = pct(p.start) + '%';
+    b.style.width = (pct(pEnd(p)) - pct(p.start)) + '%';
+    b.innerHTML = `<span class="tick">${fmt(p.start)}</span>${p.title}`
+      + (p.requires ? `<span class="q">⚿</span>` : '')
+      + (p.cap ? `<span class="q" title="Giveaway">🎁</span>` : '');
+    b.onclick = () => show(p.title,
+      `${D.days[p.day].name} · ${fmt(p.start)}${p.end != null ? '–' + fmt(p.end) : '· end TBA'}`, [
+      ['Room', p.room || '—'],
+      ...(p.status === 'lottery' ? [['Entry',
+        `<span class="badge b-pick">Lottery entered</span> ${p.statusNote || ''}`]] : []),
+      ['Priority', p.tier === 'must' ? 'Must see' : p.tier === 'want' ? 'Want'
+        : p.tier === 'undecided' ? `<span class="badge b-pick">Undecided</span>`
+        : p.tier === 'skip' ? `<span class="badge b-skip">Not attending</span>` : 'If free'],
+      ...(p.cap ? [['Giveaway', `<span class="badge b-gyes">Yes</span> ${p.cap.what}`]] : []),
+      ...(p.requiresNote ? [['Requires',
+        `<span class="badge b-warn">Prereq</span> ${p.requiresNote}`]] : []),
+      ...(p.note ? [['Note', p.note]] : []),
+      ...srcRows(p),
+      doneRow(panelKey(p))
+    ], b);
+      L.cells[p.day].appendChild(b);
+    });
+    grid.appendChild(L.el);
+  });
+});
+
+/* ============ CONFLICT STRIP ============ */
+{
+  const L = lane('conflicts', 'strip');
+  for (let d = 0; d < NDAY; d++) {
+    const ps = [
+      ...D.panels.filter(p => p.day === d && COMMITTED.includes(p.tier)).map(p => ({start:p.start, end:pEnd(p), title:p.title, kind:'panel'})),
+      ...D_PLANS.filter(p => p.day === d).map(p => ({start:p.start, end:p.end, title:p.title, ref:p.ref, kind:'plan'}))
+    ];
+    // a plan and the panel it's lining up for are the SAME commitment, not a clash
+    const samePair = (a, b) =>
+      (a.kind === 'plan' && a.ref === b.title) || (b.kind === 'plan' && b.ref === a.title);
+    for (let i = 0; i < ps.length; i++)
+      for (let j = i + 1; j < ps.length; j++) {
+        if (samePair(ps[i], ps[j])) continue;
+        const s = Math.max(ps[i].start, ps[j].start), e = Math.min(ps[i].end, ps[j].end);
+        if (s < e) {
+          const c = document.createElement('div');
+          c.className = 'conf';
+          c.style.left = pct(s) + '%';
+          c.style.width = (pct(e) - pct(s)) + '%';
+          c.title = `${ps[i].title} ⨯ ${ps[j].title}`;
+          L.cells[d].appendChild(c);
+        }
+      }
+  }
+  grid.appendChild(L.el);
+}
+
 /* ============ OFFSITES ============ */
 section('Offsites', '⌂ = inside convention center · pins = giveaways · hatched = walk-up');
 D.offsites.slice().sort((a, b) => {
   const rank = o => (isDone(offsiteKey(o)) ? 2 : isSkipped(offsiteKey(o)) ? 1 : 0);
   return rank(a) - rank(b);
 }).forEach(o => {
-  const L = lane(o.title, o.onsite ? 'onsite' : '');
+  const L = lane(o.title, (o.tier === 'must' ? 'mustdo ' : '') + (o.onsite ? 'onsite' : ''));
   if ((o.tags || []).length) L.el.dataset.tags = o.tags.join(' ');
   L.el.classList.add('offsiterow');
   L.el.dataset.title = o.title;
@@ -1510,15 +2092,16 @@ D.offsites.slice().sort((a, b) => {
     const b = document.createElement('button');
     b.className = `ev offsite ${acc}`
       + (st == null ? ' nohours' : '') + (openEnded ? ' openend' : '')
-      + (o.estimated ? ' est' : '')
+      + (o.estimated ? ' est' : '') + (o.tier === 'must' ? ' mustdo' : '')
       + (o.onsite ? ' onsite' : '')
-      + (o.giveaway === 'yes' ? ' gyes' : '');
+      + ((o.slots && o.slots.some(x=>x.day===d)) ? ' held' : '');
     b.style.left = pct(s) + '%';
     b.style.width = (pct(e) - pct(s)) + '%';
     b.innerHTML = `<span class="tick">${
         known ? fmt(s) + '–' + fmt(e)
       : openEnded ? fmt(s) + (o.closesWhen ? '– ' + o.closesWhen : '– close TBA')
       : 'hours TBA'}</span>`
+      + ((o.slots && o.slots.some(x=>x.day===d)) ? `<span class="q">◆</span>` : '')
       + ((o.cap && o.cap.days.includes(d)) ? `<span class="q">⏳</span>` : '')
       + (o.badgeRequired ? `<span class="q">🎟</span>` : '')
       + (o.closesWhen ? `<span class="q">⌛</span>` : '')
@@ -1535,7 +2118,9 @@ D.offsites.slice().sort((a, b) => {
           ? `<span class="badge b-yes">Reserved</span> ${o.confirmation}`
           : `<span class="badge b-warn">Reservation needed</span>`)
       : acc === 'standby' ? `<span class="badge b-mid">Reserve or standby</span>`
-      : acc === 'lottery' ? `<span class="badge b-pick">Lottery entry</span>`
+      : acc === 'lottery' ? (o.confirmation
+          ? `<span class="badge b-yes">Won</span> ${o.confirmation}`
+          : `<span class="badge b-pick">Lottery entered</span> ${o.statusNote || ''}`)
       : `<span class="badge b-no">Walk-up</span>`],
       ...(o.duration ? [['Duration', `~${o.duration} min`]] : []),
       ...(o.cap && o.cap.days.includes(d)
@@ -1557,6 +2142,11 @@ D.offsites.slice().sort((a, b) => {
            :                          `<span class="badge b-unk">Not announced</span>`)
             + ' ' + (o.giveawayNote || (o.giveaway === 'unknown'
                 ? 'No giveaway details published.' : ''))]] : []),
+      ...(o.slots && o.slots.some(x=>x.day===d) ? [['Your slots',
+        o.slots.filter(x=>x.day===d).map(x =>
+          `<span class="slotpill${x.chosen?' on':''}">${fmt(x.t)}${x.chosen?' ✓':''}</span>`).join(' ')
+        + (o.slotsNote ? `<div style="opacity:.6;margin-top:5px;font-weight:400">${o.slotsNote}</div>` : '')
+      ]] : []),
       ...(o.ticketedInside ? [['Inside',
         `<span class="badge b-warn">Ticketed play</span> ${o.ticketedInside}`]] : []),
       ...(acc === 'reservation' && !o.confirmation && o.reservationOpens
@@ -1591,6 +2181,24 @@ D.offsites.slice().sort((a, b) => {
       L.cells[d].appendChild(q);
     }
     L.cells[d].appendChild(b);
+
+    // ticket slots: thin markers sized to the visit duration
+    (o.slots || []).filter(x => x.day === d).forEach(x => {
+      const dur = (o.duration || 30) / 60;
+      const sl = document.createElement('button');
+      sl.className = 'slot' + (x.chosen ? ' chosen' : '');
+      sl.style.left = pct(x.t) + '%';
+      sl.style.width = Math.max(pct(x.t + dur) - pct(x.t), 0.9) + '%';
+      sl.title = `${fmt(x.t)} · ${x.qty}× ticket${x.chosen ? ' (chosen)' : ''}`;
+      sl.onclick = e => { e.stopPropagation(); show(o.title,
+        `${D.days[d].name} · ${fmt(x.t)}–${fmt(x.t + dur)}`,
+        [['Slot', `${x.qty} tickets held`],
+         ['Status', x.chosen ? `<span class="badge b-yes">Chosen</span>`
+                             : `<span class="badge b-pick">Not chosen</span>`],
+         ['Duration', `~${o.duration} min`],
+         ['Location', o.location || '—']]); };
+      L.cells[d].appendChild(sl);
+    });
   });
   // nested programming -> collapsed sub-lane, toggled from the parent's name
   const emitProgram = () => {
@@ -1643,6 +2251,87 @@ D.offsites.slice().sort((a, b) => {
     L.el.querySelector('.name').appendChild(g); }
 });
 
+/* ============ FREE WINDOWS (gaps between committed panels) ============ */
+section('Free windows', 'gaps ≥ 45 min around committed panels + my plans');
+{
+  const L = lane('open time', 'strip');
+  for (let d = 0; d < NDAY; d++) {
+    const busy = busyOn(d).sort((a, b) => a[0] - b[0]);
+    const merged = [];
+    busy.forEach(b => {
+      const last = merged[merged.length - 1];
+      if (last && b[0] <= last[1]) last[1] = Math.max(last[1], b[1]);
+      else merged.push([...b]);
+    });
+    let cur = H0;
+    [...merged, [H1, H1]].forEach(([s, e]) => {
+      if (s - cur >= 0.75) {
+        const g = document.createElement('div');
+        g.className = 'gap';
+        g.style.left = pct(cur) + '%';
+        g.style.width = (pct(s) - pct(cur)) + '%';
+        const mins = Math.round((s - cur) * 60);
+        g.innerHTML = `<span>${mins >= 90 ? Math.floor(mins / 60) + 'h' + (mins % 60 ? mins % 60 : '') : mins + 'm'}</span>`;
+        g.title = `${fmt(cur)}–${fmt(s)} free`;
+        L.cells[d].appendChild(g);
+      }
+      cur = Math.max(cur, e);
+    });
+  }
+  grid.appendChild(L.el);
+}
+
+/* ============ ACTION BANNER ============ */
+{
+  const plannedRefs = new Set((D.plans || []).map(p => p.ref).filter(Boolean));
+  const handled = o => isSkipped(offsiteKey(o)) || isDone(offsiteKey(o)) || plannedRefs.has(o.title);
+  const need = D.offsites.filter(o => o.access === 'reservation' && !o.confirmation && !handled(o));
+  const watch = D.offsites.filter(o => o.watch && !handled(o));
+  const lotto = [
+    ...D.panels.filter(p => p.status === 'lottery')
+      .map(p => ({title:p.title, day:p.day, t:p.start, statusNote:p.statusNote, link:p.link})),
+    ...D.offsites.filter(o => o.access === 'lottery' && !o.confirmation && !handled(o))
+      .map(o => { const k = Object.keys(o.hours||{})[0];
+        return {title:o.title, day:+k, t:(o.hours||{})[k][0],
+                statusNote:o.statusNote || o.applicationClosed,
+                link:(o.links||[])[0]}; })
+  ];
+  const caps  = D.offsites.filter(o => o.cap && !handled(o));
+  const undec = D.panels.filter(p => p.tier === 'undecided');
+  let html = '';
+  if (need.length) html += '<b>Action required</b>' + need.map(o =>
+      `<div><strong>${o.title}</strong> — reservation required, not yet booked.` +
+      (o.reservationOpens ? ` Opens <strong>${o.reservationOpens}</strong>.` : '') +
+      (o.reservationUrl ? ` <a href="${o.reservationUrl}" target="_blank" rel="noopener">Book ↗</a>` : '') +
+      `</div>`).join('');
+  const pick = D.offsites.filter(o => o.slots && !o.slots.some(x => x.chosen) && !handled(o));
+  if (pick.length) html += '<b style="margin-top:9px">Decide your slot</b>' + pick.map(o => {
+      const dur = (o.duration || 30) / 60;
+      // a slot is clean if it overlaps no must/want panel
+      const clash = x => busyOn(x.day).some(([bs, be]) => x.t < be && bs < x.t + dur);
+      const clean = o.slots.filter(x => !clash(x));
+      const dirty = o.slots.filter(clash);
+      return `<div><strong>${o.title}</strong> — ${o.slots.length} slots held` +
+        (o.duration ? `, ~${o.duration} min each` : '') + `. None chosen.` +
+        (dirty.length ? ` <span style="color:#a8531c">${dirty.length} overlap a panel:</span> `
+          + dirty.map(x => `${D.days[x.day].name} ${fmt(x.t)}`).join(', ') + '.' : '') +
+        (clean.length ? ` <strong>${clean.length} clear.</strong>` : '') + `</div>`;
+    }).join('');
+  if (lotto.length) html += '<b style="margin-top:9px">Awaiting lottery</b>' + lotto.map(p =>
+      `<div><strong>${p.title}</strong> — ${D.days[p.day].name} ${fmt(p.t)}. ` +
+      `${p.statusNote || 'Entered, no confirmation.'}` +
+      (p.link ? ` <a href="${p.link}" target="_blank" rel="noopener">Check ↗</a>` : '') +
+      `</div>`).join('');
+  if (undec.length) html += '<b style="margin-top:9px">Undecided</b>' + undec.map(p =>
+      `<div><strong>${p.title}</strong> — ${D.days[p.day].name} ${fmt(p.start)}` +
+      `${p.room ? ', ' + p.room : ''}. Not yet prioritised; excluded from conflict and free-window math.</div>`).join('');
+  if (caps.length) html += '<b style="margin-top:9px">Capped — queue early</b>' + caps.map(o =>
+      `<div><strong>${o.title}</strong> — ${o.cap.what}. Bars show opening hours, not queue time.</div>`).join('');
+  if (watch.length) html += '<b style="margin-top:9px">Waiting on info</b>' + watch.map(o =>
+      `<div><strong>${o.title}</strong> — ${o.watch}</div>`).join('');
+  document.getElementById('todo').innerHTML = html;
+}
+
 /* ============ TAG FILTER ============ */
 {
   const counts = {};
@@ -1650,7 +2339,7 @@ D.offsites.slice().sort((a, b) => {
   const tags = Object.keys(counts).sort();
   const bar = document.getElementById('tagbar');
   if (tags.length) {
-    const active = new Set();
+    const active = new Set();          // empty = show everything
     bar.innerHTML = `<span class="lead">Filter:</span>` + tags.map(t =>
       `<button class="tagbtn" data-tag="${t}" aria-pressed="false">${t}<span class="n">${counts[t]}</span></button>`
     ).join('') + `<button class="tagbtn" data-tag="__all" aria-pressed="false">clear</button>`
@@ -1669,8 +2358,9 @@ D.offsites.slice().sort((a, b) => {
     bar.querySelectorAll('.tagbtn').forEach(b => {
       b.onclick = () => {
         const t = b.dataset.tag;
-        if (t === '__all') active.clear();
-        else if (active.has(t)) active.delete(t); else active.add(t);
+        if (t === '__all') { active.clear(); }
+        else if (active.has(t)) active.delete(t);
+        else active.add(t);
         bar.querySelectorAll('.tagbtn').forEach(x =>
           x.setAttribute('aria-pressed', String(x.dataset.tag !== '__all' && active.has(x.dataset.tag))));
         apply();
@@ -1678,7 +2368,6 @@ D.offsites.slice().sort((a, b) => {
     });
   }
 }
-
 
 /* ============ DRAG TO REORDER — pointer events, works on touch ============ */
 {

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>SDCC 2026 · My Day</title>
+<style>
+:root{
+  --paper:#e8e4da; --ink:#20242c; --grid:#d3cec2; --gridhour:#c2bcae;
+  --plan:#c85a2a; --plandark:#7a3d1f;
+  --must:#c0392b; --want:#2a6f5a;
+  --rowh:64px;                 /* height of ONE hour — big = readable */
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);
+  font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;
+  -webkit-text-size-adjust:100%}
+header{padding:18px 20px 10px}
+h1{margin:0;font-size:17px;letter-spacing:.03em;text-transform:uppercase}
+.sub{font-size:11px;opacity:.6;margin-top:3px}
+a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
+
+/* day tabs */
+.tabs{display:flex;gap:6px;padding:8px 20px 12px;flex-wrap:wrap}
+.tab{all:unset;cursor:pointer;padding:7px 14px;border:1px solid var(--gridhour);
+  border-radius:99px;font-size:12px;font-weight:700;letter-spacing:.02em}
+.tab .dt{font-weight:400;opacity:.55;font-size:10px;margin-left:5px}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tab:focus-visible{outline:2px solid var(--plan);outline-offset:2px}
+
+/* the calendar grid */
+.cal{position:relative;margin:0 14px 40px;padding-left:52px}
+.hourlines{position:absolute;inset:0 0 0 52px;z-index:0}
+.hr{position:absolute;left:0;right:0;border-top:1px solid var(--grid);
+  font-size:0}
+.hr.major{border-top-color:var(--gridhour)}
+.hrlabel{position:absolute;left:0;width:48px;text-align:right;
+  font-size:10px;opacity:.55;transform:translateY(-6px)}
+.track{position:relative;z-index:1}
+.day{display:none}
+.day.on{display:block}
+
+/* event blocks */
+.ev{position:absolute;left:0;right:8px;border-radius:6px;padding:6px 9px;
+  overflow:hidden;cursor:pointer;border:1px solid rgba(0,0,0,.15);
+  display:flex;flex-direction:column;gap:2px;min-height:26px}
+.ev .t{font-size:10px;opacity:.85;font-weight:700;letter-spacing:.02em}
+.ev .ti{font-size:12px;line-height:1.25;font-weight:700}
+.ev .rm{font-size:10px;opacity:.75}
+.ev:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* plan = hatched orange (matches board) */
+.ev.plan{background:repeating-linear-gradient(135deg,#c85a2a,#c85a2a 8px,#b34e22 8px,#b34e22 16px);
+  color:#fff;border-color:var(--plandark)}
+.ev.plan .t,.ev.plan .rm{color:#ffe;opacity:.9}
+/* committed panels */
+.ev.must{background:#f3d9d5;border-color:var(--must)}
+.ev.must .ti{color:#7a201a}
+.ev.want{background:#d3e7e0;border-color:var(--want)}
+.ev.want .ti{color:#1c4a3c}
+.ev.overlap{right:auto;width:calc(50% - 6px)}
+.ev.overlap.second{left:calc(50% + 2px);right:8px;width:auto}
+
+/* "now" is irrelevant (future con) so no now-line */
+.empty{padding:40px 20px;text-align:center;opacity:.5;font-size:12px}
+
+@media (min-width:720px){
+  /* desktop: show all days side by side */
+  .tabs{display:none}
+  .board{display:flex;gap:0;margin:0 14px 40px;padding-left:52px;position:relative}
+  .hourlines{inset:0 0 0 52px}
+  .day{display:block !important;flex:1;position:relative;border-left:1px solid var(--grid);
+    min-width:0}
+  .day .dhead{position:sticky;top:0;background:var(--paper);z-index:2;
+    padding:6px 8px;font-size:12px;font-weight:700;border-bottom:1px solid var(--gridhour);
+    text-align:center}
+  .day .dhead .dt{display:block;font-weight:400;opacity:.55;font-size:10px}
+  .ev{right:4px;left:4px}
+  .ev.overlap{width:calc(50% - 4px)}
+  .ev.overlap.second{left:calc(50% + 2px);width:auto;right:4px}
+}
+
+.pagenav{display:flex;gap:6px;padding:8px 24px 0;flex-wrap:wrap}
+.pagenav a{font-family:'Space Mono','SF Mono',Menlo,Consolas,monospace;font-size:10px;
+  text-transform:uppercase;letter-spacing:.04em;text-decoration:none;
+  padding:5px 12px;border:1px solid var(--line,#c9c3b6);border-radius:99px;
+  color:inherit;opacity:.7}
+.pagenav a:hover{opacity:1}
+.pagenav a[aria-current="page"]{background:var(--ink,#20242c);color:var(--paper,#e8e4da);
+  border-color:var(--ink,#20242c);opacity:1;font-weight:700}
+</style>
+</head>
+<body>
+<header>
+  <h1>My Day · SDCC 2026</h1>
+  <div class="sub">Committed plans and locked panels.</div>
+</header>
+<nav class="pagenav"><a href="index.html">Offsites</a><a href="sdcc-2026-schedule.html">My Board</a><a href="sdcc-2026-calendar.html" aria-current="page">My Day</a></nav>
+<div class="tabs" id="tabs" role="tablist"></div>
+<div id="root"></div>
+
+<script id="caldata" type="application/json">
+{
+  "days": [
+    {
+      "idx": 2,
+      "name": "Thu",
+      "date": "Jul 23"
+    },
+    {
+      "idx": 3,
+      "name": "Fri",
+      "date": "Jul 24"
+    },
+    {
+      "idx": 4,
+      "name": "Sat",
+      "date": "Jul 25"
+    }
+  ],
+  "startHour": 7,
+  "endHour": 22,
+  "plans": [
+    {
+      "day": 2,
+      "start": 7,
+      "end": 10.25,
+      "title": "MTG — line up + cards",
+      "ref": "MTG Marvel Super Heroes Experience",
+      "note": "Personal plan: arrive 7am to line up, through ~10:15am to get the Marvel Super Heroes promo cards. Venue opens 10am; early queue for giveaways."
+    },
+    {
+      "day": 2,
+      "start": 10.25,
+      "end": 11.5,
+      "title": "Hulu Animayhem",
+      "ref": "Hulu Animayhem",
+      "note": "Personal plan: Hulu Animayhem right after the MTG cards."
+    },
+    {
+      "day": 2,
+      "start": 11.5,
+      "end": 14,
+      "title": "Adult Swim — line up + visit",
+      "ref": "Adult Swim on the Green",
+      "note": "Personal plan: 11:30am start includes line-up; venue opens 1pm. Through 2pm."
+    },
+    {
+      "day": 2,
+      "start": 15,
+      "end": 17,
+      "title": "Meow Wolf — line up + panel",
+      "ref": "Meow Wolf × Titmouse",
+      "note": "Personal plan: arrive 3pm to line up for the 4-5pm panel (giveaways). Through 5pm."
+    },
+    {
+      "day": 3,
+      "start": 7,
+      "end": 10,
+      "title": "Lanterns — line up (standby)",
+      "ref": "Lanterns Training HQ",
+      "note": "Personal plan: line up 7-10am for Lanterns standby (opens 10am). Entry not guaranteed."
+    },
+    {
+      "day": 3,
+      "start": 10,
+      "end": 11,
+      "title": "Lanterns — visit",
+      "ref": "Lanterns Training HQ",
+      "note": "Personal plan: Lanterns visit, 10-11am (if standby gets in)."
+    },
+    {
+      "day": 3,
+      "start": 13,
+      "end": 14.25,
+      "title": "Line up: X-Men '97 (skip McFarlane)",
+      "ref": "Marvel Comics to Screen: X-Men '97",
+      "note": "Personal plan: hold Room 6A seat from 1pm for the 2:15 X-Men '97 panel. Skipping McFarlane (1-2pm) to secure the seat."
+    },
+    {
+      "day": 3,
+      "start": 14.25,
+      "end": 15.25,
+      "title": "X-Men '97 panel",
+      "ref": "Marvel Comics to Screen: X-Men '97",
+      "note": "Personal plan: attend X-Men '97 (2:15-3:15pm, Room 6A). Giveaway comic at the end."
+    },
+    {
+      "day": 3,
+      "start": 15.5,
+      "end": 16.5,
+      "title": "Marvel Next Big Thing panel",
+      "ref": "Marvel Comics: Next Big Thing",
+      "note": "Personal plan: attend Marvel Next Big Thing (3:30-4:30pm, Room 6A). Giveaway for those who stay to the end."
+    },
+    {
+      "day": 3,
+      "start": 16.75,
+      "end": 17.75,
+      "title": "Bold Voices horror panel",
+      "ref": "Bold Voices of Contemporary Horror: Tenth Anniversary Edition",
+      "note": "Personal plan: attend Bold Voices of Contemporary Horror 10th Anniv (4:45-5:45pm, Room 6A). Giveaways for all attendees."
+    },
+    {
+      "day": 4,
+      "start": 10,
+      "end": 10.5,
+      "title": "Decide: Paramount Lodge",
+      "ref": "Paramount — The Lodge",
+      "note": "Personal plan: decide Saturday ~10am whether to do the Paramount Lodge (standby). Placeholder decision block."
+    }
+  ],
+  "panels": [
+    {
+      "day": 2,
+      "start": 16,
+      "end": 17,
+      "title": "Meow Wolf × Titmouse",
+      "tier": "must",
+      "room": "Room 25ABC",
+      "note": "Immersive art makers Meow Wolf and Emmy-winning studio Titmouse on animation meeting architecture, 2D storytelling moving into 3D, and building a universe from scratch. Includes a sneak peek at the collaboration."
+    },
+    {
+      "day": 3,
+      "start": 14.25,
+      "end": 15.25,
+      "title": "Marvel Comics to Screen: X-Men '97",
+      "tier": "must",
+      "room": "Room 6A",
+      "note": "Creative team behind Marvel Animation's X-Men '97 plus special guests on Season 2 — insider insights, anecdotes, hints of what's to come."
+    },
+    {
+      "day": 3,
+      "start": 15.5,
+      "end": 16.5,
+      "title": "Marvel Comics: Next Big Thing",
+      "tier": "must",
+      "room": "Room 6A",
+      "note": "Leading comics creators on the future of Marvel Comics — Amazing Spider-Man #1000, Infernal Hulk, DNX, Queen in Black, and more."
+    },
+    {
+      "day": 3,
+      "start": 16.75,
+      "end": 17.75,
+      "title": "Bold Voices of Contemporary Horror: Tenth Anniversary Edition",
+      "tier": "must",
+      "room": "Room 6A",
+      "note": "Tenth anniversary, featuring Mubi, Shudder, AMC, Magnolia, and more. Directors and stars behind anticipated indie and studio genre films/series on the current state of the field, with exclusive footage from upcoming releases and Cannes titles (incl. Teenage Sex and Death at Camp Miasma, Victorian Psycho). Talent includes Dan Stevens (AMC's The Terror), Deborah Ann Woll (Shudder's The Cycle), director Zachary Wigon (Victorian Psycho), director Dave Boyle (Never After Dark), and others. Moderated by Michael Lerman (Overlook Film Festival)."
+    },
+    {
+      "day": 4,
+      "start": 14,
+      "end": 16,
+      "title": "Apple TV Hall H Panel",
+      "tier": "must",
+      "room": "Hall H",
+      "note": "Widow’s Bay. Panelists to be announced."
+    }
+  ]
+}
+</script>
+<script>
+const C = JSON.parse(document.getElementById('caldata').textContent);
+const H0 = C.startHour, H1 = C.endHour, SPAN = H1 - H0;
+const ROWH = 64;                                   // must match --rowh
+const fmt = h => { const hr=Math.floor(h), m=Math.round((h-hr)*60);
+  const ap = hr>=12?'pm':'am', hh = (hr%12)||12;
+  return m ? `${hh}:${String(m).padStart(2,'0')}${ap}` : `${hh}${ap}`; };
+const y = h => (h - H0) * ROWH;                     // hours -> px from top
+
+// build hour lines (shared)
+function hourLines() {
+  const wrap = document.createElement('div');
+  wrap.className = 'hourlines';
+  for (let h = H0; h <= H1; h++) {
+    const line = document.createElement('div');
+    line.className = 'hr' + (h % 3 === 0 ? ' major' : '');
+    line.style.top = y(h) + 'px';
+    const lab = document.createElement('div');
+    lab.className = 'hrlabel';
+    lab.textContent = fmt(h);
+    line.appendChild(lab);
+    wrap.appendChild(line);
+  }
+  return wrap;
+}
+
+// events for a given day, positioned; detect simple 2-way overlaps
+function eventsFor(dayIdx) {
+  const items = [];
+  const dayPlans = C.plans.filter(p => p.day === dayIdx);
+  dayPlans.forEach(p => items.push({ ...p, kind: 'plan', end: p.end }));
+  // a plan referencing a panel already covers it — don't draw the panel twice
+  const coveredByPlan = new Set(dayPlans.map(p => p.ref).filter(Boolean));
+  C.panels.filter(p => p.day === dayIdx && !coveredByPlan.has(p.title)).forEach(p =>
+    items.push({ ...p, kind: p.tier, end: p.end != null ? p.end : Math.min(p.start + 1, H1) }));
+  items.sort((a, b) => a.start - b.start);
+
+  // mark overlaps (pairwise; enough for this density)
+  items.forEach((it, i) => {
+    const prev = items[i - 1];
+    if (prev && it.start < prev.end && !prev._ov) { it._ov = 'second'; prev._ov = 'first'; }
+  });
+
+  const frag = document.createElement('div');
+  frag.className = 'track';
+  frag.style.height = (SPAN * ROWH) + 'px';
+  items.forEach(it => {
+    const b = document.createElement('button');
+    b.className = 'ev ' + it.kind + (it._ov ? ' overlap ' + it._ov : '');
+    b.style.top = y(it.start) + 'px';
+    b.style.height = Math.max(y(it.end) - y(it.start) - 3, 26) + 'px';
+    const room = it.room ? `<span class="rm">${it.room}</span>` : '';
+    const tierLbl = it.kind === 'plan' ? 'Plan'
+      : it.kind === 'must' ? 'Must' : 'Want';
+    b.innerHTML = `<span class="t">${fmt(it.start)}–${fmt(it.end)} · ${tierLbl}</span>`
+      + `<span class="ti">${it.title}</span>${room}`;
+    b.onclick = () => alert(`${it.title}\n${C.days.find(d=>d.idx===dayIdx).name} ${fmt(it.start)}–${fmt(it.end)}`
+      + (it.room ? `\nRoom: ${it.room}` : '')
+      + (it.ref ? `\nFor: ${it.ref}` : '')
+      + (it.note ? `\n\n${it.note}` : ''));
+    frag.appendChild(b);
+  });
+  if (!items.length) {
+    const e = document.createElement('div');
+    e.className = 'empty';
+    e.textContent = 'Nothing locked in for this day yet.';
+    frag.appendChild(e);
+  }
+  return frag;
+}
+
+const isDesktop = () => window.matchMedia('(min-width:720px)').matches;
+const root = document.getElementById('root');
+const tabs = document.getElementById('tabs');
+
+function renderMobile() {
+  root.innerHTML = '';
+  tabs.innerHTML = '';
+  const cal = document.createElement('div');
+  cal.className = 'cal';
+  cal.appendChild(hourLines());
+  C.days.forEach((d, i) => {
+    const t = document.createElement('button');
+    t.className = 'tab'; t.setAttribute('role','tab');
+    t.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    t.innerHTML = `${d.name}<span class="dt">${d.date.replace(/ ·.*/,'')}</span>`;
+    t.onclick = () => {
+      [...tabs.children].forEach(c => c.setAttribute('aria-selected','false'));
+      t.setAttribute('aria-selected','true');
+      [...cal.querySelectorAll('.day')].forEach(dd => dd.classList.remove('on'));
+      cal.querySelector(`.day[data-i="${i}"]`).classList.add('on');
+    };
+    tabs.appendChild(t);
+    const day = document.createElement('div');
+    day.className = 'day' + (i === 0 ? ' on' : '');
+    day.dataset.i = i;
+    day.appendChild(eventsFor(d.idx));
+    cal.appendChild(day);
+  });
+  root.appendChild(cal);
+}
+
+function renderDesktop() {
+  root.innerHTML = '';
+  tabs.innerHTML = '';
+  const board = document.createElement('div');
+  board.className = 'board';
+  board.appendChild(hourLines());
+  C.days.forEach(d => {
+    const col = document.createElement('div');
+    col.className = 'day on';
+    const head = document.createElement('div');
+    head.className = 'dhead';
+    head.innerHTML = `${d.name}<span class="dt">${d.date.replace(/ ·.*/,'')}</span>`;
+    col.appendChild(head);
+    col.appendChild(eventsFor(d.idx));
+    board.appendChild(col);
+  });
+  root.appendChild(board);
+}
+
+function render() { isDesktop() ? renderDesktop() : renderMobile(); }
+render();
+let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(render, 150); });
+</script>
+</body>
+</html>
