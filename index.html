@@ -1363,7 +1363,7 @@ function wireSkipBtn() {
   if (!b) return;
   b.onclick = () => {
     const k = b.dataset.skip;
-    if (skipMap[k]) delete skipMap[k]; else skipMap[k] = Date.now();
+    if (isSkipped(k)) skipMap[k] = false; else skipMap[k] = Date.now();
     saveSkip();
     location.reload();
   };
