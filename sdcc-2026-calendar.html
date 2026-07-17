@@ -53,6 +53,9 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
 /* plan = hatched orange (matches board) */
 .ev.plan{background:repeating-linear-gradient(135deg,#c85a2a,#c85a2a 8px,#b34e22 8px,#b34e22 16px);
   color:#fff;border-color:var(--plandark)}
+.ev.mediaplan{background:#8a2f6b;color:#fff;border:2px solid #fff;
+  box-shadow:0 0 0 1px #5c1f47}
+.ev.mediaplan .t,.ev.mediaplan .rm{color:#ffe;opacity:.92}
 .ev.plan .t,.ev.plan .rm{color:#ffe;opacity:.9}
 /* committed panels */
 .ev.must{background:#f3d9d5;border-color:var(--must)}
@@ -104,6 +107,11 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
 {
   "days": [
     {
+      "idx": 1,
+      "name": "Wed",
+      "date": "Jul 22 · Preview Night"
+    },
+    {
       "idx": 2,
       "name": "Thu",
       "date": "Jul 23"
@@ -123,12 +131,22 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
   "endHour": 22,
   "plans": [
     {
+      "day": 1,
+      "start": 17,
+      "end": 19,
+      "title": "Adult Swim — media window",
+      "ref": "Adult Swim on the Green",
+      "note": "Secured MEDIA ACCESS: Wed 5-7pm preview window.",
+      "media": true
+    },
+    {
       "day": 2,
       "start": 7,
       "end": 10.25,
       "title": "MTG — line up + cards",
       "ref": "MTG Marvel Super Heroes Experience",
-      "note": "Personal plan: arrive 7am to line up, through ~10:15am to get the Marvel Super Heroes promo cards. Venue opens 10am; early queue for giveaways."
+      "note": "Personal plan: arrive 7am to line up, through ~10:15am to get the Marvel Super Heroes promo cards. Venue opens 10am; early queue for giveaways.",
+      "media": false
     },
     {
       "day": 2,
@@ -136,7 +154,8 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
       "end": 11.5,
       "title": "Hulu Animayhem",
       "ref": "Hulu Animayhem",
-      "note": "Personal plan: Hulu Animayhem right after the MTG cards."
+      "note": "Personal plan: Hulu Animayhem right after the MTG cards.",
+      "media": false
     },
     {
       "day": 2,
@@ -144,7 +163,8 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
       "end": 14,
       "title": "Adult Swim — line up + visit",
       "ref": "Adult Swim on the Green",
-      "note": "Personal plan: 11:30am start includes line-up; venue opens 1pm. Through 2pm."
+      "note": "Personal plan: 11:30am start includes line-up; venue opens 1pm. Through 2pm.",
+      "media": false
     },
     {
       "day": 2,
@@ -152,7 +172,8 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
       "end": 17,
       "title": "Meow Wolf — line up + panel",
       "ref": "Meow Wolf × Titmouse",
-      "note": "Personal plan: arrive 3pm to line up for the 4-5pm panel (giveaways). Through 5pm."
+      "note": "Personal plan: arrive 3pm to line up for the 4-5pm panel (giveaways). Through 5pm.",
+      "media": false
     },
     {
       "day": 2,
@@ -160,7 +181,8 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
       "end": 21,
       "title": "Evercore & Troutman reception",
       "ref": "Evercore & Troutman Pepper Locke Reception",
-      "note": "Personal plan: private networking reception at Lou & Mickey's, 6-9pm. Drinks + light bites."
+      "note": "Personal plan: private networking reception at Lou & Mickey's, 6-9pm. Drinks + light bites.",
+      "media": false
     },
     {
       "day": 3,
@@ -168,7 +190,8 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
       "end": 10,
       "title": "Lanterns — line up (standby)",
       "ref": "Lanterns Training HQ",
-      "note": "Personal plan: line up 7-10am for Lanterns standby (opens 10am). Entry not guaranteed."
+      "note": "Personal plan: line up 7-10am for Lanterns standby (opens 10am). Entry not guaranteed.",
+      "media": false
     },
     {
       "day": 3,
@@ -176,7 +199,8 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
       "end": 11,
       "title": "Lanterns — visit",
       "ref": "Lanterns Training HQ",
-      "note": "Personal plan: Lanterns visit, 10-11am (if standby gets in)."
+      "note": "Personal plan: Lanterns visit, 10-11am (if standby gets in).",
+      "media": false
     },
     {
       "day": 3,
@@ -184,7 +208,8 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
       "end": 14.25,
       "title": "Line up: X-Men '97 (skip McFarlane)",
       "ref": "Marvel Comics to Screen: X-Men '97",
-      "note": "Personal plan: hold Room 6A seat from 1pm for the 2:15 X-Men '97 panel. Skipping McFarlane (1-2pm) to secure the seat."
+      "note": "Personal plan: hold Room 6A seat from 1pm for the 2:15 X-Men '97 panel. Skipping McFarlane (1-2pm) to secure the seat.",
+      "media": false
     },
     {
       "day": 3,
@@ -192,7 +217,8 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
       "end": 15.25,
       "title": "X-Men '97 panel",
       "ref": "Marvel Comics to Screen: X-Men '97",
-      "note": "Personal plan: attend X-Men '97 (2:15-3:15pm, Room 6A). Giveaway comic at the end."
+      "note": "Personal plan: attend X-Men '97 (2:15-3:15pm, Room 6A). Giveaway comic at the end.",
+      "media": false
     },
     {
       "day": 3,
@@ -200,15 +226,26 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
       "end": 16.5,
       "title": "Marvel Next Big Thing panel",
       "ref": "Marvel Comics: Next Big Thing",
-      "note": "Personal plan: attend Marvel Next Big Thing (3:30-4:30pm, Room 6A). Giveaway for those who stay to the end."
+      "note": "Personal plan: attend Marvel Next Big Thing (3:30-4:30pm, Room 6A). Giveaway for those who stay to the end.",
+      "media": false
     },
     {
       "day": 3,
-      "start": 16.75,
-      "end": 17.75,
-      "title": "Bold Voices horror panel",
-      "ref": "Bold Voices of Contemporary Horror: Tenth Anniversary Edition",
-      "note": "Personal plan: attend Bold Voices of Contemporary Horror 10th Anniv (4:45-5:45pm, Room 6A). Giveaways for all attendees."
+      "start": 17,
+      "end": 19,
+      "title": "Audible — media window",
+      "ref": "Audible Level Up Lounge",
+      "note": "Secured MEDIA ACCESS: Fri 5-7pm window for the group.",
+      "media": true
+    },
+    {
+      "day": 3,
+      "start": 19,
+      "end": 21,
+      "title": "Pan's Labyrinth — media access",
+      "ref": "Pan's Labyrinth 20th Anniversary Party",
+      "note": "Secured MEDIA ACCESS for the 7pm window. Entry confirmed.",
+      "media": true
     },
     {
       "day": 4,
@@ -216,7 +253,8 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
       "end": 10.5,
       "title": "Decide: Paramount Lodge",
       "ref": "Paramount — The Lodge",
-      "note": "Personal plan: decide Saturday ~10am whether to do the Paramount Lodge (standby). Placeholder decision block."
+      "note": "Personal plan: decide Saturday ~10am whether to do the Paramount Lodge (standby). Placeholder decision block.",
+      "media": false
     }
   ],
   "panels": [
@@ -246,15 +284,6 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
       "tier": "must",
       "room": "Room 6A",
       "note": "Leading comics creators on the future of Marvel Comics — Amazing Spider-Man #1000, Infernal Hulk, DNX, Queen in Black, and more."
-    },
-    {
-      "day": 3,
-      "start": 16.75,
-      "end": 17.75,
-      "title": "Bold Voices of Contemporary Horror: Tenth Anniversary Edition",
-      "tier": "must",
-      "room": "Room 6A",
-      "note": "Tenth anniversary, featuring Mubi, Shudder, AMC, Magnolia, and more. Directors and stars behind anticipated indie and studio genre films/series on the current state of the field, with exclusive footage from upcoming releases and Cannes titles (incl. Teenage Sex and Death at Camp Miasma, Victorian Psycho). Talent includes Dan Stevens (AMC's The Terror), Deborah Ann Woll (Shudder's The Cycle), director Zachary Wigon (Victorian Psycho), director Dave Boyle (Never After Dark), and others. Moderated by Michael Lerman (Overlook Film Festival)."
     }
   ]
 }
@@ -289,7 +318,7 @@ function hourLines() {
 function eventsFor(dayIdx) {
   const items = [];
   const dayPlans = C.plans.filter(p => p.day === dayIdx);
-  dayPlans.forEach(p => items.push({ ...p, kind: 'plan', end: p.end }));
+  dayPlans.forEach(p => items.push({ ...p, kind: p.media ? 'mediaplan' : 'plan', end: p.end }));
   // a plan referencing a panel already covers it — don't draw the panel twice
   const coveredByPlan = new Set(dayPlans.map(p => p.ref).filter(Boolean));
   C.panels.filter(p => p.day === dayIdx && !coveredByPlan.has(p.title)).forEach(p =>
@@ -312,6 +341,7 @@ function eventsFor(dayIdx) {
     b.style.height = Math.max(y(it.end) - y(it.start) - 3, 26) + 'px';
     const room = it.room ? `<span class="rm">${it.room}</span>` : '';
     const tierLbl = it.kind === 'plan' ? 'Plan'
+      : it.kind === 'mediaplan' ? 'Media access'
       : it.kind === 'must' ? 'Must' : 'Want';
     b.innerHTML = `<span class="t">${fmt(it.start)}–${fmt(it.end)} · ${tierLbl}</span>`
       + `<span class="ti">${it.title}</span>${room}`;

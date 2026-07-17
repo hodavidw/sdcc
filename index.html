@@ -28,7 +28,7 @@
   --iffree:#5b7a9c;    /* slate  */
 
   --offsite:#2f6f5e;   /* green  */
-  --ticketed:#2a4a7f;  /* purple */
+  --ticketed:#2a4a7f;--media:#8a2f6b;  /* purple */
   --free:#f5e9a8;      /* gap highlight */
 
   --row-h:34px;
@@ -108,6 +108,7 @@ h1 em{font-style:normal;color:var(--must)}
 
 .ev.offsite{background-color:var(--offsite);top:6px;bottom:6px}
 .ev.ticketed{background-color:var(--ticketed)}
+.ev.media{background-color:var(--media);outline:2px solid rgba(255,255,255,.9);outline-offset:-2px}
 /* reservation required but not yet held: amber, dashed, urgent */
 .ev.reservation{background-color:var(--ticketed)}
 .ev.reservation:not(.held){outline:1px dashed #ffd79a;outline-offset:-1px}
@@ -331,6 +332,7 @@ body.reordering .board{overflow-x:hidden}
 <div class="controls">
   <span class="chip"><i class="sw" style="background:var(--offsite)"></i>Walk-up (hatched)</span>
   <span class="chip"><i class="sw" style="background:#2a4a7f"></i>Ticketed</span>
+  <span class="chip"><i class="sw" style="background:#8a2f6b;box-shadow:inset 0 0 0 1.5px #fff"></i>Media access</span>
   <span class="chip"><i class="sw" style="background:#6b5a2e"></i>Inside convention center (⌂)</span>
   <span class="chip"><i class="sw" style="background:var(--offsite);box-shadow:inset 0 -3px 0 var(--free)"></i>Giveaway 🎁 &nbsp;/&nbsp; not announced ❓</span>
 </div>
@@ -560,10 +562,14 @@ body.reordering .board{overflow-x:hidden}
         "3": [
           13,
           22
+        ],
+        "0": [
+          17,
+          19
         ]
       },
       "location": "Bayfront Park",
-      "note": "Free fan festival. No badge required. First come, first served. Games, rides, giveaways, dance parties. Nightly programming runs 7–10pm; the DJ set runs 9–10pm within it. Shown here as 7–9pm + 9–10pm so the bars read separately.",
+      "note": "Free fan festival. No badge required. First come, first served. Games, rides, giveaways, dance parties. Nightly programming runs 7–10pm; the DJ set runs 9–10pm within it. Shown here as 7–9pm + 9–10pm so the bars read separately. // MEDIA ACCESS secured: Wed 5-7pm preview window.",
       "programs": [
         {
           "day": 1,
@@ -607,7 +613,10 @@ body.reordering .board{overflow-x:hidden}
       ],
       "giveaway": "yes",
       "giveawayNote": "Source: first 700 fans daily receive exclusive prizes.",
-      "order": 4
+      "order": 4,
+      "mediaDays": [
+        0
+      ]
     },
     {
       "id": "nintendo-pointe",
@@ -705,10 +714,14 @@ body.reordering .board{overflow-x:hidden}
         "3": [
           11,
           19
+        ],
+        "2": [
+          17,
+          19
         ]
       },
       "location": "Swing Social · 527 Fifth Ave",
-      "note": "Open to the public. Inspired by Dungeon Crawler Carl + Bobiverse. Complete themed activities to earn XP, redeemable for exclusive loot and prizes. BobNet zone; Dungeon Crawler Carl survival station (record your own “Crawler Incident Report”); cosplay touch-up stations; phone charging; listening lounges; photo ops.",
+      "note": "Open to the public. Inspired by Dungeon Crawler Carl + Bobiverse. Complete themed activities to earn XP, redeemable for exclusive loot and prizes. BobNet zone; Dungeon Crawler Carl survival station (record your own “Crawler Incident Report”); cosplay touch-up stations; phone charging; listening lounges; photo ops. // MEDIA ACCESS secured: Fri 5-7pm window for the group.",
       "pins": [
         {
           "day": 3,
@@ -721,7 +734,10 @@ body.reordering .board{overflow-x:hidden}
         "https://sdccblog.com/2026/07/audible-levels-up-san-diego-comic-con-2026-with-dungeon-crawler-carl-kate-mckinnon-offsite-more/"
       ],
       "giveaway": "yes",
-      "order": 7
+      "order": 7,
+      "mediaDays": [
+        2
+      ]
     },
     {
       "title": "Gundam Workshop",
@@ -940,8 +956,82 @@ body.reordering .board{overflow-x:hidden}
       "order": 13
     },
     {
-      "title": "Pan's Labyrinth 20th Anniversary Party",
+      "title": "Super Troopers 3 Pop-Up",
       "access": "walkup",
+      "giveaway": "yes",
+      "giveawayNote": "Exclusive merch giveaways; free pancakes with Crown Maple syrup each morning.",
+      "hours": {
+        "2": [
+          9,
+          17
+        ],
+        "3": [
+          9,
+          17
+        ],
+        "4": [
+          9,
+          17
+        ]
+      },
+      "location": "Hasta Mañana Cantina · 310 Fifth Ave, Gaslamp",
+      "note": "Three-day Super Troopers 3 pop-up, a short walk from the convention center. Complimentary pancakes + Crown Maple syrup, the Bogey Bros putting green, exclusive merch giveaways, and an Apocalypse Hellfire 6x6 truck decked out for the film.",
+      "links": [
+        "https://sdccblog.com/2026/07/super-troopers-3-pulls-over-at-san-diego-comic-con-2026-for-pop-up-free-pancakes-more/"
+      ],
+      "order": 14
+    },
+    {
+      "title": "Alienware Gaming Lounge",
+      "access": "walkup",
+      "giveaway": "yes",
+      "giveawayNote": "Exclusive Alienware swag; competitions with premium gaming gear as prizes.",
+      "hours": {
+        "1": [
+          9.5,
+          18
+        ],
+        "2": [
+          9.5,
+          18
+        ],
+        "3": [
+          9.5,
+          18
+        ]
+      },
+      "location": "Marriott Marquis San Diego Marina, 2nd floor · 333 W Harbor Dr",
+      "note": "Alienware's first SDCC since 2018. Hands-on with the Area-51 desktop, Alienware 15 laptop, new monitors, and Team Liquid-designed Pro Series peripherals. Exclusive first look at the world's first 39-inch 5K OLED ultrawide (AW3926QW). Same hotel as the Marvel x Moonrock lounge, different activation.",
+      "watch": "Secret experience Fri + Sat (details withheld); CouRage live stream Sat",
+      "pins": [
+        {
+          "day": 3,
+          "t": 12,
+          "unknownTime": true,
+          "what": "Jack 'CouRage' Dunlop streams live from the lounge (time TBA)."
+        },
+        {
+          "day": 2,
+          "t": 12,
+          "unknownTime": true,
+          "what": "Secret brand experience for a select group of fans inside the lounge — details withheld (time TBA)."
+        },
+        {
+          "day": 3,
+          "t": 13,
+          "unknownTime": true,
+          "what": "Secret brand experience, day 2 — details withheld (time TBA)."
+        }
+      ],
+      "links": [
+        "https://sdccblog.com/events-default/alienware-gaming-lounge/",
+        "https://na.alienwarearena.com/ucf/show/2175649/boards/alienware-pulse/News/alienware-returns-to-san-diego-comic-con"
+      ],
+      "order": 15
+    },
+    {
+      "title": "Pan's Labyrinth 20th Anniversary Party",
+      "access": "media",
       "giveaway": "unknown",
       "hours": {
         "2": [
@@ -950,11 +1040,11 @@ body.reordering .board{overflow-x:hidden}
         ]
       },
       "location": "PARQ",
-      "note": "20th anniversary party — PARQ transformed into the world of Pan's Labyrinth. From 7pm: happy hour, a screening of the film, and a live DJ set from Flying Lotus. ENTRY MECHANISM NOT YET ANNOUNCED for the party itself. // FETCH QUEST (free game): active Thu + Fri, 1:00-2:30pm. Start by picking up a ticket at the Toynami booth (#3229) or Insights Edition booth (#2129). [Note: an earlier FAQ called the second booth 'Inside Edition'; this X post says 'Insights Edition #2129' — going with the more specific one.] PRIZES: every player who completes the quest gets a limited-edition Pan's Labyrinth poster; the FIRST 50 to complete it get access to a private poster signing with Guillermo del Toro on Sat, Jul 25 (main floor — Comic-Con badge required). Full quest rules 'stay tuned' per the organizers. // ROAMING CHARACTERS (per the official FAQ): the Faun appears Thu (23rd) and Fri (24th); Ofelia and The Captain only on Fri (24th).",
+      "note": "20th anniversary party — PARQ transformed into the world of Pan's Labyrinth. From 7pm: happy hour, a screening of the film, and a live DJ set from Flying Lotus. ENTRY MECHANISM NOT YET ANNOUNCED for the party itself. // FETCH QUEST (free game): active Thu + Fri, 1:00-2:30pm. Start by picking up a ticket at the Toynami booth (#3229) or Insights Edition booth (#2129). [Note: an earlier FAQ called the second booth 'Inside Edition'; this X post says 'Insights Edition #2129' — going with the more specific one.] PRIZES: every player who completes the quest gets a limited-edition Pan's Labyrinth poster; the FIRST 50 to complete it get access to a private poster signing with Guillermo del Toro on Sat, Jul 25 (main floor — Comic-Con badge required). Full quest rules 'stay tuned' per the organizers. // ROAMING CHARACTERS (per the official FAQ): the Faun appears Thu (23rd) and Fri (24th); Ofelia and The Captain only on Fri (24th). // MEDIA ACCESS secured for the 7pm window — entry confirmed, no longer dependent on the Fetch Quest.",
       "watch": "Fetch Quest Thu+Fri 1-2:30pm; first 50 finishers = GdT signing Sat; party entry TBA",
       "estimated": false,
       "links": [],
-      "order": 14,
+      "order": 16,
       "tags": [
         "evening"
       ]
@@ -995,7 +1085,7 @@ body.reordering .board{overflow-x:hidden}
       "links": [
         "https://www.eventbrite.com/e/maveric-studios-night-market-tickets-1980223623163"
       ],
-      "order": 15,
+      "order": 17,
       "tags": [
         "evening"
       ]
@@ -1034,7 +1124,7 @@ body.reordering .board{overflow-x:hidden}
         }
       ],
       "links": [],
-      "order": 16,
+      "order": 18,
       "tags": [
         "evening"
       ]
@@ -1072,7 +1162,7 @@ body.reordering .board{overflow-x:hidden}
       "links": [
         "https://sdccblog.com/2026/07/dark-moon-blood-night-sets-over-san-diego-comic-con-2026/"
       ],
-      "order": 17,
+      "order": 19,
       "tags": [
         "evening"
       ]
@@ -1095,7 +1185,7 @@ body.reordering .board{overflow-x:hidden}
       "links": [
         "https://sdccblog.com/2026/07/fx-and-hulu-serving-sweet-13-flavors-in-celebration-of-american-horror-stories-to-san-diego-comic-con-2026/"
       ],
-      "order": 18
+      "order": 20
     },
     {
       "title": "AHS “13 Flavors” Trucks",
@@ -1114,7 +1204,7 @@ body.reordering .board{overflow-x:hidden}
       "links": [
         "https://sdccblog.com/2026/07/fx-and-hulu-serving-sweet-13-flavors-in-celebration-of-american-horror-stories-to-san-diego-comic-con-2026/"
       ],
-      "order": 19
+      "order": 21
     },
     {
       "title": "PopUp Bagels (VW bus)",
@@ -1149,7 +1239,7 @@ body.reordering .board{overflow-x:hidden}
       "tags": [
         "food"
       ],
-      "order": 20
+      "order": 22
     },
     {
       "title": "Provisional — Donut Bar",
@@ -1183,7 +1273,7 @@ body.reordering .board{overflow-x:hidden}
       "tags": [
         "food"
       ],
-      "order": 21
+      "order": 23
     },
     {
       "title": "Princess Donut Food Truck",
@@ -1212,7 +1302,7 @@ body.reordering .board{overflow-x:hidden}
       "tags": [
         "food"
       ],
-      "order": 22
+      "order": 24
     },
     {
       "title": "Spider-Man: Brand New Day × BERO",
@@ -1253,7 +1343,7 @@ body.reordering .board{overflow-x:hidden}
       ],
       "giveaway": "yes",
       "giveawayNote": "Exclusive Spider-Man: Brand New Day BERO cans, available only during the event.",
-      "order": 23
+      "order": 25
     }
   ]
 }
@@ -1492,7 +1582,8 @@ D.offsites.slice().sort((a, b) => {
     const s = st != null ? st : H0;
     const e = en != null ? en : H1;
     const b = document.createElement('button');
-    b.className = `ev offsite ${acc}`
+    const dayAcc = (o.mediaDays || []).includes(d) ? 'media' : acc;
+    b.className = `ev offsite ${dayAcc}`
       + (st == null ? ' nohours' : '') + (openEnded ? ' openend' : '')
       + (o.estimated ? ' est' : '')
       + (o.onsite ? ' onsite' : '')
