@@ -2226,12 +2226,13 @@ D.offsites.slice().sort((a, b) => {
         : openEnded ? 'opens ' + fmt(s) + (o.closesWhen ? ' · until ' + o.closesWhen : ' · close not stated')
         : 'hours not published'}`, [
       ['Access',
-        acc === 'ticketed' ? `<span class="badge b-yes">Ticketed</span> ${o.confirmation || ''}`
-      : acc === 'reservation' ? (o.confirmation
+        dayAcc === 'media' ? `<span class="badge b-media">Media access</span> secured`
+      : dayAcc === 'ticketed' ? `<span class="badge b-yes">Ticketed</span> ${o.confirmation || ''}`
+      : dayAcc === 'reservation' ? (o.confirmation
           ? `<span class="badge b-yes">Reserved</span> ${o.confirmation}`
           : `<span class="badge b-warn">Reservation needed</span>`)
-      : acc === 'standby' ? `<span class="badge b-mid">Reserve or standby</span>`
-      : acc === 'lottery' ? (o.confirmation
+      : dayAcc === 'standby' ? `<span class="badge b-mid">Reserve or standby</span>`
+      : dayAcc === 'lottery' ? (o.confirmation
           ? `<span class="badge b-yes">Won</span> ${o.confirmation}`
           : `<span class="badge b-pick">Lottery entered</span> ${o.statusNote || ''}`)
       : `<span class="badge b-no">Walk-up</span>`],

@@ -1605,12 +1605,13 @@ D.offsites.slice().sort((a, b) => {
         : openEnded ? 'opens ' + fmt(s) + (o.closesWhen ? ' · until ' + o.closesWhen : ' · close not stated')
         : 'hours not published'}`, [
       ['Access',
-        acc === 'ticketed' ? `<span class="badge b-yes">Ticketed</span> ${o.confirmation || ''}`
-      : acc === 'reservation' ? (o.confirmation
+        dayAcc === 'media' ? `<span class="badge b-media">Media access</span> secured`
+      : dayAcc === 'ticketed' ? `<span class="badge b-yes">Ticketed</span> ${o.confirmation || ''}`
+      : dayAcc === 'reservation' ? (o.confirmation
           ? `<span class="badge b-yes">Reserved</span> ${o.confirmation}`
           : `<span class="badge b-warn">Reservation needed</span>`)
-      : acc === 'standby' ? `<span class="badge b-mid">Reserve or standby</span>`
-      : acc === 'lottery' ? `<span class="badge b-pick">Lottery entry</span>`
+      : dayAcc === 'standby' ? `<span class="badge b-mid">Reserve or standby</span>`
+      : dayAcc === 'lottery' ? `<span class="badge b-pick">Lottery entry</span>`
       : `<span class="badge b-no">Walk-up</span>`],
       ...(o.duration ? [['Duration', `~${o.duration} min`]] : []),
       ...(o.cap && o.cap.days.includes(d)
