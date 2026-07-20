@@ -155,6 +155,11 @@ h1 em{font-style:normal;color:var(--must)}
 /* panel room lanes */
 .lane.roomlane .name{font-weight:800;letter-spacing:.02em}
 .lane.planlane .name{font-weight:800;letter-spacing:.02em;color:#7a3d1f}
+.ev.friendbar{background:transparent;color:#2c5d7c;top:5px;bottom:5px;
+  border:1.5px dashed #4a86ae;box-shadow:none;font-weight:700}
+.ev.friendbar .tick{color:#2c5d7c;opacity:.75}
+.lane.friendlane .name{font-weight:800;letter-spacing:.02em;color:#2c5d7c}
+.badge.b-friend{background:#4a86ae;color:#fff}
 .ev.planbar{background:repeating-linear-gradient(135deg,#c85a2a,#c85a2a 7px,#b34e22 7px,#b34e22 14px);
   color:#fff;top:5px;bottom:5px;box-shadow:0 0 0 1.5px #7a3d1f inset;font-weight:700}
 .ev.planbar .tick{color:#ffe;opacity:.9}
@@ -566,7 +571,7 @@ body.reordering .board{overflow-x:hidden}
       "start": 14.25,
       "end": 15.25,
       "title": "Marvel Comics to Screen: X-Men '97",
-      "tier": "must",
+      "tier": "skip",
       "room": "Room 6A",
       "note": "Creative team behind Marvel Animation's X-Men '97 plus special guests on Season 2 — insider insights, anecdotes, hints of what's to come.",
       "cap": {
@@ -596,7 +601,7 @@ body.reordering .board{overflow-x:hidden}
       "start": 15.5,
       "end": 16.5,
       "title": "Marvel Comics: Next Big Thing",
-      "tier": "must",
+      "tier": "skip",
       "room": "Room 6A",
       "note": "Leading comics creators on the future of Marvel Comics — Amazing Spider-Man #1000, Infernal Hulk, DNX, Queen in Black, and more.",
       "cap": {
@@ -1797,30 +1802,6 @@ body.reordering .board{overflow-x:hidden}
     },
     {
       "day": 3,
-      "start": 13,
-      "end": 14.25,
-      "title": "Line up: X-Men '97 (skip McFarlane)",
-      "ref": "Marvel Comics to Screen: X-Men '97",
-      "note": "Personal plan: hold Room 6A seat from 1pm for the 2:15 X-Men '97 panel. Skipping McFarlane (1-2pm) to secure the seat."
-    },
-    {
-      "day": 3,
-      "start": 14.25,
-      "end": 15.25,
-      "title": "X-Men '97 panel",
-      "ref": "Marvel Comics to Screen: X-Men '97",
-      "note": "Personal plan: attend X-Men '97 (2:15-3:15pm, Room 6A). Giveaway comic at the end."
-    },
-    {
-      "day": 3,
-      "start": 15.5,
-      "end": 16.5,
-      "title": "Marvel Next Big Thing panel",
-      "ref": "Marvel Comics: Next Big Thing",
-      "note": "Personal plan: attend Marvel Next Big Thing (3:30-4:30pm, Room 6A). Giveaway for those who stay to the end."
-    },
-    {
-      "day": 3,
       "start": 17,
       "end": 19,
       "title": "Audible — media window",
@@ -1837,11 +1818,29 @@ body.reordering .board{overflow-x:hidden}
     },
     {
       "day": 4,
-      "start": 10,
-      "end": 10.5,
-      "title": "Decide: Paramount Lodge",
+      "start": 7,
+      "end": 12,
+      "title": "Silo — line up + visit",
+      "ref": "The Silo Experience",
+      "note": "Personal plan: line up 7am for Silo (opens 11am), aiming to be done by noon."
+    },
+    {
+      "day": 4,
+      "start": 13,
+      "end": 14,
+      "title": "Paramount Lodge — ticketed slot",
       "ref": "Paramount — The Lodge",
-      "note": "Personal plan: decide Saturday ~10am whether to do the Paramount Lodge (standby). Placeholder decision block."
+      "note": "Personal plan: 1pm Paramount Lodge slot — this is the decided, official time."
+    }
+  ],
+  "friends": [
+    {
+      "day": 2,
+      "start": 15,
+      "end": 16,
+      "title": "Paramount Lodge",
+      "ref": "Paramount — The Lodge",
+      "note": "Friends are planning the Paramount Lodge at 3pm Thursday."
     }
   ]
 }
@@ -2106,6 +2105,26 @@ if (D_PLANS.length) {
     L.cells[pl.day].appendChild(b);
   });
   grid.appendChild(L.el);
+}
+
+// ---- Friends (informational — does NOT block your time or raise conflicts) ----
+const D_FRIENDS = D.friends || [];
+if (D_FRIENDS.length) {
+  const F = lane('FRIENDS', 'friendlane');
+  D_FRIENDS.forEach(fr => {
+    const b = document.createElement('button');
+    b.className = 'ev friendbar';
+    b.style.left = pct(fr.start) + '%';
+    b.style.width = (pct(fr.end) - pct(fr.start)) + '%';
+    b.innerHTML = `<span class="tick">${fmt(fr.start)}</span>${fr.title}`;
+    b.onclick = () => show(fr.title,
+      `${D.days[fr.day].name} · ${fmt(fr.start)}–${fmt(fr.end)}`,
+      [['Who', '<span class="badge b-friend">Friends</span>'],
+       ...(fr.ref ? [['Event', fr.ref]] : []),
+       ...(fr.note ? [['Note', fr.note]] : [])], b);
+    F.cells[fr.day].appendChild(b);
+  });
+  grid.appendChild(F.el);
 }
 
 section('Panels', 'one lane per room · columns = days');

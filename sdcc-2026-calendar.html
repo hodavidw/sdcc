@@ -62,6 +62,13 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
 .ev.must .ti{color:#7a201a}
 .ev.want{background:#d3e7e0;border-color:var(--want)}
 .ev.want .ti{color:#1c4a3c}
+/* friends column: mine on the left ~62%, friends on the right */
+.ev.col-mine{right:auto;width:60%}
+.ev.col-friend{left:auto;right:8px;width:36%}
+.ev.col-mine.overlap{width:29%}
+.ev.col-mine.overlap.second{left:31%}
+.ev.friend{background:transparent;border:1.5px dashed #4a86ae;color:#2c5d7c}
+.ev.friend .t,.ev.friend .rm{color:#2c5d7c;opacity:.8}
 .ev.overlap{right:auto;width:calc(50% - 6px)}
 .ev.overlap.second{left:calc(50% + 2px);right:8px;width:auto}
 
@@ -204,33 +211,6 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
     },
     {
       "day": 3,
-      "start": 13,
-      "end": 14.25,
-      "title": "Line up: X-Men '97 (skip McFarlane)",
-      "ref": "Marvel Comics to Screen: X-Men '97",
-      "note": "Personal plan: hold Room 6A seat from 1pm for the 2:15 X-Men '97 panel. Skipping McFarlane (1-2pm) to secure the seat.",
-      "media": false
-    },
-    {
-      "day": 3,
-      "start": 14.25,
-      "end": 15.25,
-      "title": "X-Men '97 panel",
-      "ref": "Marvel Comics to Screen: X-Men '97",
-      "note": "Personal plan: attend X-Men '97 (2:15-3:15pm, Room 6A). Giveaway comic at the end.",
-      "media": false
-    },
-    {
-      "day": 3,
-      "start": 15.5,
-      "end": 16.5,
-      "title": "Marvel Next Big Thing panel",
-      "ref": "Marvel Comics: Next Big Thing",
-      "note": "Personal plan: attend Marvel Next Big Thing (3:30-4:30pm, Room 6A). Giveaway for those who stay to the end.",
-      "media": false
-    },
-    {
-      "day": 3,
       "start": 17,
       "end": 19,
       "title": "Audible — media window",
@@ -249,11 +229,20 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
     },
     {
       "day": 4,
-      "start": 10,
-      "end": 10.5,
-      "title": "Decide: Paramount Lodge",
+      "start": 7,
+      "end": 12,
+      "title": "Silo — line up + visit",
+      "ref": "The Silo Experience",
+      "note": "Personal plan: line up 7am for Silo (opens 11am), aiming to be done by noon.",
+      "media": false
+    },
+    {
+      "day": 4,
+      "start": 13,
+      "end": 14,
+      "title": "Paramount Lodge — ticketed slot",
       "ref": "Paramount — The Lodge",
-      "note": "Personal plan: decide Saturday ~10am whether to do the Paramount Lodge (standby). Placeholder decision block.",
+      "note": "Personal plan: 1pm Paramount Lodge slot — this is the decided, official time.",
       "media": false
     }
   ],
@@ -266,24 +255,16 @@ a.back{color:inherit;font-size:11px;opacity:.6;text-decoration:underline}
       "tier": "must",
       "room": "Room 25ABC",
       "note": "Immersive art makers Meow Wolf and Emmy-winning studio Titmouse on animation meeting architecture, 2D storytelling moving into 3D, and building a universe from scratch. Includes a sneak peek at the collaboration."
-    },
+    }
+  ],
+  "friends": [
     {
-      "day": 3,
-      "start": 14.25,
-      "end": 15.25,
-      "title": "Marvel Comics to Screen: X-Men '97",
-      "tier": "must",
-      "room": "Room 6A",
-      "note": "Creative team behind Marvel Animation's X-Men '97 plus special guests on Season 2 — insider insights, anecdotes, hints of what's to come."
-    },
-    {
-      "day": 3,
-      "start": 15.5,
-      "end": 16.5,
-      "title": "Marvel Comics: Next Big Thing",
-      "tier": "must",
-      "room": "Room 6A",
-      "note": "Leading comics creators on the future of Marvel Comics — Amazing Spider-Man #1000, Infernal Hulk, DNX, Queen in Black, and more."
+      "day": 2,
+      "start": 15,
+      "end": 16,
+      "title": "Paramount Lodge",
+      "ref": "Paramount — The Lodge",
+      "note": "Friends are planning the Paramount Lodge at 3pm Thursday."
     }
   ]
 }
@@ -323,11 +304,16 @@ function eventsFor(dayIdx) {
   const coveredByPlan = new Set(dayPlans.map(p => p.ref).filter(Boolean));
   C.panels.filter(p => p.day === dayIdx && !coveredByPlan.has(p.title)).forEach(p =>
     items.push({ ...p, kind: p.tier, end: p.end != null ? p.end : Math.min(p.start + 1, H1) }));
+  const dayFriends = (C.friends || []).filter(p => p.day === dayIdx);
+  dayFriends.forEach(p => items.push({ ...p, kind: 'friend', end: p.end }));
   items.sort((a, b) => a.start - b.start);
+  // friends get their own right-hand column, so mine and theirs sit side by side
+  const hasFriends = dayFriends.length > 0;
 
-  // mark overlaps (pairwise; enough for this density)
-  items.forEach((it, i) => {
-    const prev = items[i - 1];
+  // mark overlaps among MY items only (friends have their own column)
+  const mine = items.filter(x => x.kind !== 'friend');
+  mine.forEach((it, i) => {
+    const prev = mine[i - 1];
     if (prev && it.start < prev.end && !prev._ov) { it._ov = 'second'; prev._ov = 'first'; }
   });
 
@@ -336,12 +322,14 @@ function eventsFor(dayIdx) {
   frag.style.height = (SPAN * ROWH) + 'px';
   items.forEach(it => {
     const b = document.createElement('button');
-    b.className = 'ev ' + it.kind + (it._ov ? ' overlap ' + it._ov : '');
+    b.className = 'ev ' + it.kind + (it._ov ? ' overlap ' + it._ov : '')
+      + (hasFriends ? (it.kind === 'friend' ? ' col-friend' : ' col-mine') : '');
     b.style.top = y(it.start) + 'px';
     b.style.height = Math.max(y(it.end) - y(it.start) - 3, 26) + 'px';
     const room = it.room ? `<span class="rm">${it.room}</span>` : '';
     const tierLbl = it.kind === 'plan' ? 'Plan'
       : it.kind === 'mediaplan' ? 'Media access'
+      : it.kind === 'friend' ? 'Friends'
       : it.kind === 'must' ? 'Must' : 'Want';
     b.innerHTML = `<span class="t">${fmt(it.start)}–${fmt(it.end)} · ${tierLbl}</span>`
       + `<span class="ti">${it.title}</span>${room}`;
@@ -361,6 +349,7 @@ function eventsFor(dayIdx) {
 }
 
 const isDesktop = () => window.matchMedia('(min-width:720px)').matches;
+let activeDay = 0;   // survives re-renders so a stray resize doesn't snap back to day 0
 const root = document.getElementById('root');
 const tabs = document.getElementById('tabs');
 
@@ -373,9 +362,10 @@ function renderMobile() {
   C.days.forEach((d, i) => {
     const t = document.createElement('button');
     t.className = 'tab'; t.setAttribute('role','tab');
-    t.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    t.setAttribute('aria-selected', i === activeDay ? 'true' : 'false');
     t.innerHTML = `${d.name}<span class="dt">${d.date.replace(/ ·.*/,'')}</span>`;
     t.onclick = () => {
+      activeDay = i;
       [...tabs.children].forEach(c => c.setAttribute('aria-selected','false'));
       t.setAttribute('aria-selected','true');
       [...cal.querySelectorAll('.day')].forEach(dd => dd.classList.remove('on'));
@@ -383,7 +373,7 @@ function renderMobile() {
     };
     tabs.appendChild(t);
     const day = document.createElement('div');
-    day.className = 'day' + (i === 0 ? ' on' : '');
+    day.className = 'day' + (i === activeDay ? ' on' : '');
     day.dataset.i = i;
     day.appendChild(eventsFor(d.idx));
     cal.appendChild(day);
@@ -410,9 +400,21 @@ function renderDesktop() {
   root.appendChild(board);
 }
 
-function render() { isDesktop() ? renderDesktop() : renderMobile(); }
+let lastMode = null;
+function render() {
+  const mode = isDesktop() ? 'desktop' : 'mobile';
+  lastMode = mode;
+  mode === 'desktop' ? renderDesktop() : renderMobile();
+}
 render();
-let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(render, 150); });
+let rt;
+window.addEventListener('resize', () => {
+  clearTimeout(rt);
+  rt = setTimeout(() => {
+    const mode = isDesktop() ? 'desktop' : 'mobile';
+    if (mode !== lastMode) render();   // ignore the constant resize noise from mobile scrolling
+  }, 150);
+});
 </script>
 </body>
 </html>
